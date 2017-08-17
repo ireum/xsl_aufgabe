@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-
+    <xsl:key name="Book-by-Author" match="book" use="author"/>
     <xsl:param name="sortColumnField" select="'title'"/>
     <xsl:param name="sortColumnOrder" select="'descending'"/>
     <xsl:param name="sortColumnDataType" select="'text'"/>
 
 
-    <xsl:template match="/*">
+    <xsl:template match="/">
         <html>
             <body>
-                <h2>Library</h2>
+                <h2>Library <xsl:value-of select="/catalog/@foo" /></h2>
                 <form >
                     <select name="author">
-                        <xsl:for-each select="*">
+                        <xsl:for-each select="/catalog/book">
                             <option value="{author}">
                                 <xsl:value-of select="author"/>
 
                             </option>
                         </xsl:for-each>
                     </select>
-                    <input type="text" placeholder="Title"/>
-                    <input type="number" placeholder="min. Price" min="" max=""/>
-                    <input type="number" placeholder="max. Price" min="" max=""/>
+                    <input name="title" type="text" placeholder="Title"/>
+                    <input name="minPrice" type="number" placeholder="min. Price" min="" max=""/>
+                    <input name="maxPrice" type="number" placeholder="max. Price" min="" max=""/>
 
                     <select name="sort">
-                        <xsl:for-each select="*">
-                            <option value="test">
-                                <xsl:value-of select="*"/>
+                        <xsl:for-each select="catalog/book[1]/*">
+                            <option value="{name()}">
+                                <xsl:value-of select="name()"/>
 
                             </option>
                         </xsl:for-each>
@@ -44,7 +44,7 @@
                         <th><a href="">Release Date</a></th>
                         <th><a href="">Description</a></th>
                     </tr>
-                    <xsl:for-each select="*">
+                    <xsl:for-each select="catalog/book">
                         <xsl:sort select="*[name()=$sortColumnField]" data-type="{$sortColumnDataType}" order="{$sortColumnOrder}"/>
                         <xsl:if test="(
                         contains(title, '') and

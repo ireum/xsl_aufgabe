@@ -1,60 +1,57 @@
 <?php
+
+$xmlDom = new DOMDocument();
+$xmlDom->load('books.xml');
+
+
+//if (isset($_GET['foo'])) {
+//    $foo = $_GET['foo'];
+//} else {
+//    $foo = '';
+//}
+
+
+$foo = 'bar';
+$xmlDom->documentElement->setAttribute('foo', $foo);
+
+$xslDom = new DOMDocument();
+$xslDom->load('xslt.xsl');
+
+$xslParser = new XSLTProcessor();
+$xslParser->importStylesheet($xslDom);
+
+echo $xslParser->transformToDoc($xmlDom)->saveXML();
+
 ?>
-<html>
-<head>
-    <title>Library</title>
-    <link rel="stylesheet" href="main.css">
-</head>
-<body>
-<form action="" method="post">
+<br>
+<h2>Library</h2>
+<form >
     <select name="author">
-        <option value="">author</option>
+            <option value="{author}">Author Name</option>
     </select>
-    <input type="text" placeholder="Title">
-    <input type="number"  min="" max="">
-    <input type="number"  min="" max="">
+    <input name="title" type="text" placeholder="Title"/>
+    <input name="minPrice" type="number" value="0" min="0" max="100"/>
+    <input name="maxPrice" type="number" value="100" min="0" max="100"/>
 
-    <input type="submit" value="Search">
+    <select  name="sort">
+        <?php
+        $sortTypes = $xmlDom->
 
+//        descriptions = $xml->xpath(
+//            "//e:product[@sku='12345']/e:description |
+//                //e:product[@name='Projektor']/e:description"
+//        );
+//        echo 'Aufgabe 2' . PHP_EOL;
+//        foreach ($descriptions as $description) {
+//            echo 'Found: ' . $description . PHP_EOL;
+//        }
+//        echo PHP_EOL;
+
+        ?>
+
+        <option value="author">author</option>
+        <option value="title">title</option>
+    </select>
+
+    <input type="submit" value="Search"/>
 </form>
-
-
-
-<table class="table">
-    <tr>
-        <th class="table-header">ID</th>
-        <th class="table-header">Author</th>
-        <th class="table-header">Title</th>
-        <th class="table-header">Genre</th>
-        <th class="table-header">Price</th>
-        <th class="table-header">Release Date</th>
-        <th class="table-header">Description</th>
-    </tr>
-    <?php
-
-    $xml = simplexml_load_file('books.xml');
-    $bookId = $xml->xpath('/catalog/book/@id');
-    foreach ($bookId as $id) {
-        echo $id . '<br>';
-
-//        echo '<tr>';
-//        echo '<td>' . $id . '</td>';
-//        echo '</tr>';
-
-    }
-
-    ?>
-
-
-    <!-- <tr>
-        <td class="table-value">1</td>
-        <td class="table-value">Wijaya Sudarta</td>
-        <td class="table-value">XML Tests</td>
-        <td class="table-value">Drama</td>
-        <td class="table-value">1.99</td>
-        <td class="table-value">19.07.2022</td>
-        <td class="table-value">tests</td>
-    </tr> -->
-</table>
-</body>
-</html>
