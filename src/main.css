@@ -1,0 +1,12 @@
+.table {
+    border-collapse: collapse;
+}
+
+.table th {
+    border: solid 1px black;
+    background: lightgray;
+}
+
+.table td {
+    background: ghostwhite;
+}
