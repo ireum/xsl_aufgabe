@@ -96,7 +96,7 @@ if (isset($_POST['cancel'])) {
         <textarea name="description" placeholder="Description" cols="30" rows="10" required></textarea>
         <input type="submit" name="submit" class="submit_button btnAddBook">
         <input type="reset" name="reset" class="submit_button btnResetBook">
-        <input type="submit" name="cancel" class="submit_button btnCancelBook" value="Cancel">
+        <div class="submit_button btnCancelBook"><a href="index.php" >Cancel</a></div>
     </form>
 </div>
 </body>
