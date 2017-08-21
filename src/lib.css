@@ -37,6 +37,10 @@ h1 {
     width: 200px;
 }
 
+h2 {
+    color: #ffffff;
+}
+
 table {
     border-collapse: collapse;
     border: none;
@@ -100,6 +104,18 @@ textarea {
 
 .add_book_form input, textarea {
     padding: 16px;
-    margin: 5px;
+    margin: 5px 0;
     width: 500px;
+}
+
+.btnAddBook {
+    background-color: #2ecc71;
+}
+
+.btnResetBook {
+    background-color: #e67e22;
+}
+
+.btnCancelBook {
+    background-color: #e74c3c;
 }
