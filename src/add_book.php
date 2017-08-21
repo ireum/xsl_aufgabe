@@ -1,5 +1,9 @@
 <?php
 
+include 'autoload.php';
+
+
+
 if (isset($_POST['submit']) &&
     isset($_POST['author']) &&
     isset($_POST['title']) &&
@@ -8,73 +12,62 @@ if (isset($_POST['submit']) &&
     isset($_POST['releaseDate']) &&
     isset($_POST['description'])
 ) {
-    function validateDate(string $date)
-    {
-        $vDate = DateTime::createFromFormat('Y-m-d', $date);
-        return $vDate && $vDate->format('Y-m-d') == $date;
-    }
+    try {
 
-    function getNewId(string $xmlFile): string
-    {
-        $sxml = simplexml_load_file($xmlFile);
-        $lastBookID = $lastID = $sxml->xpath('//book[last()]/@id')[0][0];
-        $newId = substr($lastBookID, 2);
-        $newId++;
-        echo $newId . '<br>';
-        return 'bk' . $newId;
-    }
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $request = new \library\PostRequest($_POST);
+        } elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            $request = new \library\GetRequest($_GET);
+        } else {
+            throw new \RuntimeException('Unexpected Request Method');
+        }
+        $formValidation = new \library\AddBookFormValidation($request);
+        if ($formValidation->isValid()) {
+            $xmlFile = __DIR__ . '/books.xml';
+            $xmlP = new \library\XmlProcessor($xmlFile);
 
-    $valid = true;
+            $sr = simplexml_load_file($xmlFile);
+            $root = $sr->xpath('/catalog')[0];
+//            $root = $xmlP->getRootElementByName('catalog');
 
-    $author = $_POST['author'];
-    $title = $_POST['title'];
-    $genre = $_POST['genre'];
-    $price = null;
-    $releaseDate = null;
-    $description = $_POST['description'];
+            $book = $root->addChild('book');
+            $book->addAttribute('id', $xmlP->getNextId());
+            $book->addChild('author', $_POST['author']);
+            $book->addChild('title', $_POST['title']);
+            $book->addChild('genre', $_POST['genre']);
+            $book->addChild('price', $_POST['price']);
+            $book->addChild('publish_date', $_POST['releaseDate']);
+            $book->addChild('description', $_POST['description']);
 
-    if (!validateDate($_POST['releaseDate'])) {
-        echo '<p style="color: red; font-weight: bold">DATE INVALID</p><br>';
-        $valid = false;
-    }
 
-    if (!is_numeric($_POST['price'])) {
-        echo '<p style="color: red; font-weight: bold">PRICE INVALID</p><br>';
-        $valid = false;
-    }
-    $price = $_POST['price'];
-    $releaseDate = $_POST['releaseDate'];
+            $sr->saveXML($xmlFile);
 
-    if ($valid) {
-        $xmlFile = 'books.xml';
-        $dom = new DOMDocument();
-        $dom->load($xmlFile);
+            // TODO: Class for creating Nodes and appending them
+//            $dom = new DOMDocument();
+//            $dom->load($xmlFile);
 
-        $root = $dom->getElementsByTagName('catalog')->item(0);
-        $books = $dom->getElementsByTagName('book');
+//            $root = $dom->getElementsByTagName('catalog')->item(0);
+////            $books = $dom->getElementsByTagName('book');
+//
+//            $book = $dom->createElement('book');
+//            $book->setAttribute('id', $xmlP->getNextId());
+//
+//            $book->appendChild($dom->createElement('author', $_POST['author']));
+//            $book->appendChild($dom->createElement('title', $_POST['title']));
+//            $book->appendChild($dom->createElement('genre', $_POST['genre']));
+//            $book->appendChild($dom->createElement('price', $_POST['price']));
+//            $book->appendChild($dom->createElement('publish_date', $_POST['releaseDate']));
+//            $book->appendChild($dom->createElement('description', $_POST['description']));
+//            $root->appendChild($book);
+//
+//            $dom->save($xmlFile);
+//            header('Location: index.php');
 
-        $book = $dom->createElement('book');
-        $book->setAttribute('id', getNewId($xmlFile));
-
-        $book->appendChild($dom->createElement('author', $author));
-        $book->appendChild($dom->createElement('title', $title));
-        $book->appendChild($dom->createElement('genre', $genre));
-        $book->appendChild($dom->createElement('price', $price));
-        $book->appendChild($dom->createElement('publish_date', $releaseDate));
-        $book->appendChild($dom->createElement('description', $description));
-        $root->appendChild($book);
-
-        $dom->save($xmlFile);
-        header('Location: index.php');
+        }
+    } catch (InvalidArgumentException $e) {
+        echo $e->getMessage();
     }
 }
-
-if (isset($_POST['cancel'])) {
-    echo 'HELLO';
-    header("Location: index.php");
-    die();
-}
-
 ?>
 <html>
 <head>
@@ -96,7 +89,7 @@ if (isset($_POST['cancel'])) {
         <textarea name="description" placeholder="Description" cols="30" rows="10" required></textarea>
         <input type="submit" name="submit" class="submit_button btnAddBook">
         <input type="reset" name="reset" class="submit_button btnResetBook">
-        <div class="submit_button btnCancelBook"><a href="index.php" >Cancel</a></div>
+        <div class="submit_button btnCancelBook"><a href="index.php">Cancel</a></div>
     </form>
 </div>
 </body>

@@ -2,13 +2,31 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
     <xsl:key name="Book-by-Author" match="book" use="author"/>
     <xsl:param name="sortColumnField" select="//catalog/@sortby"/>
-    <xsl:param name="sortColumnOrder" select="//catalog/@order"/>
     <xsl:param name="sortColumnDataType" select="//catalog/@sortdatatype"/>
-
-
     <xsl:template match="/">
         <html>
+            <head>
+                <title>Library</title>
+                <!--<link rel="stylesheet" href="lib.css">-->
+            </head>
             <body>
+                <!--<form name="searchForm" action="" method="get">-->
+                    <!--<xsl:-->
+                    <!--<input name="title" type="text" placeholder="Title" />-->
+                    <!--<input name="minPrice"-->
+                           <!--type="number"-->
+                           <!--step="0.05"-->
+                           <!--value="{//catalog/@minprice}"-->
+                           <!--min="{//catalog/@minprice}"-->
+                           <!--max="{//catalog/@maxprice}"/>-->
+                    <!--<input name='maxPrice'-->
+                           <!--type="number"-->
+                           <!--step="0.05"-->
+                           <!--value="{//catalog/@maxprice}"-->
+                           <!--min="{//catalog/@minprice}"-->
+                           <!--max="{//catalog/@maxprice}"/>-->
+                    <!--<input class="submit_button" name="submit" type="submit" value="Search"/>-->
+                <!--</form>-->
                 <table>
                     <tr>
                         <th>ID</th>
@@ -20,7 +38,7 @@
                         <th>Description</th>
                     </tr>
                     <xsl:for-each select="catalog/book">
-                        <xsl:sort select="*[name()=$sortColumnField]" data-type="{$sortColumnDataType}" order="{$sortColumnOrder}"/>
+                        <xsl:sort select="*[name()=$sortColumnField]" data-type="{$sortColumnDataType}" order="ascending"/>
                         <xsl:if test="(
                         contains(title, //catalog/@title) and
                         contains(author, //catalog/@author) and

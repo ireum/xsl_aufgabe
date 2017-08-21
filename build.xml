@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="Uebungsaufgaben">
+    <target name="phpab" description="Generate autoloader scripts">
+        <exec executable="phpab">
+            <arg value="--quiet" />
+            <arg value="--output" />
+            <arg path="${basedir}/src/autoload.php" />
+            <arg path="${basedir}/src" />
+        </exec>
+
+        <exec executable="phpab">
+            <arg value="--quiet" />
+            <arg value="--output" />
+            <arg path="${basedir}/tests/autoload.php" />
+            <arg path="${basedir}/tests" />
+        </exec>
+    </target>
+</project>

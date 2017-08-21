@@ -1,71 +1,82 @@
 <?php
 
-$xmlDom = new DOMDocument();
-$xmlDom->load('books.xml');
+include 'autoload.php';
+try {
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $request = new \library\PostRequest($_POST);
+    } elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
+        $request = new \library\GetRequest($_GET);
+    } else {
+        throw new \RuntimeException('Unexpected Request Method');
+    }
+
+    $xmlFile = __DIR__ . '/books.xml';
+    $xslFile = __DIR__ . '/xslt.xsl';
+
+    $xp = new \library\XmlProcessor($xmlFile);
+    $fb = new \library\FormBuilder();
+    $sfp = new \library\SearchFormProcessor($request);
+
+} catch (\InvalidArgumentException $e) {
+    echo $e->getMessage() . PHP_EOL;
+} catch (\Exception $e) {
+    echo $e->getMessage() . PHP_EOL;
+}
 
 $xmlDom = simplexml_load_file('books.xml');
 
 $xslDom = new DOMDocument();
 $xslDom->load('xslt.xsl');
 
+
+
+$minPrice = $xp->getMinPrice();
+$maxPrice = $xp->getMaxPrice();
+
+//$fb->buildValueSelectFromArray($xp->getAuthors(), 'author'
+
+$xslTest = simplexml_load_file($xslFile);
+//$aSelect = $xslTest->xpath('/html/body/form/select[@name="authorSelect"]');
+
+//$aSelect = $xslTest->xpath('//form')[0];
+//$aSelect->addChild($fb->buildValueSelectFromArray($xp->getAuthors(), 'author'));
+//$xslTest->saveXML();
+//var_dump($xslTest->xpath('//form'));
+
 $xslParser = new XSLTProcessor();
-$xslParser->importStylesheet($xslDom);
+$xslParser->importStylesheet(simplexml_load_file($xslFile));
 
-$sortTypes = $xmlDom->xpath('/catalog/book[1]/*');
-$authors = $xmlDom->xpath('/catalog/book/author');
-
-
-$Prices = $xmlDom->xpath('/catalog/book/price');
-sort($Prices, SORT_NUMERIC);
-$minPrice = $Prices[0];
-$maxPrice = end($Prices);
+if (isset($_GET['submit'])) {
 
 
-?>
-
-<?php
-if (isset($_POST['submit'])) {
-
-    if ($_POST['sort'] == 'publish_date') {
-        $datatype = 'text';
-        $order = 'ascending';
-    } elseif ($_POST['sort'] == 'price') {
+    if ($_GET['sort'] == 'price') {
         $datatype = 'number';
-        $order = 'ascending';
     } else {
         $datatype = 'text';
-        $order = 'ascending';
     }
     //sort
-    $xmlDom->addAttribute('sortby', $_POST['sort']);
+    $xmlDom->addAttribute('sortby', $_GET['sort']);
     $xmlDom->addAttribute('sortdatatype', $datatype);
-    $xmlDom->addAttribute('order', $order);
     // normal
-    $xmlDom->addAttribute('author', $_POST['author']);
-    $xmlDom->addAttribute('title', $_POST['title']);
-    $xmlDom->addAttribute('minprice', $_POST['minPrice']);
-    $xmlDom->addAttribute('maxprice', $_POST['maxPrice']);
+    $xmlDom->addAttribute('author', $_GET['author']);
+    $xmlDom->addAttribute('title', $_GET['title']);
+    $xmlDom->addAttribute('minprice', $_GET['minPrice']);
+    $xmlDom->addAttribute('maxprice', $_GET['maxPrice']);
 } else {
-    $xmlDom->addAttribute('sortby', 'author');
-    $xmlDom->addAttribute('sortdatatype', 'text');
-    $xmlDom->addAttribute('order', 'ascending');
-    // normal
-    $xmlDom->addAttribute('author', '');
-    $xmlDom->addAttribute('title', '');
-    $xmlDom->addAttribute('minprice', $minPrice);
-    $xmlDom->addAttribute('maxprice', $maxPrice);
+//    $xmlDom->addAttribute('sortby', 'author');
+//    $xmlDom->addAttribute('sortdatatype', 'text');
+//    // normal
+//    $xmlDom->addAttribute('author', '');
+//    $xmlDom->addAttribute('title', '');
+//    $xmlDom->addAttribute('minprice', $minPrice);
+//    $xmlDom->addAttribute('maxprice', $maxPrice);
 }
 
-
-
-if (isset($_POST['addBook'])) {
-    echo 'HELLO';
-    header("Location: add_book.php");
-    die();
-}
 
 ?>
 
+<!-- TODO: move html to xsl file-->
 <head>
     <title>Library</title>
     <link rel="stylesheet" href="lib.css">
@@ -75,37 +86,20 @@ if (isset($_POST['addBook'])) {
     <a href="index.php"><h1>Library</h1></a>
     <a class="add_book" href="add_book.php">Add Book</a>
 </header>
-<form action="" method="post">
-    <select name="author">
-        <option value="">All</option>
-        <?php
-        $noDuplicates = array();
-        foreach (array_unique($authors, SORT_STRING) as $author) {
-            if (!in_array($author, $noDuplicates)) {
-                $noDuplicates[] = $author;
-                echo '<option value="' . $author . '">';
-                echo $author . '<br>';
-                echo '</option>';
-            }
-        }
-        ?>
-    </select>
+
+<form action="" method="get">
+    <?php
+    echo $fb->buildValueSelectFromArray($xp->getAuthors(), 'author')
+    ?>
     <input name="title" type="text" placeholder="Title"/>
-    <input name="minPrice" type="number" step="0.05" value="<?php echo $minPrice; ?>" min="<?php echo $minPrice;  ?>"
+    <input name="minPrice" type="number" step="0.05" value="<?php echo $minPrice; ?>" min="<?php echo $minPrice; ?>"
            max="<?php echo $maxPrice; ?>"/>
     <input name="maxPrice" type="number" step="0.05" value="<?php echo $maxPrice; ?>" min="<?php echo $minPrice; ?>"
            max="<?php echo $maxPrice; ?>"/>
 
-    <select name="sort">
-        <?php
-        foreach ($sortTypes as $sortType) {
-            echo '<option value="' . $sortType->getName() . '">';
-            echo $sortType->getName() . '<br>';
-            echo '</option>';
-        }
-        ?>
-    </select>
-
+    <?php
+    echo $fb->buildNameSelectFromArray($xp->getSortTypes(), 'sort');
+    ?>
     <input class="submit_button" name="submit" type="submit" value="Search"/>
 </form>
 
