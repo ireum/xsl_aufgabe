@@ -1,10 +1,11 @@
 <?php
 
 
-namespace library;
-
-
-class PostRequest extends AbstractRequest
+namespace library
 {
 
+    class PostRequest extends AbstractRequest
+    {
+
+    }
 }
