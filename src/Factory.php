@@ -1,7 +1,9 @@
 <?php
-namespace library;
-
-class Factory
+namespace library
 {
 
+    class Factory
+    {
+
+    }
 }

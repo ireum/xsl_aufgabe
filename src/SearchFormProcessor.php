@@ -62,7 +62,6 @@ namespace library
             $this->sxmlElement->addAttribute('maxprice', $this->request->get('maxPrice'));
         }
 
-        // TODO: set private when class is finished
         private function getDataType(): string
         {
             if ($this->request->get('sort') == 'price') {
