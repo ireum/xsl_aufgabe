@@ -1,7 +1,11 @@
 <?php
+
 namespace library
 {
     include 'autoload.php';
+    $path = __DIR__ . '/books.xml';
+    $factory = new Factory($path);
+
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $request = new PostRequest($_POST);
     } elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -20,12 +24,9 @@ namespace library
     ) {
         try {
 
-            $formValidation = new AddBookFormValidation($request);
+            $formValidation = $factory->createAddBookFormValidation($request);
             if ($formValidation->isValid()) {
-                $xmlFile = __DIR__ . '/books.xml';
-                $xmlP = new XmlProcessor($xmlFile);
-                $xmlE = new XmlEditor($xmlFile, $request, $xmlP);
-
+                $xmlE = $factory->createXmlEditor($request);
                 $xmlE->addBook();
                 header('Location: index.php');
             }
@@ -33,8 +34,7 @@ namespace library
             echo $e->getMessage();
         }
     }
-
     $add = simplexml_load_file('add.xml');
     echo $add->saveXML();
 }
-?>
+
