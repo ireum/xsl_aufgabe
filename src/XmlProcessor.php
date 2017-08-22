@@ -11,6 +11,7 @@ namespace library
         {
             $this->sxmlElement = $this->setSxmlElement($path);
         }
+
         private function setSxmlElement(string $path)
         {
             if (!simplexml_load_file($path)) {

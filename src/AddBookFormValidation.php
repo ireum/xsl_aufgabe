@@ -6,9 +6,7 @@ namespace library;
 
 class AddBookFormValidation
 {
-    /**
-     * @var AbstractRequest
-     */
+    /** @var AbstractRequest */
     private $request;
 
     /** @var bool */
