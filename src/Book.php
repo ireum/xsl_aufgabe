@@ -55,7 +55,6 @@ namespace library
             }
         }
 
-        //TODO: X   Pflichtfelder validieren
         private function validateDate(string $date)
         {
             $vDate = \DateTime::createFromFormat('Y-m-d', $date);
@@ -94,7 +93,6 @@ namespace library
             return $this->price;
         }
 
-        // TODO: X cahnge to datetime
         public function getReleaseDate(): \DateTime
         {
             return $this->releaseDate;

@@ -2,7 +2,6 @@
 
 namespace library
 {
-    //TODO: X   Besserer Name (nicht Processor)
     class XmlQuery
     {
         /** @var \SimpleXMLElement */

@@ -32,9 +32,6 @@ namespace library
             return $this->sxmlElement->xpath('/catalog')[0];
         }
 
-        //TODO: X   Es fehlt die Klasse book. Diese Validiert auch, ob alles Vorhadnen ist usw.
-        // Methode lautet dann public function addBook(Book $book)
-
         public function addBook(Book $book)
         {
             $node = $this->getRootNode()->addChild('book');
