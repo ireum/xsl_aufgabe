@@ -29,12 +29,12 @@
             </head>
             <body>
                 <header>
-                    <a href="index.php">
+                    <a href="/library">
                         <h1>Library</h1>
                     </a>
-                    <a class="add_book" href="add_book.php">Add Book</a>
+                    <a class="add_book" href="/add">Add Book</a>
                 </header>
-                <form name="searchForm" action="" method="get">
+                <form name="searchForm" action="/library" method="get">
                     <select name="author">
                         <option value="">All</option>
                         <xsl:for-each select="//catalog/book[not(author=preceding-sibling::book/author)]">

@@ -6,6 +6,9 @@ namespace library
 
     class HtmlResponse
     {
+        /** @var string */
+        private $body;
+
         public function __construct()
         {
         }
@@ -15,9 +18,14 @@ namespace library
 
         }
 
-        public function getBody()
+        public function setBody(string $body)
         {
+            $this->body = $body;
+        }
 
+        public function getBody(): string
+        {
+            return $this->body;
         }
     }
 }

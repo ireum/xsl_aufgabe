@@ -28,6 +28,23 @@ namespace library
             return new XmlEditor($this->path, $request, $this->createXmlProcessor());
         }
 
+        public function createAddBookProcessor(
+            AbstractRequest $request
+        ): AddBookProcessor
+        {
+            return new AddBookProcessor($request, $this->createAddBookFormValidation($request), $this->createXmlEditor($request));
+        }
+
+        public function createLibraryProcessor(AbstractRequest $request): LibraryProcessor
+        {
+            return new LibraryProcessor($this->createSearchFormProcessor($request));
+        }
+
+        public function createErrorPageProcessor(): ErrorPageProcessor
+        {
+            return new ErrorPageProcessor();
+        }
+
         private function createXmlProcessor(): XmlProcessor
         {
             return new XmlProcessor($this->path);

@@ -7,7 +7,7 @@
     </head>
     <body>
         <header>
-            <a href="index.php">
+            <a href="/library">
                 <h1>Library</h1>
             </a>
         </header>

@@ -9,11 +9,16 @@ spl_autoload_register(
             $classes = array(
                 'library\\abstractrequest' => '/AbstractRequest.php',
                 'library\\addbookformvalidation' => '/AddBookFormValidation.php',
+                'library\\addbookprocessor' => '/AddBookProcessor.php',
+                'library\\errorpageprocessor' => '/ErrorPageProcessor.php',
                 'library\\factory' => '/Factory.php',
                 'library\\getrequest' => '/GetRequest.php',
-                'library\\outputpreparer' => '/OutPutPreparer.php',
+                'library\\htmlresponse' => '/HtmlResponse.php',
+                'library\\libraryprocessor' => '/LibraryProcessor.php',
                 'library\\postrequest' => '/PostRequest.php',
+                'library\\router' => '/Router.php',
                 'library\\searchformprocessor' => '/SearchFormProcessor.php',
+                'library\\uri' => '/Uri.php',
                 'library\\xmleditor' => '/XmlEditor.php',
                 'library\\xmlprocessor' => '/XmlProcessor.php'
             );

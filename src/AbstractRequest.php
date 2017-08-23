@@ -26,4 +26,14 @@ abstract class AbstractRequest
         }
         return $this->inputVariables[$key];
     }
+
+    public function getUri(): Uri
+    {
+        return new Uri($_SERVER['REQUEST_URI']);
+    }
+
+    public function getPath(): string
+    {
+        return $_SERVER['REQUEST_URI'];
+    }
 }

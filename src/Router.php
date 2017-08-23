@@ -6,19 +6,24 @@ namespace library
 
     class Router
     {
-        public function __construct()
+        /** @var Factory */
+        private $factory;
+
+        public function __construct(Factory $factory)
         {
+
+            $this->factory = $factory;
         }
 
         public function route(AbstractRequest $request)
         {
-            switch($request->getPath()){
-                case '/book/add':
-                    return $factory->createAddBookProcessor();
-                case '/':
-                    return $factory->createShowBooksProcessor();
+            switch($request->getUri()->getPath()){
+                case '/library':
+                    return $this->factory->createLibraryProcessor($request);
+                case '/add':
+                    return $this->factory->createAddBookProcessor($request);
                 default:
-                    return $factory->create404Processor();
+                    return $this->factory->createErrorPageProcessor();
             }
 
         }

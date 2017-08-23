@@ -1,9 +1,10 @@
 <?php
+
 namespace library
 {
     include 'autoload.php';
-    echo 'HELLO WORLD';
     $path = __DIR__ . '/books.xml';
+    $xslPath = __DIR__ . '/xslt.xsl';
     $factory = new Factory($path);
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -16,16 +17,10 @@ namespace library
 
 
     $response = new HtmlResponse();
-    //$response->setRedirect('/zu-dem-pfad');
-
-    $response = 0;
-    $router = new Router();
-
+    $router = new Router($factory);
     $processor = $router->route($request);
 
     $processor->execute($response);
-
-    $response->sendHeaders();
     echo $response->getBody();
 }
 
