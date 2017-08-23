@@ -10,6 +10,7 @@ spl_autoload_register(
                 'library\\abstractrequest' => '/AbstractRequest.php',
                 'library\\addbookformvalidation' => '/AddBookFormValidation.php',
                 'library\\addbookprocessor' => '/AddBookProcessor.php',
+                'library\\configuration' => '/Configuration.php',
                 'library\\errorpageprocessor' => '/ErrorPageProcessor.php',
                 'library\\factory' => '/Factory.php',
                 'library\\getrequest' => '/GetRequest.php',

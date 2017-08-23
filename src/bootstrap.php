@@ -3,9 +3,8 @@
 namespace library
 {
     include 'autoload.php';
-    $path = __DIR__ . '/books.xml';
-    $xslPath = __DIR__ . '/xslt.xsl';
-    $factory = new Factory($path);
+    $configuration = new Configuration(__DIR__ . '/conf.ini');
+    $factory = new Factory($configuration);
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $request = new PostRequest($_POST);
@@ -14,7 +13,6 @@ namespace library
     } else {
         throw new \RuntimeException('Unexpected Request Method');
     }
-
 
     $response = new HtmlResponse();
     $router = new Router($factory);

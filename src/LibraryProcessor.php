@@ -12,10 +12,11 @@ namespace library
         /** @var string */
         private $xslPath;
 
-        public function __construct(SearchFormProcessor $searchFormProcessor)
+        public function __construct(SearchFormProcessor $searchFormProcessor, string $xslPath)
         {
             $this->searchFormProcessor = $searchFormProcessor;
-            $this->xslPath = __DIR__ . '/xslt.xsl';
+            $this->xslPath = $xslPath;
+
         }
 
         public function execute(HtmlResponse $response)

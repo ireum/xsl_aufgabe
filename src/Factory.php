@@ -5,12 +5,12 @@ namespace library
 
     class Factory
     {
-        /** @var string */
-        private $path;
+        /** @var Configuration */
+        private $configuration;
 
-        public function __construct(string $path)
+        public function __construct(Configuration $configuration)
         {
-            $this->path = $path;
+            $this->configuration = $configuration;
         }
 
         public function createAddBookFormValidation(AbstractRequest $request): AddBookFormValidation
@@ -20,12 +20,12 @@ namespace library
 
         public function createSearchFormProcessor(AbstractRequest $request): SearchFormProcessor
         {
-            return new SearchFormProcessor($this->path, $request, $this->createXmlProcessor());
+            return new SearchFormProcessor($this->configuration->getXmlPath(), $request, $this->createXmlProcessor());
         }
 
         public function createXmlEditor(AbstractRequest $request): XmlEditor
         {
-            return new XmlEditor($this->path, $request, $this->createXmlProcessor());
+            return new XmlEditor($this->configuration->getXmlPath(), $request, $this->createXmlProcessor());
         }
 
         public function createAddBookProcessor(
@@ -37,7 +37,7 @@ namespace library
 
         public function createLibraryProcessor(AbstractRequest $request): LibraryProcessor
         {
-            return new LibraryProcessor($this->createSearchFormProcessor($request));
+            return new LibraryProcessor($this->createSearchFormProcessor($request), $this->configuration->getXslPath());
         }
 
         public function createErrorPageProcessor(): ErrorPageProcessor
@@ -47,7 +47,7 @@ namespace library
 
         private function createXmlProcessor(): XmlProcessor
         {
-            return new XmlProcessor($this->path);
+            return new XmlProcessor($this->configuration->getXmlPath());
         }
     }
 }

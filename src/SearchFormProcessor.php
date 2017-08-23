@@ -10,6 +10,9 @@ namespace library
         private $request;
         /** @var \SimpleXMLElement */
         private $sxmlElement;
+
+        private $dom;
+
         /** @var XmlProcessor */
         private $xmlProcessor;
 
@@ -25,8 +28,12 @@ namespace library
             if (!simplexml_load_file($path)) {
                 throw new \InvalidArgumentException('Invalid path');
             }
+            // TODO statt simplexml DomDocument verwenden
             return simplexml_load_file($path);
         }
+
+
+
 
         public function getSxmlElement(): \SimpleXMLElement
         {
