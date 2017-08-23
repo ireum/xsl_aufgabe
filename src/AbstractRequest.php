@@ -14,12 +14,12 @@ namespace library
             $this->inputVariables = $inputVariables;
         }
 
-        public function has(string $key)
+        public function has(string $key): bool
         {
             return isset($this->inputVariables[$key]);
         }
 
-        public function get(string $key)
+        public function get(string $key): string
         {
             if (!$this->has($key)) {
                 throw new \RuntimeException(sprintf('Key "%s" not found', $key));

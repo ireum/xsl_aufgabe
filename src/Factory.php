@@ -28,9 +28,7 @@ namespace library
             return new XmlEditor($this->configuration->getXmlPath(), $request, $this->createXmlProcessor());
         }
 
-        public function createAddBookProcessor(
-            AbstractRequest $request
-        ): AddBookProcessor
+        public function createAddBookProcessor(AbstractRequest $request): AddBookProcessor
         {
             return new AddBookProcessor($request, $this->createAddBookFormValidation($request), $this->createXmlEditor($request));
         }

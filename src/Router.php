@@ -11,7 +11,6 @@ namespace library
 
         public function __construct(Factory $factory)
         {
-
             $this->factory = $factory;
         }
 

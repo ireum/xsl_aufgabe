@@ -17,9 +17,4 @@ class Uri
     {
         return $this->parts['path'];
     }
-
-//    public function getParameter(string $key)
-//    {
-//        return $this->parts['query'];
-//    }
 }

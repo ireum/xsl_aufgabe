@@ -13,11 +13,6 @@ namespace library
         {
         }
 
-        public function sendHeaders()
-        {
-
-        }
-
         public function setBody(string $body)
         {
             $this->body = $body;

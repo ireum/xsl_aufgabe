@@ -17,6 +17,7 @@ class AddBookFormValidation
         $this->request = $request;
     }
 
+    //TODO: Pflichtfelder validieren
     private function validateDate(string $date)
     {
         $vDate = \DateTime::createFromFormat('Y-m-d', $date);

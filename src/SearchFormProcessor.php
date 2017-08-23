@@ -21,7 +21,7 @@ namespace library
             $this->xmlProcessor = $xmlProcessor;
         }
 
-        private function setDom($path)
+        private function setDom(string $path)
         {
             $domDoc = new \DOMDocument();
             $domDoc->load($path);

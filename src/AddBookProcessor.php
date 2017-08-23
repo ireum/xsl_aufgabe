@@ -20,7 +20,6 @@ namespace library
             $this->xmlEditor = $xmlEditor;
         }
 
-
         private function checkIfRequested(): bool
         {
             if (
@@ -37,11 +36,11 @@ namespace library
             return false;
         }
 
-
         public function execute(HtmlResponse $response)
         {
             if ($this->checkIfRequested() && $this->formValidation->isValid()) {
                 $this->xmlEditor->addBook();
+                //TODO: Via Response Objekt. $response->setRedirect .z.b oder $response->setHeader()
                 header('Location: /library');
             }
 

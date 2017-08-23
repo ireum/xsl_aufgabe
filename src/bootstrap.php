@@ -15,10 +15,15 @@ namespace library
     }
 
     $response = new HtmlResponse();
-    $router = new Router($factory);
+    $router = new Router($factory); //TODO: Aus Factory
     $processor = $router->route($request);
 
+    //TODO: Interface für Processor Klassen, sodass execute() zugesichert ist
+    //TODO: Request an execute Methode übergeben ($request, $reqponse)
+    // TODO: Kein Request Objekt via Konstruktor übergeben, sondern via public Methode
     $processor->execute($response);
+
+    //TODO: Hier Header ausgeben (header()) falls welche gesetzt sind
     echo $response->getBody();
 }
 
