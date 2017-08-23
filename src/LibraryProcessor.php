@@ -4,7 +4,7 @@
 namespace library
 {
 
-    class LibraryProcessor
+    class LibraryProcessor implements Processor
     {
 
         /** @var SearchFormProcessor */
@@ -19,16 +19,14 @@ namespace library
 
         }
 
-        public function execute(HtmlResponse $response)
+        public function execute(HtmlResponse $response, AbstractRequest $request)
         {
             $sfp = $this->searchFormProcessor;
 
             $xslParser = new \XSLTProcessor();
             $xslParser->importStylesheet(simplexml_load_file($this->xslPath));
 
-            $sfp->processForm();
-
-            $response->setBody($xslParser->transformToDoc($sfp->processForm())->saveXML());
+            $response->setBody($xslParser->transformToDoc($sfp->processForm($request))->saveXML());
         }
     }
 

@@ -7,17 +7,14 @@ namespace library
     {
         /** @var \SimpleXMLElement */
         private $sxmlElement;
-        /** @var AbstractRequest */
-        private $request;
-        /** @var XmlProcessor */
+        /** @var XmlQuery */
         private $xmlProcessor;
         /** @var string */
         private $path;
 
-        public function __construct(string $path, AbstractRequest $request, XmlProcessor $xmlProcessor)
+        public function __construct(string $path, XmlQuery $xmlProcessor)
         {
             $this->sxmlElement = $this->setSxmlElement($path);
-            $this->request = $request;
             $this->xmlProcessor = $xmlProcessor;
             $this->path = $path;
         }
@@ -35,18 +32,19 @@ namespace library
             return $this->sxmlElement->xpath('/catalog')[0];
         }
 
-        //TODO: Es fehlt die Klasse book. Diese Validiert auch, ob alles Vorhadnen ist usw.
+        //TODO: X   Es fehlt die Klasse book. Diese Validiert auch, ob alles Vorhadnen ist usw.
         // Methode lautet dann public function addBook(Book $book)
-        public function addBook()
+
+        public function addBook(Book $book)
         {
-            $book = $this->getRootNode()->addChild('book');
-            $book->addAttribute('id', $this->xmlProcessor->getNextId());
-            $book->addChild('author', $this->request->get('author'));
-            $book->addChild('title', $this->request->get('title'));
-            $book->addChild('genre', $this->request->get('genre'));
-            $book->addChild('price', $this->request->get('price'));
-            $book->addChild('publish_date', $this->request->get('releaseDate'));
-            $book->addChild('description', $this->request->get('description'));
+            $node = $this->getRootNode()->addChild('book');
+            $node->addAttribute('id', $this->xmlProcessor->getNextId());
+            $node->addChild('author', $book->getAuthor());
+            $node->addChild('title', $book->getTitle());
+            $node->addChild('genre', $book->getGenre());
+            $node->addChild('price', $book->getPrice());
+            $node->addChild('publish_date', $book->getReleaseDate()->format('Y-m-d'));
+            $node->addChild('description', $book->getDescription());
             $this->saveBook();
         }
 

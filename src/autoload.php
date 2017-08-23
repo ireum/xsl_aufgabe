@@ -8,8 +8,8 @@ spl_autoload_register(
         if ($classes === null) {
             $classes = array(
                 'library\\abstractrequest' => '/AbstractRequest.php',
-                'library\\addbookformvalidation' => '/AddBookFormValidation.php',
                 'library\\addbookprocessor' => '/AddBookProcessor.php',
+                'library\\book' => '/Book.php',
                 'library\\configuration' => '/Configuration.php',
                 'library\\errorpageprocessor' => '/ErrorPageProcessor.php',
                 'library\\factory' => '/Factory.php',
@@ -17,11 +17,12 @@ spl_autoload_register(
                 'library\\htmlresponse' => '/HtmlResponse.php',
                 'library\\libraryprocessor' => '/LibraryProcessor.php',
                 'library\\postrequest' => '/PostRequest.php',
+                'library\\processor' => '/Processor.php',
                 'library\\router' => '/Router.php',
                 'library\\searchformprocessor' => '/SearchFormProcessor.php',
                 'library\\uri' => '/Uri.php',
                 'library\\xmleditor' => '/XmlEditor.php',
-                'library\\xmlprocessor' => '/XmlProcessor.php'
+                'library\\xmlquery' => '/XmlQuery.php'
             );
         }
         $cn = strtolower($class);

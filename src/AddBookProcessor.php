@@ -4,46 +4,48 @@
 namespace library
 {
 
-    class AddBookProcessor
+    class AddBookProcessor implements Processor
     {
-        /** @var AbstractRequest */
-        private $request;
-        /** @var AddBookFormValidation */
-        private $formValidation;
         /** @var XmlEditor */
         private $xmlEditor;
 
-        public function __construct(AbstractRequest $request, AddBookFormValidation $formValidation, XmlEditor $xmlEditor)
+        public function __construct(XmlEditor $xmlEditor)
         {
-            $this->request = $request;
-            $this->formValidation = $formValidation;
             $this->xmlEditor = $xmlEditor;
         }
 
-        private function checkIfRequested(): bool
+        private function checkIfRequested(AbstractRequest $request): bool
         {
             if (
-                $this->request->has('submit') &&
-                $this->request->get('author') &&
-                $this->request->get('title') &&
-                $this->request->get('genre') &&
-                $this->request->get('price') &&
-                $this->request->get('releaseDate') &&
-                $this->request->get('description')
+                $request->has('submit') &&
+                $request->get('author') &&
+                $request->get('title') &&
+                $request->get('genre') &&
+                $request->get('price') &&
+                $request->get('releaseDate') &&
+                $request->get('description')
             ) {
                 return true;
             }
             return false;
         }
 
-        public function execute(HtmlResponse $response)
+        public function execute(HtmlResponse $response, AbstractRequest $request)
         {
-            if ($this->checkIfRequested() && $this->formValidation->isValid()) {
-                $this->xmlEditor->addBook();
-                //TODO: Via Response Objekt. $response->setRedirect .z.b oder $response->setHeader()
-                header('Location: /library');
-            }
+            try {
 
+                if ($this->checkIfRequested($request)) {
+
+                    $book = new Book($request);
+
+                    $this->xmlEditor->addBook($book);
+                    $response->setRedirect('/library');
+                }
+            } catch (\InvalidArgumentException $e) {
+                echo $e->getMessage();
+            } catch (\Exception $e) {
+                echo $e->getMessage();
+            }
             $xml = simplexml_load_file('add.xml');
 
             $response->setBody($xml->saveXML());

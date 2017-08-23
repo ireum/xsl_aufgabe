@@ -13,29 +13,24 @@ namespace library
             $this->configuration = $configuration;
         }
 
-        public function createAddBookFormValidation(AbstractRequest $request): AddBookFormValidation
+        public function createSearchFormProcessor(): SearchFormProcessor
         {
-            return new AddBookFormValidation($request);
+            return new SearchFormProcessor($this->configuration->getXmlPath(), $this->createXmlProcessor());
         }
 
-        public function createSearchFormProcessor(AbstractRequest $request): SearchFormProcessor
+        public function createXmlEditor(): XmlEditor
         {
-            return new SearchFormProcessor($this->configuration->getXmlPath(), $request, $this->createXmlProcessor());
+            return new XmlEditor($this->configuration->getXmlPath(), $this->createXmlProcessor());
         }
 
-        public function createXmlEditor(AbstractRequest $request): XmlEditor
+        public function createAddBookProcessor(): AddBookProcessor
         {
-            return new XmlEditor($this->configuration->getXmlPath(), $request, $this->createXmlProcessor());
+            return new AddBookProcessor($this->createXmlEditor());
         }
 
-        public function createAddBookProcessor(AbstractRequest $request): AddBookProcessor
+        public function createLibraryProcessor(): LibraryProcessor
         {
-            return new AddBookProcessor($request, $this->createAddBookFormValidation($request), $this->createXmlEditor($request));
-        }
-
-        public function createLibraryProcessor(AbstractRequest $request): LibraryProcessor
-        {
-            return new LibraryProcessor($this->createSearchFormProcessor($request), $this->configuration->getXslPath());
+            return new LibraryProcessor($this->createSearchFormProcessor(), $this->configuration->getXslPath());
         }
 
         public function createErrorPageProcessor(): ErrorPageProcessor
@@ -43,9 +38,16 @@ namespace library
             return new ErrorPageProcessor();
         }
 
-        private function createXmlProcessor(): XmlProcessor
+        private function createXmlProcessor(): XmlQuery
         {
-            return new XmlProcessor($this->configuration->getXmlPath());
+            return new XmlQuery($this->configuration->getXmlPath());
         }
+
+
+        public function createRouter()
+        {
+            return new Router($this);
+        }
+
     }
 }

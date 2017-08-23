@@ -2,8 +2,8 @@
 
 namespace library
 {
-    //TODO: Besserer Name (nicht Processor)
-    class XmlProcessor
+    //TODO: X   Besserer Name (nicht Processor)
+    class XmlQuery
     {
         /** @var \SimpleXMLElement */
         private $sxmlElement;

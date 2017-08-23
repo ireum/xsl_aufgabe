@@ -2,7 +2,9 @@
 
 namespace library
 {
+
     include 'autoload.php';
+
     $configuration = new Configuration(__DIR__ . '/conf.ini');
     $factory = new Factory($configuration);
 
@@ -14,16 +16,30 @@ namespace library
         throw new \RuntimeException('Unexpected Request Method');
     }
 
-    $response = new HtmlResponse();
-    $router = new Router($factory); //TODO: Aus Factory
-    $processor = $router->route($request);
+    try {
 
-    //TODO: Interface für Processor Klassen, sodass execute() zugesichert ist
-    //TODO: Request an execute Methode übergeben ($request, $reqponse)
-    // TODO: Kein Request Objekt via Konstruktor übergeben, sondern via public Methode
-    $processor->execute($response);
+        $response = new HtmlResponse();
+        //TODO: X   Aus Factory
+//    $router = new Router($factory);
+        $router = $factory->createRouter();
+        $processor = $router->route($request);
 
-    //TODO: Hier Header ausgeben (header()) falls welche gesetzt sind
-    echo $response->getBody();
+        //TODO: X   Interface für Processor Klassen, sodass execute() zugesichert ist
+        //TODO: X   Request an execute Methode übergeben ($request, $reqponse)
+        //TODO: X   Kein Request Objekt via Konstruktor übergeben, sondern via public Methode
+        $processor->execute($response, $request);
+
+        //TODO: X   Hier Header ausgeben (header()) falls welche gesetzt sind
+        if ($response->hasRedirect()) {
+            $response->getRedirect();
+        }
+
+        echo $response->getBody();
+    } catch (\InvalidArgumentException $e) {
+        echo $e->getMessage();
+    } catch (\Exception $e) {
+        echo $e->getMessage();
+    }
+
 }
 

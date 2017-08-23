@@ -5,19 +5,15 @@ namespace library
 {
     class SearchFormProcessor
     {
-        /** @var AbstractRequest */
-        private $request;
-
         /** @var  \DOMDocument */
         private $dom;
 
-        /** @var XmlProcessor */
+        /** @var XmlQuery */
         private $xmlProcessor;
 
-        public function __construct(string $path, AbstractRequest $request, XmlProcessor $xmlProcessor)
+        public function __construct(string $path, XmlQuery $xmlProcessor)
         {
             $this->setDom($path);
-            $this->request = $request;
             $this->xmlProcessor = $xmlProcessor;
         }
 
@@ -33,19 +29,19 @@ namespace library
             return $this->dom->getElementsByTagName('catalog')->item(0);
         }
 
-        public function processForm(): \DOMDocument
+        public function processForm(AbstractRequest $request): \DOMDocument
         {
-            if ($this->request->has('submit')) {
-                $this->setSearchedValues();
+            if ($request->has('submit')) {
+                $this->setSearchedValues($request);
             } else {
                 $this->setDefaultValues();
             }
             return $this->dom;
         }
 
-        private function getDataType(): string
+        private function getDataType(AbstractRequest $request): string
         {
-            if ($this->request->get('sort') == 'price') {
+            if ($request->get('sort') == 'price') {
                 return 'number';
             } else {
                 return 'text';
@@ -64,15 +60,15 @@ namespace library
         }
 
 
-        private function setSearchedValues()
+        private function setSearchedValues(AbstractRequest $request)
         {
             $root = $this->getRootNode();
-            $root->setAttribute('sortby', $this->request->get('sort'));
-            $root->setAttribute('sortdatatype', $this->getDataType());
-            $root->setAttribute('author', $this->request->get('author'));
-            $root->setAttribute('title', $this->request->get('title'));
-            $root->setAttribute('minprice', $this->request->get('minPrice'));
-            $root->setAttribute('maxprice', $this->request->get('maxPrice'));
+            $root->setAttribute('sortby', $request->get('sort'));
+            $root->setAttribute('sortdatatype', $this->getDataType($request));
+            $root->setAttribute('author', $request->get('author'));
+            $root->setAttribute('title', $request->get('title'));
+            $root->setAttribute('minprice', $request->get('minPrice'));
+            $root->setAttribute('maxprice', $request->get('maxPrice'));
         }
     }
 }
