@@ -3,14 +3,12 @@
 
 namespace library
 {
-
     class SearchFormProcessor
     {
         /** @var AbstractRequest */
         private $request;
-        /** @var \SimpleXMLElement */
-        private $sxmlElement;
 
+        /** @var  \DOMDocument */
         private $dom;
 
         /** @var XmlProcessor */
@@ -18,55 +16,31 @@ namespace library
 
         public function __construct(string $path, AbstractRequest $request, XmlProcessor $xmlProcessor)
         {
+            $this->setDom($path);
             $this->request = $request;
-            $this->sxmlElement = $this->setSxmlElement($path);
             $this->xmlProcessor = $xmlProcessor;
         }
 
-        private function setSxmlElement(string $path)
+        private function setDom($path)
         {
-            if (!simplexml_load_file($path)) {
-                throw new \InvalidArgumentException('Invalid path');
-            }
-            // TODO statt simplexml DomDocument verwenden
-            return simplexml_load_file($path);
+            $domDoc = new \DOMDocument();
+            $domDoc->load($path);
+            $this->dom = $domDoc;
         }
 
-
-
-
-        public function getSxmlElement(): \SimpleXMLElement
+        private function getRootNode(): \DOMElement
         {
-            return $this->sxmlElement;
+            return $this->dom->getElementsByTagName('catalog')->item(0);
         }
 
-        public function processForm()
+        public function processForm(): \DOMDocument
         {
             if ($this->request->has('submit')) {
                 $this->setSearchedValues();
             } else {
                 $this->setDefaultValues();
             }
-        }
-
-        private function setDefaultValues()
-        {
-            $this->sxmlElement->addAttribute('sortby', 'author');
-            $this->sxmlElement->addAttribute('sortdatatype', 'text');
-            $this->sxmlElement->addAttribute('author', '');
-            $this->sxmlElement->addAttribute('title', '');
-            $this->sxmlElement->addAttribute('minprice', $this->xmlProcessor->getMinPrice());
-            $this->sxmlElement->addAttribute('maxprice', $this->xmlProcessor->getMaxPrice());
-        }
-
-        private function setSearchedValues()
-        {
-            $this->sxmlElement->addAttribute('sortby', $this->request->get('sort'));
-            $this->sxmlElement->addAttribute('sortdatatype', $this->getDataType());
-            $this->sxmlElement->addAttribute('author', $this->request->get('author'));
-            $this->sxmlElement->addAttribute('title', $this->request->get('title'));
-            $this->sxmlElement->addAttribute('minprice', $this->request->get('minPrice'));
-            $this->sxmlElement->addAttribute('maxprice', $this->request->get('maxPrice'));
+            return $this->dom;
         }
 
         private function getDataType(): string
@@ -76,6 +50,29 @@ namespace library
             } else {
                 return 'text';
             }
+        }
+
+        private function setDefaultValues()
+        {
+            $root = $this->getRootNode();
+            $root->setAttribute('sortby', 'author');
+            $root->setAttribute('sortdatatype', 'text');
+            $root->setAttribute('author', '');
+            $root->setAttribute('title', '');
+            $root->setAttribute('minprice', $this->xmlProcessor->getMinPrice());
+            $root->setAttribute('maxprice', $this->xmlProcessor->getMaxPrice());
+        }
+
+
+        private function setSearchedValues()
+        {
+            $root = $this->getRootNode();
+            $root->setAttribute('sortby', $this->request->get('sort'));
+            $root->setAttribute('sortdatatype', $this->getDataType());
+            $root->setAttribute('author', $this->request->get('author'));
+            $root->setAttribute('title', $this->request->get('title'));
+            $root->setAttribute('minprice', $this->request->get('minPrice'));
+            $root->setAttribute('maxprice', $this->request->get('maxPrice'));
         }
     }
 }

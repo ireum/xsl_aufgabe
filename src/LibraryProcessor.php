@@ -28,7 +28,7 @@ namespace library
 
             $sfp->processForm();
 
-            $response->setBody($xslParser->transformToDoc($sfp->getSxmlElement())->saveXML());
+            $response->setBody($xslParser->transformToDoc($sfp->processForm())->saveXML());
         }
     }
 

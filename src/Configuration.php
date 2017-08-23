@@ -31,12 +31,12 @@ namespace library
 
         public function getXmlPath(): string
         {
-            return $this->configuration['xmlPath'];
+            return __DIR__ . '/' . $this->configuration['xmlPath'];
         }
 
         public function getXslPath(): string
         {
-            return $this->configuration['xslPath'];
+            return __DIR__ . '/' . $this->configuration['xslPath'];
         }
     }
 }
