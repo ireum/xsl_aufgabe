@@ -70,5 +70,6 @@ namespace library
             $root->setAttribute('minprice', $request->get('minPrice'));
             $root->setAttribute('maxprice', $request->get('maxPrice'));
         }
+
     }
 }

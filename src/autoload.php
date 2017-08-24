@@ -11,6 +11,7 @@ spl_autoload_register(
                 'library\\addbookprocessor' => '/processors/AddBookProcessor.php',
                 'library\\book' => '/book/Book.php',
                 'library\\configuration' => '/setup/Configuration.php',
+                'library\\displaybookformprocessor' => '/processors/DisplayBookFormProcessor.php',
                 'library\\errorpageprocessor' => '/processors/ErrorPageProcessor.php',
                 'library\\factory' => '/setup/Factory.php',
                 'library\\getrequest' => '/requests/GetRequest.php',

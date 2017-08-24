@@ -72,52 +72,48 @@
                     <input class="submit_button" name="submit" type="submit" value="Search"/>
                 </form>
                 <table>
-                    <thead>
-                        <tr>
-                            <th style="width: 5%;">ID</th>
-                            <th style="width: 10%;">Author</th>
-                            <th style="width: 20%;">Title</th>
-                            <th style="width: 10%;">Genre</th>
-                            <th style="width: 5%;">Price</th>
-                            <th style="width: 10%;">Release Date</th>
-                            <th style="width: 40%;">Description</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <xsl:for-each select="catalog/book">
-                            <xsl:sort select="*[name()=$sortColumnField]" data-type="{$sortColumnDataType}"
-                                      order="ascending"/>
-                            <xsl:if test="(
+                    <tr>
+                        <th>ID</th>
+                        <th>Author</th>
+                        <th>Title</th>
+                        <th>Genre</th>
+                        <th>Price</th>
+                        <th>Release Date</th>
+                        <th>Description</th>
+                    </tr>
+                    <xsl:for-each select="catalog/book">
+                        <xsl:sort select="*[name()=$sortColumnField]" data-type="{$sortColumnDataType}"
+                                  order="ascending"/>
+                        <xsl:if test="(
                         contains(title, //catalog/@title) and
                         contains(author, //catalog/@author) and
                         price >= //catalog/@minprice and price &lt;= //catalog/@maxprice
                         )">
-                                <tr>
-                                    <td style="width: 5%;">
-                                        <xsl:value-of select="@id"/>
-                                    </td>
-                                    <td style="width: 10%;">
-                                        <xsl:value-of select="author"/>
-                                    </td>
-                                    <td style="width: 20%;">
-                                        <xsl:value-of select="title"/>
-                                    </td>
-                                    <td style="width: 10%;">
-                                        <xsl:value-of select="genre"/>
-                                    </td>
-                                    <td style="width: 5%;">
-                                        <xsl:value-of select="price"/>
-                                    </td>
-                                    <td style="width: 10%;">
-                                        <xsl:value-of select="publish_date"/>
-                                    </td>
-                                    <td style="width: 40%;">
-                                        <xsl:value-of select="description"/>
-                                    </td>
-                                </tr>
-                            </xsl:if>
-                        </xsl:for-each>
-                    </tbody>
+                            <tr>
+                                <td>
+                                    <xsl:value-of select="@id"/>
+                                </td>
+                                <td>
+                                    <xsl:value-of select="author"/>
+                                </td>
+                                <td>
+                                    <xsl:value-of select="title"/>
+                                </td>
+                                <td>
+                                    <xsl:value-of select="genre"/>
+                                </td>
+                                <td>
+                                    <xsl:value-of select="price"/>
+                                </td>
+                                <td>
+                                    <xsl:value-of select="publish_date"/>
+                                </td>
+                                <td>
+                                    <xsl:value-of select="description"/>
+                                </td>
+                            </tr>
+                        </xsl:if>
+                    </xsl:for-each>
                 </table>
             </body>
         </html>

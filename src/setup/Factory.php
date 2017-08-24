@@ -28,6 +28,11 @@ namespace library
             return new AddBookProcessor($this->createXmlEditor());
         }
 
+        public function createDisplayBookProcessor(): DisplayBookFormProcessor
+        {
+            return new DisplayBookFormProcessor();
+        }
+
         public function createLibraryProcessor(): LibraryProcessor
         {
             return new LibraryProcessor($this->createSearchFormProcessor(), $this->configuration->getXslPath());

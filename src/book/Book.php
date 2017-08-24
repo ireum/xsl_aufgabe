@@ -49,7 +49,6 @@ namespace library
         private function validateStringFields(string $key, AbstractRequest $request)
         {
             if (!$request->has($key) || $request->get($key) === '') {
-                echo $request->get($key);
                 $this->isValid = false;
                 throw new \InvalidArgumentException(sprintf('Invalid Input: %s', $key));
             }

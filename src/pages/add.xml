@@ -13,7 +13,7 @@
         </header>
         <div class="add_book_form_container">
             <h2>Add Book</h2>
-            <form class="add_book_form" action="" method="post">
+            <form class="add_book_form" action="/validate" method="post">
                 <input type="text" name="author" placeholder="Author" required=""/>
                 <input type="text" name="title" placeholder="Title" required=""/>
                 <input type="text" name="genre" placeholder="Genre" required=""/>

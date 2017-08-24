@@ -16,15 +16,7 @@ namespace library
 
         private function checkIfRequested(AbstractRequest $request): bool
         {
-            if (
-                $request->has('submit') &&
-                $request->get('author') &&
-                $request->get('title') &&
-                $request->get('genre') &&
-                $request->get('price') &&
-                $request->get('releaseDate') &&
-                $request->get('description')
-            ) {
+            if ($request->has('submit')) {
                 return true;
             }
             return false;
@@ -33,23 +25,19 @@ namespace library
         public function execute(HtmlResponse $response, AbstractRequest $request)
         {
             try {
-
-                if ($this->checkIfRequested($request)) {
-
                     $book = new Book($request);
-
                     $this->xmlEditor->addBook($book);
                     $response->setRedirect('/library');
-                }
+
             } catch (\InvalidArgumentException $e) {
                 echo $e->getMessage();
+
+            $xml = simplexml_load_file('pages/add.xml');
+            $response->setBody($xml->saveXML());
+
             } catch (\Exception $e) {
                 echo $e->getMessage();
             }
-
-            $xml = simplexml_load_file('pages/add.xml');
-
-            $response->setBody($xml->saveXML());
         }
     }
 }
