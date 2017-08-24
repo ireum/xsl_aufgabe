@@ -7,12 +7,12 @@ namespace library
     class LibraryProcessor implements Processor
     {
 
-        /** @var SearchFormProcessor */
+        /** @var XmlFormProcessor */
         private $searchFormProcessor;
         /** @var string */
         private $xslPath;
 
-        public function __construct(SearchFormProcessor $searchFormProcessor, string $xslPath)
+        public function __construct(XmlFormProcessor $searchFormProcessor, string $xslPath)
         {
             $this->searchFormProcessor = $searchFormProcessor;
             $this->xslPath = $xslPath;

@@ -13,9 +13,9 @@ namespace library
             $this->configuration = $configuration;
         }
 
-        public function createSearchFormProcessor(): SearchFormProcessor
+        public function createSearchFormProcessor(): XmlFormProcessor
         {
-            return new SearchFormProcessor($this->configuration->getXmlPath(), $this->createXmlProcessor());
+            return new XmlFormProcessor($this->configuration->getXmlPath(), $this->createXmlProcessor());
         }
 
         public function createXmlEditor(): XmlEditor

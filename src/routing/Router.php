@@ -18,9 +18,9 @@ namespace library
         {
             switch($request->getUri()->getPath()){
                 case '/library':
-                    return $this->factory->createLibraryProcessor($request);
+                    return $this->factory->createLibraryProcessor();
                 case '/add':
-                    return $this->factory->createAddBookProcessor($request);
+                    return $this->factory->createAddBookProcessor();
                 default:
                     return $this->factory->createErrorPageProcessor();
             }

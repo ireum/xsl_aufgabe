@@ -3,7 +3,7 @@
 
 namespace library
 {
-    class SearchFormProcessor
+    class XmlFormProcessor
     {
         /** @var  \DOMDocument */
         private $dom;

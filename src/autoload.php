@@ -7,22 +7,22 @@ spl_autoload_register(
         static $classes = null;
         if ($classes === null) {
             $classes = array(
-                'library\\abstractrequest' => '/AbstractRequest.php',
-                'library\\addbookprocessor' => '/AddBookProcessor.php',
-                'library\\book' => '/Book.php',
-                'library\\configuration' => '/Configuration.php',
-                'library\\errorpageprocessor' => '/ErrorPageProcessor.php',
-                'library\\factory' => '/Factory.php',
-                'library\\getrequest' => '/GetRequest.php',
-                'library\\htmlresponse' => '/HtmlResponse.php',
-                'library\\libraryprocessor' => '/LibraryProcessor.php',
-                'library\\postrequest' => '/PostRequest.php',
-                'library\\processor' => '/Processor.php',
-                'library\\router' => '/Router.php',
-                'library\\searchformprocessor' => '/SearchFormProcessor.php',
-                'library\\uri' => '/Uri.php',
-                'library\\xmleditor' => '/XmlEditor.php',
-                'library\\xmlquery' => '/XmlQuery.php'
+                'library\\abstractrequest' => '/requests/AbstractRequest.php',
+                'library\\addbookprocessor' => '/processors/AddBookProcessor.php',
+                'library\\book' => '/book/Book.php',
+                'library\\configuration' => '/setup/Configuration.php',
+                'library\\errorpageprocessor' => '/processors/ErrorPageProcessor.php',
+                'library\\factory' => '/setup/Factory.php',
+                'library\\getrequest' => '/requests/GetRequest.php',
+                'library\\htmlresponse' => '/routing/HtmlResponse.php',
+                'library\\libraryprocessor' => '/processors/LibraryProcessor.php',
+                'library\\postrequest' => '/requests/PostRequest.php',
+                'library\\processor' => '/processors/Processor.php',
+                'library\\router' => '/routing/Router.php',
+                'library\\uri' => '/routing/Uri.php',
+                'library\\xmleditor' => '/xmlhandler/XmlEditor.php',
+                'library\\xmlformprocessor' => '/xmlhandler/XmlFormProcessor.php',
+                'library\\xmlquery' => '/xmlhandler/XmlQuery.php'
             );
         }
         $cn = strtolower($class);

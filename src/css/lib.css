@@ -45,25 +45,67 @@ table {
     border-collapse: collapse;
     border: none;
     border-spacing: 0px;
+    width: 100%;
 }
 
+/*tbody {*/
+    /*overflow-y: auto;*/
+    /*display: block;*/
+    /*height: 500px;*/
+/*}*/
+
+/*thead {*/
+    /*display: table;*/
+    /*table-layout: fixed;*/
+/*}*/
+
+/*tbody tr {*/
+    /*table-layout: fixed;*/
+/*}*/
+
+/*th, td {*/
+    /*!*width: auto;   *!*/
+/*}*/
+
 td{
-    padding: 3px 10px;
+padding: 3px 10px;
 }
 
 tr:nth-child(even) {
-    background-color: #ecf0f1;
+background-color: #ecf0f1;
 }
 
 tr:nth-child(odd) {
-    background-color: #bdc3c7;
+background-color: #bdc3c7;
 }
 
 th{
-    padding: 10px;
-    text-align: left;
+padding: 10px;
+text-align: left;
+background-color: #3498db;
+}
+
+table {
     background-color: #3498db;
 }
+
+thead {
+    display: table;
+    table-layout:fixed;
+    width: 99%;
+}
+tbody {
+    display: block;
+    height: 500px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+tbody tr {
+    display: table;
+    table-layout:fixed;
+    width: 100%;
+}
+
 
 /* form */
 select {
@@ -134,3 +176,4 @@ textarea {
     color: #5d1f11;
     text-decoration: none;
 }
+

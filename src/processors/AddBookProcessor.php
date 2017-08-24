@@ -46,7 +46,8 @@ namespace library
             } catch (\Exception $e) {
                 echo $e->getMessage();
             }
-            $xml = simplexml_load_file('add.xml');
+
+            $xml = simplexml_load_file('pages/add.xml');
 
             $response->setBody($xml->saveXML());
         }
