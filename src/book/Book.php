@@ -50,7 +50,7 @@ namespace library
         {
             if (!$request->has($key) || $request->get($key) === '') {
                 $this->isValid = false;
-                throw new \InvalidArgumentException(sprintf('Invalid Input: %s', $key));
+                throw new \InvalidArgumentException($key);
             }
         }
 
@@ -59,7 +59,8 @@ namespace library
             $vDate = \DateTime::createFromFormat('Y-m-d', $date);
             if (!($vDate && $vDate->format('Y-m-d') === $date)) {
                 $this->isValid = false;
-                throw new \InvalidArgumentException(sprintf('Invalid date: %s', $date));
+                throw new \InvalidArgumentException('releaseDate');
+//                throw new \InvalidArgumentException(sprintf('Invalid date: %s', $date));
             }
         }
 
@@ -68,7 +69,8 @@ namespace library
             if (!is_numeric($request->get('price')) ||
                 $request->get('price') <= 0) {
                 $this->isValid = false;
-                throw new \InvalidArgumentException(sprintf('Invalid number: %01.2f', $request->get('price')));
+                throw new \InvalidArgumentException('price');
+//                throw new \InvalidArgumentException(sprintf('Invalid number: %01.2f', $request->get('price')), 4);
             }
         }
 

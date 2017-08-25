@@ -38,5 +38,11 @@ namespace library
         {
             return __DIR__ . '/../pages/' . $this->configuration['xslPath'];
         }
+
+        public function getXmlAddBookPath(): string
+        {
+            return __DIR__ . '/../pages/' . $this->configuration['xmlAddBookPath'];
+        }
+
     }
 }

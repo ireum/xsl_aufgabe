@@ -22,6 +22,7 @@ spl_autoload_register(
                 'library\\router' => '/routing/Router.php',
                 'library\\uri' => '/routing/Uri.php',
                 'library\\xmleditor' => '/xmlhandler/XmlEditor.php',
+                'library\\xmlexceptionprocessor' => '/xmlhandler/XmlExceptionProcessor.php',
                 'library\\xmlformprocessor' => '/xmlhandler/XmlFormProcessor.php',
                 'library\\xmlquery' => '/xmlhandler/XmlQuery.php'
             );

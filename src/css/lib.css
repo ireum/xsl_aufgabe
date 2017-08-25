@@ -89,7 +89,18 @@ table {
     background-color: #3498db;
 }
 
+.invalidField {
+    background-color: rgb(255, 184, 177);
+    border: 2px solid #e73839;
+    color: #e73839;
+}
 
+.invalidFieldText {
+    font-size: 12px;
+    font-weight: bold;
+    color: #e6000e;
+    margin: 0;
+}
 
 /* form */
 select {

@@ -23,9 +23,25 @@ namespace library
             return new XmlEditor($this->configuration->getXmlPath(), $this->createXmlProcessor());
         }
 
+        public function createAddBookDomDoc(): \DOMDocument
+        {
+//            $dom = new \DOMDocument();
+////            return $dom->load($this->configuration->getXmlAddBookPath());
+//            return $dom->load(__DIR__ . '/../pages/add.xml');
+            $dom = new \DOMDocument();
+//            return $dom->load(__DIR__ . '/../pages/add.xml');
+            return $dom->load($this->configuration->getXmlAddBookPath());
+
+        }
+
+        public function createXmlExceptionProcessor(): XmlExceptionProcessor
+        {
+            return new XmlExceptionProcessor($this->createAddBookDomDoc());
+        }
+
         public function createAddBookProcessor(): AddBookProcessor
         {
-            return new AddBookProcessor($this->createXmlEditor());
+            return new AddBookProcessor($this->createXmlEditor(), $this->createXmlExceptionProcessor());
         }
 
         public function createDisplayBookProcessor(): DisplayBookFormProcessor
@@ -47,7 +63,6 @@ namespace library
         {
             return new XmlQuery($this->configuration->getXmlPath());
         }
-
 
         public function createRouter()
         {

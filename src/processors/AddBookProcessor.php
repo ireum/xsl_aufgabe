@@ -1,42 +1,36 @@
 <?php
 
-
+// TODO: add DIR Namespace
 namespace library
 {
+
 
     class AddBookProcessor implements Processor
     {
         /** @var XmlEditor */
         private $xmlEditor;
+        /** @var \DOMDocument */
+        /** @var XmlExceptionProcessor */
+        private $xmlExceptionProcessor;
 
-        public function __construct(XmlEditor $xmlEditor)
+        public function __construct(XmlEditor $xmlEditor, XmlExceptionProcessor $xmlExceptionProcessor)
         {
             $this->xmlEditor = $xmlEditor;
-        }
-
-        private function checkIfRequested(AbstractRequest $request): bool
-        {
-            if ($request->has('submit')) {
-                return true;
-            }
-            return false;
+            $this->xmlExceptionProcessor = $xmlExceptionProcessor;
         }
 
         public function execute(HtmlResponse $response, AbstractRequest $request)
         {
             try {
-                    $book = new Book($request);
-                    $this->xmlEditor->addBook($book);
-                    $response->setRedirect('/library');
+                $this->xmlExceptionProcessor->resetException();
+                $book = new Book($request);
+                $this->xmlEditor->addBook($book);
+                $response->setRedirect('/library');
 
             } catch (\InvalidArgumentException $e) {
-                echo $e->getMessage();
 
-            $xml = simplexml_load_file('pages/add.xml');
-            $response->setBody($xml->saveXML());
-
-            } catch (\Exception $e) {
-                echo $e->getMessage();
+                $this->xmlExceptionProcessor->processFormException($e, $request);
+                $response->setRedirect('/add');
             }
         }
     }
