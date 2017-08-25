@@ -1,6 +1,6 @@
 <?php
 
-namespace library
+namespace library\xmlhandler
 {
     class XmlQuery
     {

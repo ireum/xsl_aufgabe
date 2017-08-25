@@ -1,8 +1,10 @@
 <?php
 
 
-namespace library
+namespace library\book
 {
+
+    use library\requests\AbstractRequest;
 
     class Book
     {

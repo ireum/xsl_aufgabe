@@ -1,7 +1,17 @@
 <?php
 
-namespace library
+namespace library\setup
 {
+
+    use library\processor\AddBookProcessor;
+    use library\processor\DisplayBookFormProcessor;
+    use library\processor\ErrorPageProcessor;
+    use library\processor\LibraryProcessor;
+    use library\routing\Router;
+    use library\xmlhandler\XmlEditor;
+    use library\xmlhandler\XmlExceptionProcessor;
+    use library\xmlhandler\XmlFormProcessor;
+    use library\xmlhandler\XmlQuery;
 
     class Factory
     {
@@ -25,18 +35,14 @@ namespace library
 
         public function createAddBookDomDoc(): \DOMDocument
         {
-//            $dom = new \DOMDocument();
-////            return $dom->load($this->configuration->getXmlAddBookPath());
-//            return $dom->load(__DIR__ . '/../pages/add.xml');
             $dom = new \DOMDocument();
-//            return $dom->load(__DIR__ . '/../pages/add.xml');
             return $dom->load($this->configuration->getXmlAddBookPath());
 
         }
 
         public function createXmlExceptionProcessor(): XmlExceptionProcessor
         {
-            return new XmlExceptionProcessor($this->createAddBookDomDoc());
+            return new XmlExceptionProcessor();
         }
 
         public function createAddBookProcessor(): AddBookProcessor

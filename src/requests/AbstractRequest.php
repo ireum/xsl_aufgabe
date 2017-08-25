@@ -1,8 +1,10 @@
 <?php
 
-namespace library
+namespace library\requests
 {
 
+
+    use library\routing\Uri;
 
     abstract class AbstractRequest
     {
@@ -32,9 +34,10 @@ namespace library
             return new Uri($_SERVER['REQUEST_URI']);
         }
 
-        public function getPath(): string
-        {
-            return $_SERVER['REQUEST_URI'];
-        }
+        // TODO: Remove Method
+//        public function getPath(): string
+//        {
+//            return $_SERVER['REQUEST_URI'];
+//        }
     }
 }

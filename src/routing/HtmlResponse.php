@@ -1,7 +1,7 @@
 <?php
 
 
-namespace library
+namespace library\routing
 {
 
     class HtmlResponse
@@ -23,6 +23,9 @@ namespace library
 
         public function getBody(): string
         {
+            if (is_null($this->body)) {
+                throw new \Exception('Body is empty');
+            }
             return $this->body;
         }
 
@@ -31,7 +34,7 @@ namespace library
             $this->redirect = $redirect;
         }
 
-        public function hasRedirect(): bool
+        private function hasRedirect(): bool
         {
             if (!isset($this->redirect)) {
                 return false;
@@ -41,7 +44,9 @@ namespace library
 
         public function getRedirect()
         {
-            return header('Location: ' . $this->redirect);
+            if ($this->hasRedirect()) {
+                return header('Location: ' . $this->redirect);
+            }
         }
     }
 }

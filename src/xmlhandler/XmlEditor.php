@@ -1,8 +1,11 @@
 <?php
 
 
-namespace library
+namespace library\xmlhandler
 {
+
+    use library\book\Book;
+
     class XmlEditor
     {
         /** @var \SimpleXMLElement */

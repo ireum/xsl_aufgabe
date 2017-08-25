@@ -1,20 +1,22 @@
 <?php
 
 
-namespace library;
-
-
-class Uri
+namespace library\routing
 {
-    private $parts;
 
-    public function __construct(string $uri)
-    {
-        $this->parts = parse_url($uri);
-    }
 
-    public function getPath(): string
+    class Uri
     {
-        return $this->parts['path'];
+        private $parts;
+
+        public function __construct(string $uri)
+        {
+            $this->parts = parse_url($uri);
+        }
+
+        public function getPath(): string
+        {
+            return $this->parts['path'];
+        }
     }
 }

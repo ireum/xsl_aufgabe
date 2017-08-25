@@ -1,7 +1,7 @@
 <?php
 
 
-namespace library
+namespace library\setup
 {
 
     class Configuration

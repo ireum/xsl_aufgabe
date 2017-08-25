@@ -1,8 +1,11 @@
 <?php
 
 
-namespace library
+namespace library\xmlhandler
 {
+
+    use library\requests\AbstractRequest;
+
     class XmlFormProcessor
     {
         /** @var  \DOMDocument */

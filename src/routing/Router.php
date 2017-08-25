@@ -1,8 +1,11 @@
 <?php
 
 
-namespace library
+namespace library\routing
 {
+
+    use library\requests\AbstractRequest;
+    use library\setup\Factory;
 
     class Router
     {
@@ -16,8 +19,6 @@ namespace library
 
         public function route(AbstractRequest $request)
         {
-            // TODO: Remove echo
-//            echo $request->getUri()->getPath();
             switch($request->getUri()->getPath()){
                 case '/library':
                     return $this->factory->createLibraryProcessor();

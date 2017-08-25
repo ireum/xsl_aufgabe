@@ -3,6 +3,12 @@
 namespace library
 {
 
+    use library\requests\GetRequest;
+    use library\requests\PostRequest;
+    use library\routing\HtmlResponse;
+    use library\setup\Configuration;
+    use library\setup\Factory;
+
     include 'autoload.php';
 
     $configuration = new Configuration(__DIR__ . '/conf.ini');
@@ -24,9 +30,7 @@ namespace library
 
         $processor->execute($response, $request);
 
-        if ($response->hasRedirect()) {
-            $response->getRedirect();
-        }
+        $response->getRedirect();
 
         echo $response->getBody();
     } catch (\InvalidArgumentException $e) {

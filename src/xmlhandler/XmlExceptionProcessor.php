@@ -1,9 +1,11 @@
 <?php
 
 
-namespace library
+namespace library\xmlhandler
 {
 
+
+    use library\requests\AbstractRequest;
 
     class XmlExceptionProcessor
     {
@@ -14,7 +16,7 @@ namespace library
         {
             $this->dom = new \DOMDocument();
             $this->dom->load(__DIR__ . '/../pages/add.xml');
-            $this->dom = $dom;
+//            $this->dom = $dom;
         }
 
         public function resetException()

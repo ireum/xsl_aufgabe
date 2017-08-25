@@ -1,15 +1,19 @@
 <?php
 
-// TODO: add DIR Namespace
-namespace library
+namespace library\processor
 {
 
+
+    use library\book\Book;
+    use library\requests\AbstractRequest;
+    use library\routing\HtmlResponse;
+    use library\xmlhandler\XmlEditor;
+    use library\xmlhandler\XmlExceptionProcessor;
 
     class AddBookProcessor implements Processor
     {
         /** @var XmlEditor */
         private $xmlEditor;
-        /** @var \DOMDocument */
         /** @var XmlExceptionProcessor */
         private $xmlExceptionProcessor;
 

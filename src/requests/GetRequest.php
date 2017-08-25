@@ -1,7 +1,7 @@
 <?php
 
 
-namespace library
+namespace library\requests
 {
 
     class GetRequest extends AbstractRequest
