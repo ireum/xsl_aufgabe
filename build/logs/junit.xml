@@ -1,42 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="tests/" tests="13" assertions="13" errors="0" failures="2" skipped="0" time="0.034707">
-    <testsuite name="library\book\BookTest" file="/data/www/xls_aufgabe/tests/book/BookTest.php" tests="1" assertions="0" errors="0" failures="1" skipped="0" time="0.002100">
-      <testcase name="Warning" assertions="0" time="0.002100">
+  <testsuite name="Aufgabe_OOP1" tests="30" assertions="31" errors="0" failures="3" skipped="0" time="0.107233">
+    <testsuite name="library\book\BookTest" file="/data/www/xls_aufgabe/tests/book/BookTest.php" tests="9" assertions="9" errors="0" failures="0" skipped="0" time="0.027078">
+      <testcase name="testValidateStringThrowsExceptionIfStringIsInvalid" class="library\book\BookTest" classname="library.book.BookTest" file="/data/www/xls_aufgabe/tests/book/BookTest.php" line="41" assertions="1" time="0.005251"/>
+      <testcase name="testValidateDateThrowsInvalidArgumentExceptionIfDateIsInvalid" class="library\book\BookTest" classname="library.book.BookTest" file="/data/www/xls_aufgabe/tests/book/BookTest.php" line="59" assertions="1" time="0.002579"/>
+      <testcase name="testValidatePriceThrowsInvalidArgumentExceptionIfPriceIsInvalid" class="library\book\BookTest" classname="library.book.BookTest" file="/data/www/xls_aufgabe/tests/book/BookTest.php" line="78" assertions="1" time="0.002696"/>
+      <testcase name="testGetAuthorReturnsAuthorInsertedByConstructor" class="library\book\BookTest" classname="library.book.BookTest" file="/data/www/xls_aufgabe/tests/book/BookTest.php" line="97" assertions="1" time="0.002244"/>
+      <testcase name="testGetTitleReturnsTitleInsertedByConstructor" class="library\book\BookTest" classname="library.book.BookTest" file="/data/www/xls_aufgabe/tests/book/BookTest.php" line="102" assertions="1" time="0.002130"/>
+      <testcase name="testGetGenreReturnsGenreInsertedByConstructor" class="library\book\BookTest" classname="library.book.BookTest" file="/data/www/xls_aufgabe/tests/book/BookTest.php" line="107" assertions="1" time="0.002029"/>
+      <testcase name="testGetPriceReturnsPriceInsertedByConstructor" class="library\book\BookTest" classname="library.book.BookTest" file="/data/www/xls_aufgabe/tests/book/BookTest.php" line="112" assertions="1" time="0.001995"/>
+      <testcase name="testGetDateReturnsDateInsertedByConstructor" class="library\book\BookTest" classname="library.book.BookTest" file="/data/www/xls_aufgabe/tests/book/BookTest.php" line="117" assertions="1" time="0.002839"/>
+      <testcase name="testGetDescriptionReturnsDescriptionInsertedByConstructor" class="library\book\BookTest" classname="library.book.BookTest" file="/data/www/xls_aufgabe/tests/book/BookTest.php" line="123" assertions="1" time="0.005315"/>
+    </testsuite>
+    <testsuite name="library\processor\AddBookProcessorTest" file="/data/www/xls_aufgabe/tests/processors/AddBookProcessorTest.php" tests="1" assertions="0" errors="0" failures="1" skipped="0" time="0.005316">
+      <testcase name="Warning" assertions="0" time="0.005316">
         <warning type="PHPUnit\Framework\Warning">Warning
-No tests found in class "library\book\BookTest".
+No tests found in class "library\processor\AddBookProcessorTest".
 
 </warning>
       </testcase>
     </testsuite>
-    <testsuite name="library\requests\PostRequestTest" file="/data/www/xls_aufgabe/tests/request/AbstractRequestTest.php" tests="4" assertions="5" errors="0" failures="0" skipped="0" time="0.005995">
-      <testcase name="testHasReturnsFalseIfKeyIsNotSet" class="library\requests\PostRequestTest" classname="library.requests.PostRequestTest" file="/data/www/xls_aufgabe/tests/request/AbstractRequestTest.php" line="25" assertions="1" time="0.001752"/>
-      <testcase name="testHasReturnstrueIfKeyIsSet" class="library\requests\PostRequestTest" classname="library.requests.PostRequestTest" file="/data/www/xls_aufgabe/tests/request/AbstractRequestTest.php" line="30" assertions="1" time="0.001356"/>
-      <testcase name="testGetReturnsValueOfKeyIfKeyIsSet" class="library\requests\PostRequestTest" classname="library.requests.PostRequestTest" file="/data/www/xls_aufgabe/tests/request/AbstractRequestTest.php" line="35" assertions="1" time="0.001263"/>
-      <testcase name="testGetThrowsRuntimeExceptionIfKeyIsNotSet" class="library\requests\PostRequestTest" classname="library.requests.PostRequestTest" file="/data/www/xls_aufgabe/tests/request/AbstractRequestTest.php" line="40" assertions="2" time="0.001624"/>
+    <testsuite name="library\processor\ErrorPageProcessorTest" file="/data/www/xls_aufgabe/tests/processors/ErrorPageProcessorTest.php" tests="1" assertions="1" errors="0" failures="0" skipped="0" time="0.013978">
+      <testcase name="testExecuteSetsBodyToErrorPage" class="library\processor\ErrorPageProcessorTest" classname="library.processor.ErrorPageProcessorTest" file="/data/www/xls_aufgabe/tests/processors/ErrorPageProcessorTest.php" line="44" assertions="1" time="0.013978"/>
     </testsuite>
-    <testsuite name="library\routing\HtmlResponseTest" file="/data/www/xls_aufgabe/tests/routing/HtmlResponseTest.php" tests="2" assertions="3" errors="0" failures="0" skipped="0" time="0.003242">
-      <testcase name="testSetBodySetsStringInsertedBySetBody" class="library\routing\HtmlResponseTest" classname="library.routing.HtmlResponseTest" file="/data/www/xls_aufgabe/tests/routing/HtmlResponseTest.php" line="21" assertions="1" time="0.001651"/>
-      <testcase name="testGetBodyThrowsExceptionWhenBodyIsNull" class="library\routing\HtmlResponseTest" classname="library.routing.HtmlResponseTest" file="/data/www/xls_aufgabe/tests/routing/HtmlResponseTest.php" line="27" assertions="2" time="0.001591"/>
+    <testsuite name="library\requests\PostRequestTest" file="/data/www/xls_aufgabe/tests/request/AbstractRequestTest.php" tests="4" assertions="4" errors="0" failures="1" skipped="0" time="0.006532">
+      <testcase name="testHasReturnsFalseIfKeyIsNotSet" class="library\requests\PostRequestTest" classname="library.requests.PostRequestTest" file="/data/www/xls_aufgabe/tests/request/AbstractRequestTest.php" line="25" assertions="1" time="0.001250"/>
+      <testcase name="testHasReturnstrueIfKeyIsSet" class="library\requests\PostRequestTest" classname="library.requests.PostRequestTest" file="/data/www/xls_aufgabe/tests/request/AbstractRequestTest.php" line="30" assertions="1" time="0.001235"/>
+      <testcase name="testGetReturnsValueOfKeyIfKeyIsSet" class="library\requests\PostRequestTest" classname="library.requests.PostRequestTest" file="/data/www/xls_aufgabe/tests/request/AbstractRequestTest.php" line="35" assertions="1" time="0.001377"/>
+      <testcase name="testGetThrowsRuntimeExceptionIfKeyIsNotSet" class="library\requests\PostRequestTest" classname="library.requests.PostRequestTest" file="/data/www/xls_aufgabe/tests/request/AbstractRequestTest.php" line="40" assertions="1" time="0.002670">
+        <failure type="PHPUnit\Framework\ExpectationFailedException">library\requests\PostRequestTest::testGetThrowsRuntimeExceptionIfKeyIsNotSet
+Failed asserting that exception of type "InvalidArgumentException" matches expected exception "RuntimeException". Message was: "Key "test" not found" at
+/data/www/xls_aufgabe/src/requests/AbstractRequest.php:27
+/data/www/xls_aufgabe/tests/request/AbstractRequestTest.php:44
+.
+
+</failure>
+      </testcase>
     </testsuite>
-    <testsuite name="library\routing\RouterTest" file="/data/www/xls_aufgabe/tests/routing/RouterTest.php" tests="1" assertions="1" errors="0" failures="0" skipped="0" time="0.017066">
-      <testcase name="testRouteReturnsErrorPageProcessorIfCalledWithInvalidUri" class="library\routing\RouterTest" classname="library.routing.RouterTest" file="/data/www/xls_aufgabe/tests/routing/RouterTest.php" line="82" assertions="1" time="0.017066"/>
+    <testsuite name="library\routing\HtmlResponseTest" file="/data/www/xls_aufgabe/tests/routing/HtmlResponseTest.php" tests="2" assertions="3" errors="0" failures="0" skipped="0" time="0.002961">
+      <testcase name="testSetBodySetsStringInsertedBySetBody" class="library\routing\HtmlResponseTest" classname="library.routing.HtmlResponseTest" file="/data/www/xls_aufgabe/tests/routing/HtmlResponseTest.php" line="21" assertions="1" time="0.001399"/>
+      <testcase name="testGetBodyThrowsExceptionWhenBodyIsNull" class="library\routing\HtmlResponseTest" classname="library.routing.HtmlResponseTest" file="/data/www/xls_aufgabe/tests/routing/HtmlResponseTest.php" line="27" assertions="2" time="0.001562"/>
     </testsuite>
-    <testsuite name="library\routing\UriTest" file="/data/www/xls_aufgabe/tests/routing/UriTest.php" tests="1" assertions="1" errors="0" failures="0" skipped="0" time="0.001331">
-      <testcase name="testGetPathReturnsPathInsertedByConstructor" class="library\routing\UriTest" classname="library.routing.UriTest" file="/data/www/xls_aufgabe/tests/routing/UriTest.php" line="21" assertions="1" time="0.001331"/>
+    <testsuite name="library\routing\RouterTest" file="/data/www/xls_aufgabe/tests/routing/RouterTest.php" tests="1" assertions="1" errors="0" failures="0" skipped="0" time="0.012741">
+      <testcase name="testRouteReturnsErrorPageProcessorIfCalledWithInvalidUri" class="library\routing\RouterTest" classname="library.routing.RouterTest" file="/data/www/xls_aufgabe/tests/routing/RouterTest.php" line="82" assertions="1" time="0.012741"/>
     </testsuite>
-    <testsuite name="library\setup\ConfigurationTest" file="/data/www/xls_aufgabe/tests/setup/ConfigurationTest.php" tests="3" assertions="3" errors="0" failures="0" skipped="0" time="0.004646">
-      <testcase name="testGetXmlPathReturnsPathFromIniFile" class="library\setup\ConfigurationTest" classname="library.setup.ConfigurationTest" file="/data/www/xls_aufgabe/tests/setup/ConfigurationTest.php" line="22" assertions="1" time="0.001674"/>
-      <testcase name="testGetXslPathReturnsPathFromIniFile" class="library\setup\ConfigurationTest" classname="library.setup.ConfigurationTest" file="/data/www/xls_aufgabe/tests/setup/ConfigurationTest.php" line="29" assertions="1" time="0.001541"/>
-      <testcase name="testGetXmlAddBookPathFromIniFile" class="library\setup\ConfigurationTest" classname="library.setup.ConfigurationTest" file="/data/www/xls_aufgabe/tests/setup/ConfigurationTest.php" line="36" assertions="1" time="0.001431"/>
+    <testsuite name="library\routing\UriTest" file="/data/www/xls_aufgabe/tests/routing/UriTest.php" tests="1" assertions="1" errors="0" failures="0" skipped="0" time="0.001382">
+      <testcase name="testGetPathReturnsPathInsertedByConstructor" class="library\routing\UriTest" classname="library.routing.UriTest" file="/data/www/xls_aufgabe/tests/routing/UriTest.php" line="21" assertions="1" time="0.001382"/>
     </testsuite>
-    <testsuite name="library\setup\FactoryTest" file="/data/www/xls_aufgabe/tests/setup/FactoryTest.php" tests="1" assertions="0" errors="0" failures="1" skipped="0" time="0.000328">
-      <testcase name="Warning" assertions="0" time="0.000328">
+    <testsuite name="library\setup\ConfigurationTest" file="/data/www/xls_aufgabe/tests/setup/ConfigurationTest.php" tests="3" assertions="3" errors="0" failures="0" skipped="0" time="0.004572">
+      <testcase name="testGetXmlPathReturnsPathFromIniFile" class="library\setup\ConfigurationTest" classname="library.setup.ConfigurationTest" file="/data/www/xls_aufgabe/tests/setup/ConfigurationTest.php" line="22" assertions="1" time="0.001774"/>
+      <testcase name="testGetXslPathReturnsPathFromIniFile" class="library\setup\ConfigurationTest" classname="library.setup.ConfigurationTest" file="/data/www/xls_aufgabe/tests/setup/ConfigurationTest.php" line="29" assertions="1" time="0.001457"/>
+      <testcase name="testGetXmlAddBookPathFromIniFile" class="library\setup\ConfigurationTest" classname="library.setup.ConfigurationTest" file="/data/www/xls_aufgabe/tests/setup/ConfigurationTest.php" line="36" assertions="1" time="0.001341"/>
+    </testsuite>
+    <testsuite name="library\setup\FactoryTest" file="/data/www/xls_aufgabe/tests/setup/FactoryTest.php" tests="1" assertions="0" errors="0" failures="1" skipped="0" time="0.000279">
+      <testcase name="Warning" assertions="0" time="0.000279">
         <warning type="PHPUnit\Framework\Warning">Warning
 No tests found in class "library\setup\FactoryTest".
 
 </warning>
       </testcase>
+    </testsuite>
+    <testsuite name="library\xmlhandler\XmlFormProcessorTest" file="/data/www/xls_aufgabe/tests/xmlhandler/XmlFormProcessorTest.php" tests="3" assertions="5" errors="0" failures="0" skipped="0" time="0.025866">
+      <testcase name="testProcessFormSetsDefaultValuesIfSubmitNotSet" class="library\xmlhandler\XmlFormProcessorTest" classname="library.xmlhandler.XmlFormProcessorTest" file="/data/www/xls_aufgabe/tests/xmlhandler/XmlFormProcessorTest.php" line="39" assertions="1" time="0.006113"/>
+      <testcase name="testProccesFormSetSearchedValues" class="library\xmlhandler\XmlFormProcessorTest" classname="library.xmlhandler.XmlFormProcessorTest" file="/data/www/xls_aufgabe/tests/xmlhandler/XmlFormProcessorTest.php" line="45" assertions="2" time="0.009050"/>
+      <testcase name="testProcessFormSetSearchedValueWithPriceAsFilter" class="library\xmlhandler\XmlFormProcessorTest" classname="library.xmlhandler.XmlFormProcessorTest" file="/data/www/xls_aufgabe/tests/xmlhandler/XmlFormProcessorTest.php" line="55" assertions="2" time="0.010703"/>
+    </testsuite>
+    <testsuite name="library\xmlhandler\XmlQueryTest" file="/data/www/xls_aufgabe/tests/xmlhandler/XmlQueryTest.php" tests="4" assertions="4" errors="0" failures="0" skipped="0" time="0.006528">
+      <testcase name="testSetSxmlElementThrowsExceptionIfPathIsInvalid" class="library\xmlhandler\XmlQueryTest" classname="library.xmlhandler.XmlQueryTest" file="/data/www/xls_aufgabe/tests/xmlhandler/XmlQueryTest.php" line="19" assertions="1" time="0.001963"/>
+      <testcase name="testGetMinPriceReturnsMinPriceInXml" class="library\xmlhandler\XmlQueryTest" classname="library.xmlhandler.XmlQueryTest" file="/data/www/xls_aufgabe/tests/xmlhandler/XmlQueryTest.php" line="27" assertions="1" time="0.001494"/>
+      <testcase name="testGetMaxPriceReturnsMaxPriceInXml" class="library\xmlhandler\XmlQueryTest" classname="library.xmlhandler.XmlQueryTest" file="/data/www/xls_aufgabe/tests/xmlhandler/XmlQueryTest.php" line="34" assertions="1" time="0.001532"/>
+      <testcase name="testGetNextIdReturnsCorrectNextIdBasedOnXml" class="library\xmlhandler\XmlQueryTest" classname="library.xmlhandler.XmlQueryTest" file="/data/www/xls_aufgabe/tests/xmlhandler/XmlQueryTest.php" line="41" assertions="1" time="0.001539"/>
     </testsuite>
   </testsuite>
 </testsuites>

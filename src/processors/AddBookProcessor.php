@@ -32,7 +32,6 @@ namespace library\processor
                 $response->setRedirect('/library');
 
             } catch (\InvalidArgumentException $e) {
-
                 $this->xmlExceptionProcessor->processFormException($e, $request);
                 $response->setRedirect('/add');
             }
