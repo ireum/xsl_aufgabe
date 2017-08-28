@@ -2,11 +2,12 @@
 
 namespace library\processor
 {
-
+    session_start();
 
     use library\book\Book;
     use library\requests\AbstractRequest;
     use library\routing\HtmlResponse;
+    use library\routing\Session;
     use library\xmlhandler\XmlEditor;
     use library\xmlhandler\XmlExceptionProcessor;
 
@@ -23,6 +24,7 @@ namespace library\processor
             $this->xmlExceptionProcessor = $xmlExceptionProcessor;
         }
 
+        // TODO: Session Implement...
         public function execute(HtmlResponse $response, AbstractRequest $request)
         {
             try {
@@ -32,6 +34,13 @@ namespace library\processor
                 $response->setRedirect('/library');
 
             } catch (\InvalidArgumentException $e) {
+
+                $_SESSION['invalidField'] = $e->getMessage();
+                foreach ($request as $key => $value) {
+                    $_SESSION[$key] = $value;
+                }
+                $ses = new Session($_SESSION);
+
                 $this->xmlExceptionProcessor->processFormException($e, $request);
                 $response->setRedirect('/add');
             }

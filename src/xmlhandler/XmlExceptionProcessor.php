@@ -42,7 +42,6 @@ namespace library\xmlhandler
                 if ($field->nodeName === $e->getMessage()) {
                     $this->dom->getElementsByTagName($field->nodeName)->item(0)->nodeValue = null;
                 } else {
-
                     $this->dom->getElementsByTagName($field->nodeName)->item(0)->nodeValue = $request->get($field->nodeName);
                 }
                 $this->saveDom();

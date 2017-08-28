@@ -18,6 +18,7 @@ spl_autoload_register(
                 'library\\requests\\postrequest' => '/requests/PostRequest.php',
                 'library\\routing\\htmlresponse' => '/routing/HtmlResponse.php',
                 'library\\routing\\router' => '/routing/Router.php',
+                'library\\routing\\session' => '/routing/Session.php',
                 'library\\routing\\uri' => '/routing/Uri.php',
                 'library\\setup\\configuration' => '/setup/Configuration.php',
                 'library\\setup\\factory' => '/setup/Factory.php',

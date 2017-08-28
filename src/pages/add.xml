@@ -3,14 +3,14 @@
 <!--style="border: 2px solid #E73839; background-color: #FFB8B1; color: #E73839;">-->
 <formData>
     <fields>
-        <author ph="Author">asdasd</author>
+        <author ph="Author"></author>
         <title ph="Title">How to cook Indonesian food.</title>
-        <genre ph="Genre"></genre>
-        <price ph="Price">132</price>
+        <genre ph="Genre">weqwe</genre>
+        <price ph="Price">213423</price>
         <releaseDate ph="Release Date (YYYY-MM-DD)">1990-01-01</releaseDate>
         <description ph="Description">2323dsfdsf</description>
     </fields>
     <exception bool="true"/>
-    <exceptionMessage>Invalid Field: genre</exceptionMessage>
-    <invalidField>genre</invalidField>
+    <exceptionMessage>Invalid Field: author</exceptionMessage>
+    <invalidField>author</invalidField>
 </formData>

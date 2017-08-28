@@ -1,9 +1,8 @@
 <?php
 
-
 namespace library\processor
 {
-
+    session_start();
     use library\requests\AbstractRequest;
     use library\routing\HtmlResponse;
 
