@@ -2,7 +2,6 @@
 
 namespace library\processor
 {
-    session_start();
     use library\requests\AbstractRequest;
     use library\routing\HtmlResponse;
 
@@ -19,6 +18,10 @@ namespace library\processor
 
             $dom = new \DOMDocument();
             $dom->load(__DIR__ . '/../pages/add.xml');
+
+
+
+
 
             $response->setBody($xslParser->transformToDoc($dom)->saveXML());
         }

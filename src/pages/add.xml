@@ -4,13 +4,13 @@
 <formData>
     <fields>
         <author ph="Author"></author>
-        <title ph="Title">How to cook Indonesian food.</title>
-        <genre ph="Genre">weqwe</genre>
-        <price ph="Price">213423</price>
-        <releaseDate ph="Release Date (YYYY-MM-DD)">1990-01-01</releaseDate>
-        <description ph="Description">2323dsfdsf</description>
+        <title ph="Title"></title>
+        <genre ph="Genre"></genre>
+        <price ph="Price"></price>
+        <releaseDate ph="Release Date (YYYY-MM-DD)"></releaseDate>
+        <description ph="Description"></description>
     </fields>
-    <exception bool="true"/>
-    <exceptionMessage>Invalid Field: author</exceptionMessage>
-    <invalidField>author</invalidField>
+    <exception bool="false"/>
+    <exceptionMessage></exceptionMessage>
+    <invalidField></invalidField>
 </formData>

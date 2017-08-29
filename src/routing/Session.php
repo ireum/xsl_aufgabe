@@ -8,14 +8,16 @@ namespace library\routing
     {
         /** @var array */
         private $inputVariables;
+        private $errorXml;
 
-        public function __construct()
-        {
-        }
-
-        public function set(array $inputVariables)
+        public function __construct(array $inputVariables)
         {
             $this->inputVariables = $inputVariables;
+        }
+
+        public function set(string $key, $value)
+        {
+            $this->inputVariables[$key] = $value;
         }
 
         public function has(string $key): bool
@@ -30,5 +32,28 @@ namespace library\routing
             }
             return $this->inputVariables[$key];
         }
+
+        public function resetErrorXml()
+        {
+            $this->errorXml = null;
+        }
+
+        public function hasErrorXml()
+        {
+
+        }
+
+        public function generateErrorXml()
+        {
+            $cache = '<?xml version="1.0"?><?xml-stylesheet type="text/xsl" href="add.xsl"?>';
+            $cache .= '<formerrors>';
+            $cache .= '<field>';
+            $cache .= '<invalidField>' . $this->get('invalidField') . '</invalidField>';
+            $cache .= '<value>' . $this->get('invalidField') . '</value>';
+            $cache .= '<invalidField>' . $this->get('invalidField') . '</invalidField>';
+            $cache .= '</field>';
+            $cache .= '</formerrors>';
+        }
+
     }
 }

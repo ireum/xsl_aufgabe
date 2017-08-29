@@ -9,7 +9,7 @@
             <body>
                 <header>
                     <a href="/library">
-                        <h1>XSL Library</h1>
+                        <h1>Library</h1>
                     </a>
                 </header>
                 <div class="add_book_form_container">

@@ -8,6 +8,7 @@ namespace library\setup
     use library\processor\ErrorPageProcessor;
     use library\processor\LibraryProcessor;
     use library\routing\Router;
+    use library\routing\Session;
     use library\xmlhandler\XmlEditor;
     use library\xmlhandler\XmlExceptionProcessor;
     use library\xmlhandler\XmlFormProcessor;

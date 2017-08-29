@@ -2,8 +2,6 @@
 
 namespace library\processor
 {
-    session_start();
-
     use library\book\Book;
     use library\requests\AbstractRequest;
     use library\routing\HtmlResponse;
@@ -35,11 +33,13 @@ namespace library\processor
 
             } catch (\InvalidArgumentException $e) {
 
+                $_SESSION['exception'] = true;
                 $_SESSION['invalidField'] = $e->getMessage();
                 foreach ($request as $key => $value) {
                     $_SESSION[$key] = $value;
                 }
-                $ses = new Session($_SESSION);
+//                $this->session->set($_SESSION);
+//                $ses = new Session($_SESSION);
 
                 $this->xmlExceptionProcessor->processFormException($e, $request);
                 $response->setRedirect('/add');
