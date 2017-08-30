@@ -23,13 +23,15 @@ class XmlErrorGenerator
         $xpath = new \DOMXPath($dom);
         $fields = $xpath->query('/formData/fields/*');
         foreach ($fields as $field) {
+            /** @var $field \DOMElement */
             if (array_key_exists($field->nodeName, $errorFields)) {
-                $dom->getElementsByTagName($field->nodeName)->item(0)->setAttribute('invalidField', 'true');
-                $dom->getElementsByTagName($field->nodeName)->item(0)->nodeValue = $errorFields[$field->nodeName];
+                $field->setAttribute('invalidField', 'true');
+                $field->nodeValue = $errorFields[$field->nodeName];
             } else {
-                $dom->getElementsByTagName($field->nodeName)->item(0)->nodeValue = $inputVariables[$field->nodeName];
+                $field->nodeValue = $inputVariables[$field->nodeName];
             }
         }
+
         return $dom;
 
     }

@@ -27,12 +27,26 @@ namespace library\book
         {
             $this->isValid($request);
 
+            if ($this->hasErrorFields()) {
+                throw new InvalidBookException('Invalid Values', $this->getErrorFields());
+            }
+
             $this->author = $request->get('author');
             $this->title = $request->get('title');
             $this->genre = $request->get('genre');
             $this->price = $request->get('price');
             $this->releaseDate = $this->setReleaseDate($request->get('releaseDate'));
             $this->description = $request->get('description');
+        }
+
+        private function hasErrorFields(): bool
+        {
+            return !is_null($this->errorFields);
+        }
+
+        private function getErrorFields(): array
+        {
+            return $this->errorFields;
         }
 
         private function isValid(AbstractRequest $request)
@@ -112,18 +126,5 @@ namespace library\book
             return $this->description;
         }
 
-        public function hasErrorFields(): bool
-        {
-            if (!is_null($this->errorFields)) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-
-        public function getErrorFields(): array
-        {
-            return $this->errorFields;
-        }
     }
 }

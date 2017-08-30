@@ -4,6 +4,7 @@ namespace library\processor
 {
 
     use library\book\Book;
+    use library\book\InvalidBookException;
     use library\requests\AbstractRequest;
     use library\routing\HtmlResponse;
     use library\routing\Session;
@@ -28,14 +29,13 @@ namespace library\processor
 
         public function execute(HtmlResponse $response, AbstractRequest $request, Session $session)
         {
-            $book = new Book($request);
-
-            if (!$book->hasErrorFields()) {
+            try {
+                $book = new Book($request);
                 $this->xmlEditor->addBook($book);
                 $session->resetErrorXml();
                 $response->setRedirect('/library');
-            } else {
-                $dom = $this->xmlErrorGenerator->generateXml($book->getErrorFields(), $request->getInputVariables());
+            } catch (InvalidBookException $e) {
+                $dom = $this->xmlErrorGenerator->generateXml($e->getErrorFields(), $request->getInputVariables());
                 $session->setErrorXml($dom);
                 $response->setRedirect('/add');
             }

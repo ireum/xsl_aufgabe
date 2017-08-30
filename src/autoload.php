@@ -8,6 +8,7 @@ spl_autoload_register(
         if ($classes === null) {
             $classes = array(
                 'library\\book\\book' => '/book/Book.php',
+                'library\\book\\invalidbookexception' => '/book/InvalidBookException.php',
                 'library\\processor\\addbookprocessor' => '/processors/AddBookProcessor.php',
                 'library\\processor\\displaybookformprocessor' => '/processors/DisplayBookFormProcessor.php',
                 'library\\processor\\errorpageprocessor' => '/processors/ErrorPageProcessor.php',
