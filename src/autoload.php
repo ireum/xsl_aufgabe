@@ -24,7 +24,6 @@ spl_autoload_register(
                 'library\\setup\\factory' => '/setup/Factory.php',
                 'library\\xmlhandler\\xmleditor' => '/xmlhandler/XmlEditor.php',
                 'library\\xmlhandler\\xmlerrorgenerator' => '/xmlhandler/XmlErrorGenerator.php',
-                'library\\xmlhandler\\xmlexceptionprocessor' => '/xmlhandler/XmlExceptionProcessor.php',
                 'library\\xmlhandler\\xmlformprocessor' => '/xmlhandler/XmlFormProcessor.php',
                 'library\\xmlhandler\\xmlquery' => '/xmlhandler/XmlQuery.php'
             );

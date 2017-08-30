@@ -7,14 +7,18 @@ namespace library\xmlhandler;
 class XmlErrorGenerator
 {
 
-    public function __construct()
+    /** @var string */
+    private $path;
+
+    public function __construct(string $path)
     {
+        $this->path = $path;
     }
 
     public function generateXml(array $errorFields, array $inputVariables)
     {
         $dom = new \DOMDocument();
-        $dom->load(__DIR__ . '/../pages/add.xml');
+        $dom->load($this->path);
 
         $xpath = new \DOMXPath($dom);
         $fields = $xpath->query('/formData/fields/*');

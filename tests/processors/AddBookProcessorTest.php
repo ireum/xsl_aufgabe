@@ -5,6 +5,7 @@ namespace library\processor;
 use library\requests\AbstractRequest;
 use library\routing\HtmlResponse;
 use library\xmlhandler\XmlEditor;
+use library\xmlhandler\XmlErrorGenerator;
 use library\xmlhandler\XmlExceptionProcessor;
 use PHPUnit\Framework\TestCase;
 
@@ -22,8 +23,8 @@ class AddBookProcessorTest extends TestCase
     /** @var \PHPUnit_Framework_MockObject_MockObject|XmlEditor */
     private $xmlEditor;
 
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\library\xmlhandler\XmlExceptionProcessor */
-    private $xmlExceptionProcessor;
+    /** @var \PHPUnit_Framework_MockObject_MockObject|XmlErrorGenerator */
+    private $xmlErrorGenerator;
 
     /** @var \PHPUnit_Framework_MockObject_MockObject|HtmlResponse */
     private $htmlResponse;
@@ -31,15 +32,17 @@ class AddBookProcessorTest extends TestCase
     /** @var \PHPUnit_Framework_MockObject_MockObject|AbstractRequest */
     private $request;
 
+
     public function setUp()
     {
         $this->xmlEditor = $this->getMockBuilder(XmlEditor::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->xmlExceptionProcessor = $this->getMockBuilder(XmlExceptionProcessor::class)
+        $this->xmlErrorGenerator = $this->getMockBuilder(XmlErrorGenerator::class)
             ->disableOriginalConstructor()
             ->getMock();
+
 
         $this->htmlResponse = $this->getMockBuilder(HtmlResponse::class)
             ->disableOriginalConstructor()
@@ -50,7 +53,7 @@ class AddBookProcessorTest extends TestCase
             ->getMock();
 
 
-        $this->addBookProcessor = new AddBookProcessor($this->xmlEditor, $this->xmlExceptionProcessor);
+        $this->addBookProcessor = new AddBookProcessor($this->xmlEditor, $this->xmlErrorGenerator);
     }
 
     // TODO: How to test header

@@ -42,19 +42,14 @@ namespace library\setup
 
         }
 
-        public function createXmlExceptionProcessor(): XmlExceptionProcessor
-        {
-            return new XmlExceptionProcessor();
-        }
-
         public function createAddBookProcessor(): AddBookProcessor
         {
-            return new AddBookProcessor($this->createXmlEditor(), $this->createXmlExceptionProcessor(), $this->createXmlErrorGenerator());
+            return new AddBookProcessor($this->createXmlEditor(), $this->createXmlErrorGenerator());
         }
 
         public function createDisplayBookProcessor(): DisplayBookFormProcessor
         {
-            return new DisplayBookFormProcessor();
+            return new DisplayBookFormProcessor($this->configuration->getXmlAddBookPath(), $this->configuration->getXslAddBookPath());
         }
 
         public function createLibraryProcessor(): LibraryProcessor
@@ -79,7 +74,7 @@ namespace library\setup
 
         public function createXmlErrorGenerator(): XmlErrorGenerator
         {
-            return new XmlErrorGenerator();
+            return new XmlErrorGenerator($this->configuration->getXmlAddBookPath());
         }
 
     }

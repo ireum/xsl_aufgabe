@@ -9,8 +9,16 @@ namespace library\processor
 
     class DisplayBookFormProcessor implements Processor
     {
-        public function __construct()
+
+        /** @var string */
+        private $xmlPath;
+        /** @var string */
+        private $xslPath;
+
+        public function __construct(string $xmlPath, string $xslPath)
         {
+            $this->xmlPath = $xmlPath;
+            $this->xslPath = $xslPath;
         }
 
         public function execute(
@@ -20,7 +28,7 @@ namespace library\processor
         )
         {
             $xslParser = new \XSLTProcessor();
-            $xslParser->importStylesheet(simplexml_load_file(__DIR__ . '/../pages/add.xsl'));
+            $xslParser->importStylesheet(simplexml_load_file($this->xslPath));
 
             $dom = new \DOMDocument();
             if ($session->hasError()) {
@@ -28,7 +36,7 @@ namespace library\processor
                 $session->resetErrorXml();
 
             } else {
-                $dom->load(__DIR__ . '/../pages/add.xml');
+                $dom->load($this->xmlPath);
             }
             $response->setBody($xslParser->transformToDoc($dom)->saveXML());
             $session->resetErrorXml();

@@ -20,7 +20,7 @@ namespace library\processor
             Session $session
         )
         {
-            $response->setBody('<html><h1>Error: 404</h1></html>');
+            $response->setBody('<html><head><link rel="stylesheet" href="/css/lib.css"/></head><h1>Error: 404</h1></html>');
         }
     }
 }

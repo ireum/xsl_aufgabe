@@ -34,63 +34,7 @@ namespace library\book
                 'description' => 'Test Description'
             ];
 
-            $this->request = new PostRequest($arr);
-            $this->book = new Book($this->request);
-        }
-
-        public function testValidateStringThrowsExceptionIfStringIsInvalid()
-        {
-            $this->expectException(\InvalidArgumentException::class);
-
-            $arr = [
-                'submit' => 'Submit',
-                'author' => '',
-                'title' => 'Test Title',
-                'genre' => 'Test Genre',
-                'price' => 1.35,
-                'releaseDate' => '1970-01-01',
-                'description' => 'Test Description'
-            ];
-
-            $this->request = new PostRequest($arr);
-            $this->book = new Book($this->request);
-        }
-
-        public function testValidateDateThrowsInvalidArgumentExceptionIfDateIsInvalid()
-        {
-            $this->expectException(\InvalidArgumentException::class);
-
-            $arr = [
-                'submit' => 'Submit',
-                'author' => 'Test Author',
-                'title' => 'Test Title',
-                'genre' => 'Test Genre',
-                'price' => 1.35,
-                'releaseDate' => 'as70-01-01',
-                'description' => 'Test Description'
-            ];
-
-            $this->request = new PostRequest($arr);
-            $this->book = new Book($this->request);
-
-        }
-
-        public function testValidatePriceThrowsInvalidArgumentExceptionIfPriceIsInvalid()
-        {
-            $this->expectException(\InvalidArgumentException::class);
-
-            $arr = [
-                'submit' => 'Submit',
-                'author' => 'Test Author',
-                'title' => 'Test Title',
-                'genre' => 'Test Genre',
-                'price' => -1.35,
-                'releaseDate' => 'as70-01-01',
-                'description' => 'Test Description'
-            ];
-
-            $this->request = new PostRequest($arr);
-
+            $this->request = new PostRequest($arr, $_SERVER);
             $this->book = new Book($this->request);
         }
 
@@ -123,6 +67,67 @@ namespace library\book
         public function testGetDescriptionReturnsDescriptionInsertedByConstructor()
         {
             $this->assertEquals('Test Description', $this->book->getDescription());
+        }
+
+        public function testHasErrorFieldsReturnsFalseIfNoErrorFieldsAreSet()
+        {
+            $this->assertFalse($this->book->hasErrorFields());
+        }
+
+        public function testHasErrorFieldsReturnstrueIfErrorFieldsAreSet()
+        {
+            $arr = [
+                'submit' => 'Submit',
+                'author' => 'Test Author',
+                'title' => 'Test Title',
+                'genre' => 'Test Genre',
+                'price' => -1.35,
+                'releaseDate' => '1970-01-01',
+                'description' => 'Test Description'
+            ];
+
+            $this->request = new PostRequest($arr, $_SERVER);
+            $this->book = new Book($this->request);
+            $this->assertTrue($this->book->hasErrorFields());
+
+        }
+
+        public function testGetErrorFieldsReturnsArraySetByValidationMethods()
+        {
+            $arr = [
+                'submit' => 'Submit',
+                'author' => '',
+                'title' => 'Test Title',
+                'genre' => 'Test Genre',
+                'price' => -1.35,
+                'releaseDate' => '31970-01-01',
+                'description' => 'Test Description'
+            ];
+
+            $this->request = new PostRequest($arr, $_SERVER);
+            $this->book = new Book($this->request);
+
+            $expected = ['author' => '' , 'price' => -1.35, 'releaseDate' => '31970-01-01'];
+            $this->assertEquals($expected, $this->book->getErrorFields());
+        }
+
+        public function testValidateStringSetsErrorFieldValueAsSpaceIfKeyIsNotSet()
+        {
+            $arr = [
+            'submit' => 'Submit',
+            'title' => 'Test Title',
+            'genre' => 'Test Genre',
+            'price' => 1.35,
+            'releaseDate' => '1970-01-01',
+            'description' => 'Test Description'
+        ];
+
+            $this->request = new PostRequest($arr, $_SERVER);
+            $this->book = new Book($this->request);
+
+            $expected = ['author' => ' '];
+            $this->assertEquals($expected, $this->book->getErrorFields());
+
         }
     }
 }
