@@ -1,16 +1,12 @@
 <?xml version="1.0"?>
 <?xml-stylesheet type="text/xsl" href="add.xsl"?>
-<!--style="border: 2px solid #E73839; background-color: #FFB8B1; color: #E73839;">-->
 <formData>
     <fields>
-        <author ph="Author"></author>
-        <title ph="Title"></title>
-        <genre ph="Genre"></genre>
-        <price ph="Price"></price>
-        <releaseDate ph="Release Date (YYYY-MM-DD)"></releaseDate>
-        <description ph="Description"></description>
+        <author ph="Author"/>
+        <title ph="Title"/>
+        <genre ph="Genre"/>
+        <price ph="Price"/>
+        <releaseDate ph="Release Date (YYYY-MM-DD)"/>
+        <description ph="Description"/>
     </fields>
-    <exception bool="false"/>
-    <exceptionMessage></exceptionMessage>
-    <invalidField></invalidField>
 </formData>

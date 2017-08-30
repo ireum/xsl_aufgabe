@@ -6,6 +6,7 @@ namespace library\processor
 
     use library\requests\AbstractRequest;
     use library\routing\HtmlResponse;
+    use library\routing\Session;
     use library\xmlhandler\XmlFormProcessor;
 
     class LibraryProcessor implements Processor
@@ -23,7 +24,11 @@ namespace library\processor
 
         }
 
-        public function execute(HtmlResponse $response, AbstractRequest $request)
+        public function execute(
+            HtmlResponse $response,
+            AbstractRequest $request,
+            Session $session
+        )
         {
             $sfp = $this->xmlFormProcessor;
 

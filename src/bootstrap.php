@@ -30,7 +30,7 @@ namespace library
         $router = $factory->createRouter();
         $processor = $router->route($request);
 
-        $processor->execute($response, $request);
+        $processor->execute($response, $request, $session);
 
         $response->getRedirect();
 

@@ -20,6 +20,8 @@ namespace library\book
         private $releaseDate;
         /** @var string */
         private $description;
+        /** @var array */
+        private $errorFields;
 
         public function __construct(AbstractRequest $request)
         {
@@ -52,58 +54,94 @@ namespace library\book
         {
             if (!$request->has($key) || $request->get($key) === '') {
                 $this->isValid = false;
-                throw new \InvalidArgumentException($key);
+
+                if (!$request->has($key)) {
+                    $this->errorFields[$key] = " ";
+                } else {
+                    $this->errorFields[$key] = $request->get($key);
+                }
             }
         }
 
-        private function validateDate(string $date)
+
+        private
+        function validateDate(string $date)
         {
             $vDate = \DateTime::createFromFormat('Y-m-d', $date);
             if (!($vDate && $vDate->format('Y-m-d') === $date)) {
                 $this->isValid = false;
-                throw new \InvalidArgumentException('releaseDate');
+
+
+                $this->errorFields['releaseDate'] = $date;
+//                throw new \InvalidArgumentException('releaseDate');
 //                throw new \InvalidArgumentException(sprintf('Invalid date: %s', $date));
             }
         }
 
-        private function validatePrice(AbstractRequest $request)
+        private
+        function validatePrice(AbstractRequest $request)
         {
             if (!is_numeric($request->get('price')) ||
                 $request->get('price') <= 0) {
                 $this->isValid = false;
-                throw new \InvalidArgumentException('price');
+
+                $this->errorFields['price'] = $request->get('price');
+
+//                throw new \InvalidArgumentException('price');
 //                throw new \InvalidArgumentException(sprintf('Invalid number: %01.2f', $request->get('price')), 4);
             }
         }
 
-        public function getAuthor(): string
+        public
+        function getAuthor(): string
         {
             return $this->author;
         }
 
-        public function getTitle(): string
+        public
+        function getTitle(): string
         {
             return $this->title;
         }
 
-        public function getGenre(): string
+        public
+        function getGenre(): string
         {
             return $this->genre;
         }
 
-        public function getPrice(): float
+        public
+        function getPrice(): float
         {
             return $this->price;
         }
 
-        public function getReleaseDate(): \DateTime
+        public
+        function getReleaseDate(): \DateTime
         {
             return $this->releaseDate;
         }
 
-        public function getDescription(): string
+        public
+        function getDescription(): string
         {
             return $this->description;
+        }
+
+        public
+        function hasErrorFields(): bool
+        {
+            if (!is_null($this->errorFields)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        public
+        function getErrorFields(): array
+        {
+            return $this->errorFields;
         }
     }
 }

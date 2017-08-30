@@ -4,6 +4,9 @@
 namespace library\routing
 {
 
+    use library\book\Book;
+    use library\requests\AbstractRequest;
+
     class Session
     {
         /** @var array */
@@ -14,6 +17,7 @@ namespace library\routing
         {
             $this->inputVariables = $inputVariables;
         }
+
 
         public function set(string $key, $value)
         {
@@ -36,23 +40,36 @@ namespace library\routing
         public function resetErrorXml()
         {
             $this->errorXml = null;
+            $this->inputVariables = null;
         }
 
-        public function hasErrorXml()
+        public function hasError()
         {
+            if (isset($this->inputVariables['errorFields'])) {
+                return true;
+            } else {
 
+                return false;
+            }
         }
 
         public function generateErrorXml()
         {
-            $cache = '<?xml version="1.0"?><?xml-stylesheet type="text/xsl" href="add.xsl"?>';
-            $cache .= '<formerrors>';
-            $cache .= '<field>';
-            $cache .= '<invalidField>' . $this->get('invalidField') . '</invalidField>';
-            $cache .= '<value>' . $this->get('invalidField') . '</value>';
-            $cache .= '<invalidField>' . $this->get('invalidField') . '</invalidField>';
-            $cache .= '</field>';
-            $cache .= '</formerrors>';
+            $this->hasErrorXml = true;
+            $dom = new \DOMDocument();
+            $dom->load(__DIR__ . '/../pages/add.xml');
+
+            $xpath = new \DOMXPath($dom);
+            $fields = $xpath->query('/formData/fields/*');
+            foreach ($fields as $field) {
+                if (array_key_exists($field->nodeName, $this->inputVariables['errorFields'])) {
+                    $dom->getElementsByTagName($field->nodeName)->item(0)->setAttribute('invalidField', 'true');
+                    $dom->getElementsByTagName($field->nodeName)->item(0)->nodeValue = $this->inputVariables['errorFields'][$field->nodeName];
+                } else {
+                    $dom->getElementsByTagName($field->nodeName)->item(0)->nodeValue = $this->inputVariables['request'][$field->nodeName];
+                }
+            }
+            return $dom;
         }
 
     }
