@@ -10,10 +10,13 @@ namespace library\requests
     {
         /** @var array */
         private $inputVariables;
+        /** @var array */
+        private $server;
 
-        public function __construct(array $inputVariables)
+        public function __construct(array $inputVariables, array $server)
         {
             $this->inputVariables = $inputVariables;
+            $this->server = $server;
         }
 
         public function has(string $key): bool
@@ -25,20 +28,18 @@ namespace library\requests
         {
             if (!$this->has($key)) {
                 return "";
-//                throw new \InvalidArgumentException(sprintf('Key "%s" not found', $key));
             }
             return $this->inputVariables[$key];
         }
 
-        public function getUri(): Uri
+        public function getInputVariables()
         {
-            return new Uri($_SERVER['REQUEST_URI']);
+            return $this->inputVariables;
         }
 
-        // TODO: Remove Method
-//        public function getPath(): string
-//        {
-//            return $_SERVER['REQUEST_URI'];
-//        }
+        public function getUri(): Uri
+        {
+            return new Uri($this->server['REQUEST_URI']);
+        }
     }
 }

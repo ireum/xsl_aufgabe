@@ -16,7 +16,6 @@ namespace library\xmlhandler
         {
             $this->dom = new \DOMDocument();
             $this->dom->load(__DIR__ . '/../pages/add.xml');
-//            $this->dom = $dom;
         }
 
         public function resetException()

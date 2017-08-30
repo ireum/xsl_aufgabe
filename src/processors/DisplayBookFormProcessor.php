@@ -24,9 +24,8 @@ namespace library\processor
 
             $dom = new \DOMDocument();
             if ($session->hasError()) {
-                $dom = $session->generateErrorXml();
+              $dom = $session->getErrorXml();
                 $session->resetErrorXml();
-                session_destroy();
 
             } else {
                 $dom->load(__DIR__ . '/../pages/add.xml');

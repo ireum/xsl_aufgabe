@@ -147,4 +147,4 @@
         <publish_date>2017-08-01</publish_date>
         <description>Basics of Fl Studio</description>
     </book>
-</catalog>
+<book id="bk115"><author>Gede Sudarta</author><title>How to cook Indonesian food.</title><genre>Cooking</genre><price>299</price><publish_date>1990-01-01</publish_date><description>Desc</description></book><book id="bk116"><author>author</author><title>title</title><genre>genre</genre><price>45</price><publish_date>1990-01-01</publish_date><description>description</description></book><book id="bk117"><author>author</author><title>title</title><genre>genre</genre><price>1</price><publish_date>1990-01-01</publish_date><description>description</description></book></catalog>

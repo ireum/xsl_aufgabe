@@ -8,6 +8,7 @@ namespace library\processor
     use library\routing\HtmlResponse;
     use library\routing\Session;
     use library\xmlhandler\XmlEditor;
+    use library\xmlhandler\XmlErrorGenerator;
     use library\xmlhandler\XmlExceptionProcessor;
 
     class AddBookProcessor implements Processor
@@ -16,11 +17,18 @@ namespace library\processor
         private $xmlEditor;
         /** @var XmlExceptionProcessor */
         private $xmlExceptionProcessor;
+        /** @var XmlErrorGenerator */
+        private $xmlErrorGenerator;
 
-        public function __construct(XmlEditor $xmlEditor, XmlExceptionProcessor $xmlExceptionProcessor)
+        public function __construct(
+            XmlEditor $xmlEditor,
+            XmlExceptionProcessor $xmlExceptionProcessor,
+            XmlErrorGenerator $xmlErrorGenerator
+        )
         {
             $this->xmlEditor = $xmlEditor;
             $this->xmlExceptionProcessor = $xmlExceptionProcessor;
+            $this->xmlErrorGenerator = $xmlErrorGenerator;
         }
 
         public function execute(HtmlResponse $response, AbstractRequest $request, Session $session)
@@ -28,13 +36,13 @@ namespace library\processor
             $book = new Book($request);
 
             if (!$book->hasErrorFields()) {
-                echo 'IF';
                 $this->xmlEditor->addBook($book);
                 $session->resetErrorXml();
                 $response->setRedirect('/library');
             } else {
-                $_SESSION['errorFields'] = $book->getErrorFields();
-                $_SESSION['request'] = $_POST;
+
+                $dom = $this->xmlErrorGenerator->generateXml($book->getErrorFields(), $request->getInputVariables());
+                $session->setErrorXml($dom);
                 $response->setRedirect('/add');
             }
         }

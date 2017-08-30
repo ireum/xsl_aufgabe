@@ -14,12 +14,14 @@ namespace library
 
     $configuration = new Configuration(__DIR__ . '/conf.ini');
     $session = new Session($_SESSION);
+    $_SESSION = $session->getSessionValues();
+
     $factory = new Factory($configuration);
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $request = new PostRequest($_POST);
+        $request = new PostRequest($_POST, $_SERVER);
     } elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
-        $request = new GetRequest($_GET);
+        $request = new GetRequest($_GET, $_SERVER);
     } else {
         throw new \RuntimeException('Unexpected Request Method');
     }
@@ -34,7 +36,9 @@ namespace library
 
         $response->getRedirect();
 
+        $_SESSION = $session->getSessionValues();
         echo $response->getBody();
+
     } catch (\InvalidArgumentException $e) {
         echo $e->getMessage();
     } catch (\Exception $e) {

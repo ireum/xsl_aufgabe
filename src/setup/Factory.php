@@ -10,6 +10,7 @@ namespace library\setup
     use library\routing\Router;
     use library\routing\Session;
     use library\xmlhandler\XmlEditor;
+    use library\xmlhandler\XmlErrorGenerator;
     use library\xmlhandler\XmlExceptionProcessor;
     use library\xmlhandler\XmlFormProcessor;
     use library\xmlhandler\XmlQuery;
@@ -48,7 +49,7 @@ namespace library\setup
 
         public function createAddBookProcessor(): AddBookProcessor
         {
-            return new AddBookProcessor($this->createXmlEditor(), $this->createXmlExceptionProcessor());
+            return new AddBookProcessor($this->createXmlEditor(), $this->createXmlExceptionProcessor(), $this->createXmlErrorGenerator());
         }
 
         public function createDisplayBookProcessor(): DisplayBookFormProcessor
@@ -74,6 +75,11 @@ namespace library\setup
         public function createRouter()
         {
             return new Router($this);
+        }
+
+        public function createXmlErrorGenerator(): XmlErrorGenerator
+        {
+            return new XmlErrorGenerator();
         }
 
     }

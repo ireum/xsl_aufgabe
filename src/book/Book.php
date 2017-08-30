@@ -35,11 +35,6 @@ namespace library\book
             $this->description = $request->get('description');
         }
 
-        private function setReleaseDate(string $releaseDate)
-        {
-            return \DateTime::createFromFormat('Y-m-d', $releaseDate);
-        }
-
         private function isValid(AbstractRequest $request)
         {
             $this->validateStringFields('author', $request);
@@ -63,73 +58,61 @@ namespace library\book
             }
         }
 
+        private function validatePrice(AbstractRequest $request)
+        {
+            if (!is_numeric($request->get('price')) || $request->get('price') <= 0) {
+                $this->isValid = false;
 
-        private
-        function validateDate(string $date)
+                $this->errorFields['price'] = $request->get('price');
+            }
+        }
+
+        private function validateDate(string $date)
         {
             $vDate = \DateTime::createFromFormat('Y-m-d', $date);
             if (!($vDate && $vDate->format('Y-m-d') === $date)) {
                 $this->isValid = false;
 
-
                 $this->errorFields['releaseDate'] = $date;
-//                throw new \InvalidArgumentException('releaseDate');
-//                throw new \InvalidArgumentException(sprintf('Invalid date: %s', $date));
             }
         }
 
-        private
-        function validatePrice(AbstractRequest $request)
+        private function setReleaseDate(string $releaseDate)
         {
-            if (!is_numeric($request->get('price')) ||
-                $request->get('price') <= 0) {
-                $this->isValid = false;
-
-                $this->errorFields['price'] = $request->get('price');
-
-//                throw new \InvalidArgumentException('price');
-//                throw new \InvalidArgumentException(sprintf('Invalid number: %01.2f', $request->get('price')), 4);
-            }
+            return \DateTime::createFromFormat('Y-m-d', $releaseDate);
         }
 
-        public
-        function getAuthor(): string
+        public function getAuthor(): string
         {
             return $this->author;
         }
 
-        public
-        function getTitle(): string
+        public function getTitle(): string
         {
             return $this->title;
         }
 
-        public
-        function getGenre(): string
+        public function getGenre(): string
         {
             return $this->genre;
         }
 
-        public
-        function getPrice(): float
+        public function getPrice(): float
         {
             return $this->price;
         }
 
-        public
-        function getReleaseDate(): \DateTime
+        public function getReleaseDate(): \DateTime
         {
             return $this->releaseDate;
         }
 
-        public
-        function getDescription(): string
+        public function getDescription(): string
         {
             return $this->description;
         }
 
-        public
-        function hasErrorFields(): bool
+        public function hasErrorFields(): bool
         {
             if (!is_null($this->errorFields)) {
                 return true;
@@ -138,8 +121,7 @@ namespace library\book
             }
         }
 
-        public
-        function getErrorFields(): array
+        public function getErrorFields(): array
         {
             return $this->errorFields;
         }
