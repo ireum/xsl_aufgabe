@@ -1,23 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="tests/processors/" tests="2" assertions="0" errors="1" failures="1" skipped="0" time="0.010360">
-    <testsuite name="library\processor\AddBookProcessorTest" file="/data/www/xls_aufgabe/tests/processors/AddBookProcessorTest.php" tests="1" assertions="0" errors="0" failures="1" skipped="0" time="0.002132">
-      <testcase name="Warning" assertions="0" time="0.002132">
-        <warning type="PHPUnit\Framework\Warning">Warning
-No tests found in class "library\processor\AddBookProcessorTest".
-
-</warning>
-      </testcase>
-    </testsuite>
-    <testsuite name="library\processor\ErrorPageProcessorTest" file="/data/www/xls_aufgabe/tests/processors/ErrorPageProcessorTest.php" tests="1" assertions="0" errors="1" failures="0" skipped="0" time="0.008228">
-      <testcase name="testExecuteSetsBodyToErrorPage" class="library\processor\ErrorPageProcessorTest" classname="library.processor.ErrorPageProcessorTest" file="/data/www/xls_aufgabe/tests/processors/ErrorPageProcessorTest.php" line="44" assertions="0" time="0.008228">
-        <error type="TypeError">library\processor\ErrorPageProcessorTest::testExecuteSetsBodyToErrorPage
-TypeError: Argument 3 passed to library\processor\ErrorPageProcessor::execute() must be an instance of library\routing\Session, none given, called in /data/www/xls_aufgabe/tests/processors/ErrorPageProcessorTest.php on line 50
-
-/data/www/xls_aufgabe/src/processors/ErrorPageProcessor.php:17
-/data/www/xls_aufgabe/tests/processors/ErrorPageProcessorTest.php:50
-</error>
-      </testcase>
+  <testsuite name="tests/unit/Session/" tests="5" assertions="6" errors="0" failures="0" skipped="0" time="0.008037">
+    <testsuite name="library\session\SessionTest" file="/data/www/xls_aufgabe/tests/unit/Session/SessionTest.php" tests="5" assertions="6" errors="0" failures="0" skipped="0" time="0.008037">
+      <testcase name="testSetSetsValueInInputvariables" class="library\session\SessionTest" classname="library.session.SessionTest" file="/data/www/xls_aufgabe/tests/unit/Session/SessionTest.php" line="24" assertions="1" time="0.001897"/>
+      <testcase name="testGetReturnsStringInsertedByConstructor" class="library\session\SessionTest" classname="library.session.SessionTest" file="/data/www/xls_aufgabe/tests/unit/Session/SessionTest.php" line="31" assertions="1" time="0.001676"/>
+      <testcase name="testGetThrowsInvalidArgumentExceptionIfKeyIsNotSet" class="library\session\SessionTest" classname="library.session.SessionTest" file="/data/www/xls_aufgabe/tests/unit/Session/SessionTest.php" line="37" assertions="2" time="0.001708"/>
+      <testcase name="testHasErrorReturnsTrueIfSet" class="library\session\SessionTest" classname="library.session.SessionTest" file="/data/www/xls_aufgabe/tests/unit/Session/SessionTest.php" line="44" assertions="1" time="0.001336"/>
+      <testcase name="testGetErrorXmlReturnsXmlInsertedByConstructor" class="library\session\SessionTest" classname="library.session.SessionTest" file="/data/www/xls_aufgabe/tests/unit/Session/SessionTest.php" line="49" assertions="1" time="0.001420"/>
     </testsuite>
   </testsuite>
 </testsuites>

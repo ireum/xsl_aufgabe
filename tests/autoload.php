@@ -7,7 +7,8 @@ spl_autoload_register(
         static $classes = null;
         if ($classes === null) {
             $classes = array(
-                'library\\book\\booktest' => '/book/BookTest.php',
+                'library\\book\\booktest' => '/ValueObjects/BookTest.php',
+                'library\\exceptions\\invalidbookexceptiontest' => '/Exceptions/InvalidBookExceptionTest.php',
                 'library\\factories\\configurationtest' => '/setup/ConfigurationTest.php',
                 'library\\factories\\factorytest' => '/setup/FactoryTest.php',
                 'library\\handler\\xmlformprocessortest' => '/xmlhandler/XmlFormProcessorTest.php',

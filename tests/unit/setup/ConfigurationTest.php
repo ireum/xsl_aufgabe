@@ -21,7 +21,7 @@ class ConfigurationTest extends TestCase
 
     public function testGetXmlPathReturnsPathFromIniFile()
     {
-        $expected = '/data/www/xls_aufgabe/src/setup/../book/xmlFile.xml';
+        $expected = '/data/www/xls_aufgabe/src/setup/../ValueObjects/xmlFile.xml';
         $actual = $this->config->getXmlPath();
         $this->assertEquals($expected, $actual);
     }

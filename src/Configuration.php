@@ -23,7 +23,7 @@ namespace library
 
         private function isValidIniFile(string $path): bool
         {
-            if (parse_ini_file($path, true, INI_SCANNER_TYPED) === false) {
+            if (parse_ini_file($path, true, INI_SCANNER_TYPED) == false) {
                 throw new \InvalidArgumentException('invalid ini file: ' . $path);
             }
             return true;

@@ -25,12 +25,12 @@
         <html>
             <head>
                 <title>Library</title>
-                <link rel="stylesheet" href="/web/css/lib.css"/>
+                <link rel="stylesheet" href="/css/lib.css"/>
             </head>
             <body>
                 <header>
                     <a href="/library">
-                        <img class="library_logo" src="web/img/library_logo.png" alt="Library Logo"/>
+                        <img class="library_logo" src="/img/library_logo.png" alt="Library Logo"/>
                         <h1 class="library_title">Library</h1>
                     </a>
                     <a class="add_book" href="/add">Add Book</a>

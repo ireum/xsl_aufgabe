@@ -51,7 +51,7 @@ namespace library\handler
 
         private function getNextId(): string
         {
-            $lastId = $this->sxmlElement->xpath('//catalog/book[last()]/@id')[0][0];
+            $lastId = $this->sxmlElement->xpath('//catalog/ValueObjects[last()]/@id')[0][0];
             $nextId = substr($lastId, 2);
             return 'bk' . ++$nextId;
         }
