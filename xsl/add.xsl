@@ -16,44 +16,37 @@
                 <div class="add_book_form_container">
                     <h2>Add Book</h2>
                     <form class="add_book_form" action="/validate" method="post">
-                        <!-- TODO: Aufräumen -->
                         <xsl:for-each select="//formData/fields/*">
                             <xsl:choose>
                                 <xsl:when test="@invalidField = 'true'">
-                                    <xsl:choose>
-                                        <xsl:when test="name() = 'price'">
-                                            <input class="invalidField" value="{.}" placeholder="{@ph}" name="{name()}"
-                                                   type="number" step="0.05" min="0.05" required=""/>
-                                            <p class="invalidFieldText">
-                                                Invalid Field:
-                                                <xsl:value-of select="name()"/>
-                                            </p>
-                                        </xsl:when>
-                                        <xsl:otherwise>
-                                            <input class="invalidField" value="{.}" placeholder="{@ph}" name="{name()}"
-                                                   type="text" required=""/>
-                                            <p class="invalidFieldText">
-                                                Invalid Field:
-                                                <xsl:value-of select="name()"/>
-                                            </p>
-                                        </xsl:otherwise>
-                                    </xsl:choose>
-
+                                    <xsl:element name="input">
+                                        <xsl:attribute name="class">invalidField</xsl:attribute>
+                                        <xsl:attribute name="value"><xsl:value-of select="."/></xsl:attribute>
+                                        <xsl:attribute name="placeholder"><xsl:value-of select="@ph"/></xsl:attribute>
+                                        <xsl:attribute name="name"><xsl:value-of select="name()"/></xsl:attribute>
+                                        <xsl:attribute name="required"> </xsl:attribute>
+                                        <xsl:if test="name() = 'price'">
+                                            <xsl:attribute name="type">number</xsl:attribute>
+                                            <xsl:attribute name="step">0.05</xsl:attribute>
+                                            <xsl:attribute name="min">0.05</xsl:attribute>
+                                        </xsl:if>
+                                    </xsl:element>
+                                    <p class="invalidFieldText">
+                                        Invalid Field: <xsl:value-of select="name()"/>
+                                    </p>
                                 </xsl:when>
                                 <xsl:otherwise>
-                                    <xsl:choose>
-                                        <xsl:when test="name() = 'price'">
-                                            <input value="{.}" placeholder="{@ph}" name="{name()}" type="number"
-                                                   step="0.05" min="0.05"
-                                                   required="">
-                                            </input>
-                                        </xsl:when>
-                                        <xsl:otherwise>
-                                            <input value="{.}" placeholder="{@ph}" name="{name()}" type="text"
-                                                   required="">
-                                            </input>
-                                        </xsl:otherwise>
-                                    </xsl:choose>
+                                    <xsl:element name="input">
+                                        <xsl:attribute name="value"><xsl:value-of select="."/></xsl:attribute>
+                                        <xsl:attribute name="placeholder"><xsl:value-of select="@ph"/></xsl:attribute>
+                                        <xsl:attribute name="name"><xsl:value-of select="name()"/></xsl:attribute>
+                                        <xsl:attribute name="required"> </xsl:attribute>
+                                        <xsl:if test="name() = 'price'">
+                                            <xsl:attribute name="type">number</xsl:attribute>
+                                            <xsl:attribute name="step">0.05</xsl:attribute>
+                                            <xsl:attribute name="min">0.05</xsl:attribute>
+                                        </xsl:if>
+                                    </xsl:element>
                                 </xsl:otherwise>
                             </xsl:choose>
                         </xsl:for-each>
