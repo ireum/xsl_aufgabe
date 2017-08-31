@@ -1,6 +1,6 @@
 <?php
 
-namespace library\xmlhandler
+namespace library\handler
 {
 
     use PHPUnit\Framework\Error\Error;
@@ -8,12 +8,12 @@ namespace library\xmlhandler
 
     class XmlQueryTest extends TestCase
     {
-        /** @var XmlQuery */
+        /** @var BooksQuery */
         private $xmlQuery;
 
         public function setUp()
         {
-            $this->xmlQuery = new XmlQuery(__DIR__ . '/data/test.xml');
+            $this->xmlQuery = new BooksQuery(__DIR__ . '/data/test.xml');
         }
 
         public function testSetSxmlElementThrowsExceptionIfPathIsInvalid()
@@ -21,7 +21,7 @@ namespace library\xmlhandler
             // TODO: Exception is not thrown?
 //            $this->expectException(\InvalidArgumentException::class);
             $this->expectException(Error::class);
-            $this->xmlQuery = new XmlQuery(__DIR__ . '/data/invalid.xml');
+            $this->xmlQuery = new BooksQuery(__DIR__ . '/data/invalid.xml');
         }
 
         public function testGetMinPriceReturnsMinPriceInXml()

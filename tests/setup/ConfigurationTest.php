@@ -1,6 +1,6 @@
 <?php
 
-namespace library\setup;
+namespace library\factories;
 
 use PHPUnit\Framework\TestCase;
 

@@ -7,26 +7,26 @@ spl_autoload_register(
         static $classes = null;
         if ($classes === null) {
             $classes = array(
-                'library\\book\\book' => '/book/Book.php',
-                'library\\book\\invalidbookexception' => '/book/InvalidBookException.php',
-                'library\\processor\\addbookprocessor' => '/processors/AddBookProcessor.php',
-                'library\\processor\\displaybookformprocessor' => '/processors/DisplayBookFormProcessor.php',
-                'library\\processor\\errorpageprocessor' => '/processors/ErrorPageProcessor.php',
-                'library\\processor\\libraryprocessor' => '/processors/LibraryProcessor.php',
-                'library\\processor\\processor' => '/processors/Processor.php',
-                'library\\requests\\abstractrequest' => '/requests/AbstractRequest.php',
-                'library\\requests\\getrequest' => '/requests/GetRequest.php',
-                'library\\requests\\postrequest' => '/requests/PostRequest.php',
-                'library\\routing\\htmlresponse' => '/routing/HtmlResponse.php',
-                'library\\routing\\router' => '/routing/Router.php',
-                'library\\routing\\session' => '/routing/Session.php',
-                'library\\routing\\uri' => '/routing/Uri.php',
-                'library\\setup\\configuration' => '/setup/Configuration.php',
-                'library\\setup\\factory' => '/setup/Factory.php',
-                'library\\xmlhandler\\xmleditor' => '/xmlhandler/XmlEditor.php',
-                'library\\xmlhandler\\xmlerrorgenerator' => '/xmlhandler/XmlErrorGenerator.php',
-                'library\\xmlhandler\\xmllibraryfilter' => '/xmlhandler/XmlLibraryFilter.php',
-                'library\\xmlhandler\\xmlquery' => '/xmlhandler/XmlQuery.php'
+                'library\\configuration' => '/Configuration.php',
+                'library\\exceptions\\invalidbookexception' => '/Exceptions/InvalidBookException.php',
+                'library\\factories\\factory' => '/Factories/Factory.php',
+                'library\\handler\\bookappender' => '/Handler/BookAppender.php',
+                'library\\handler\\booksquery' => '/Handler/BooksQuery.php',
+                'library\\handler\\errorxmlgenerator' => '/Handler/ErrorXmlGenerator.php',
+                'library\\handler\\libraryfilter' => '/Handler/LibraryFilter.php',
+                'library\\processor\\addbookprocessor' => '/Processors/AddBookProcessor.php',
+                'library\\processor\\displaybookformprocessor' => '/Processors/DisplayBookFormProcessor.php',
+                'library\\processor\\errorpageprocessor' => '/Processors/ErrorPageProcessor.php',
+                'library\\processor\\libraryprocessor' => '/Processors/LibraryProcessor.php',
+                'library\\processor\\processor' => '/Processors/Processor.php',
+                'library\\requests\\abstractrequest' => '/Requests/AbstractRequest.php',
+                'library\\requests\\getrequest' => '/Requests/GetRequest.php',
+                'library\\requests\\postrequest' => '/Requests/PostRequest.php',
+                'library\\responder\\htmlresponse' => '/Responder/HtmlResponse.php',
+                'library\\responder\\uri' => '/Responder/Uri.php',
+                'library\\routers\\router' => '/Routers/Router.php',
+                'library\\session\\session' => '/Session/Session.php',
+                'library\\valueobject\\book' => '/ValueObjects/Book.php'
             );
         }
         $cn = strtolower($class);

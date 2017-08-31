@@ -1,6 +1,6 @@
 <?php
 
-namespace library\xmlhandler
+namespace library\handler
 {
 
     use library\requests\AbstractRequest;
@@ -8,16 +8,16 @@ namespace library\xmlhandler
 
     /**
      * Class XmlFormProcessorTest
-     * @package library\xmlhandler
-     * @covers library\xmlhandler\XmlFormProcessor
+     * @package library\Handler
+     * @covers library\Handler\XmlFormProcessor
      * @uses   library\requests\AbstractRequest
      */
     class XmlFormProcessorTest extends TestCase
     {
-        /** @var XmlLibraryFilter */
+        /** @var LibraryFilter */
         private $xmlFormProcessor;
 
-        /** @var \PHPUnit_Framework_MockObject_MockObject|XmlQuery */
+        /** @var \PHPUnit_Framework_MockObject_MockObject|BooksQuery */
         private $xmlProcessor;
 
         /** @var \PHPUnit_Framework_MockObject_MockObject|AbstractRequest */
@@ -25,7 +25,7 @@ namespace library\xmlhandler
 
         public function setUp()
         {
-            $this->xmlProcessor = $this->getMockBuilder(XmlQuery::class)
+            $this->xmlProcessor = $this->getMockBuilder(BooksQuery::class)
                 ->disableOriginalConstructor()
                 ->getMock();
 
@@ -33,7 +33,7 @@ namespace library\xmlhandler
                 ->disableOriginalConstructor()
                 ->getMock();
 
-            $this->xmlFormProcessor = new XmlLibraryFilter(__DIR__ . '/data/test.xml', $this->xmlProcessor);
+            $this->xmlFormProcessor = new LibraryFilter(__DIR__ . '/data/test.xml', $this->xmlProcessor);
         }
 
         public function testProcessFormSetsDefaultValuesIfSubmitNotSet()

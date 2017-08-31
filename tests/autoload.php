@@ -8,16 +8,16 @@ spl_autoload_register(
         if ($classes === null) {
             $classes = array(
                 'library\\book\\booktest' => '/book/BookTest.php',
+                'library\\factories\\configurationtest' => '/setup/ConfigurationTest.php',
+                'library\\factories\\factorytest' => '/setup/FactoryTest.php',
+                'library\\handler\\xmlformprocessortest' => '/xmlhandler/XmlFormProcessorTest.php',
+                'library\\handler\\xmlquerytest' => '/xmlhandler/XmlQueryTest.php',
                 'library\\processor\\addbookprocessortest' => '/processors/AddBookProcessorTest.php',
                 'library\\processor\\errorpageprocessortest' => '/processors/ErrorPageProcessorTest.php',
                 'library\\requests\\postrequesttest' => '/request/AbstractRequestTest.php',
-                'library\\routing\\htmlresponsetest' => '/routing/HtmlResponseTest.php',
-                'library\\routing\\routertest' => '/routing/RouterTest.php',
-                'library\\routing\\uritest' => '/routing/UriTest.php',
-                'library\\setup\\configurationtest' => '/setup/ConfigurationTest.php',
-                'library\\setup\\factorytest' => '/setup/FactoryTest.php',
-                'library\\xmlhandler\\xmlformprocessortest' => '/xmlhandler/XmlFormProcessorTest.php',
-                'library\\xmlhandler\\xmlquerytest' => '/xmlhandler/XmlQueryTest.php'
+                'library\\responder\\htmlresponsetest' => '/routing/HtmlResponseTest.php',
+                'library\\responder\\routertest' => '/routing/RouterTest.php',
+                'library\\responder\\uritest' => '/routing/UriTest.php'
             );
         }
         $cn = strtolower($class);

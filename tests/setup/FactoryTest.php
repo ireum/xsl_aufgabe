@@ -1,10 +1,10 @@
 <?php
 
-namespace library\setup
+namespace library\factories
 {
 
-    use library\xmlhandler\XmlLibraryFilter;
-    use library\xmlhandler\XmlQuery;
+    use library\handler\LibraryFilter;
+    use library\handler\BooksQuery;
     use PHPUnit\Framework\TestCase;
 
     /**

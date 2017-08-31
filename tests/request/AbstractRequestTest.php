@@ -2,15 +2,15 @@
 
 namespace library\requests;
 
-use library\routing\Uri;
+use library\responder\Uri;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Class PostRequestTest
- * @package library\requests
- * @covers library\requests\PostRequest
- * @covers library\requests\GetRequest
- * @covers library\requests\AbstractRequest
+ * @package library\Requests
+ * @covers library\Requests\PostRequest
+ * @covers library\Requests\GetRequest
+ * @covers library\Requests\AbstractRequest
  */
 class PostRequestTest extends TestCase
 {

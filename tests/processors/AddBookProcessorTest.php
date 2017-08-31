@@ -3,10 +3,10 @@
 namespace library\processor;
 
 use library\requests\AbstractRequest;
-use library\routing\HtmlResponse;
-use library\xmlhandler\XmlEditor;
-use library\xmlhandler\XmlErrorGenerator;
-use library\xmlhandler\XmlExceptionProcessor;
+use library\responder\HtmlResponse;
+use library\handler\BookAppender;
+use library\handler\ErrorXmlGenerator;
+use library\handler\XmlExceptionProcessor;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -20,10 +20,10 @@ class AddBookProcessorTest extends TestCase
     /** @var AddBookProcessor */
     private $addBookProcessor;
 
-    /** @var \PHPUnit_Framework_MockObject_MockObject|XmlEditor */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|BookAppender */
     private $xmlEditor;
 
-    /** @var \PHPUnit_Framework_MockObject_MockObject|XmlErrorGenerator */
+    /** @var \PHPUnit_Framework_MockObject_MockObject|ErrorXmlGenerator */
     private $xmlErrorGenerator;
 
     /** @var \PHPUnit_Framework_MockObject_MockObject|HtmlResponse */
@@ -35,11 +35,11 @@ class AddBookProcessorTest extends TestCase
 
     public function setUp()
     {
-        $this->xmlEditor = $this->getMockBuilder(XmlEditor::class)
+        $this->xmlEditor = $this->getMockBuilder(BookAppender::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->xmlErrorGenerator = $this->getMockBuilder(XmlErrorGenerator::class)
+        $this->xmlErrorGenerator = $this->getMockBuilder(ErrorXmlGenerator::class)
             ->disableOriginalConstructor()
             ->getMock();
 

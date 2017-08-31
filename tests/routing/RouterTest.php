@@ -1,6 +1,6 @@
 <?php
 
-namespace library\routing
+namespace library\responder
 {
 
 
@@ -9,13 +9,13 @@ namespace library\routing
     use library\processor\ErrorPageProcessor;
     use library\processor\LibraryProcessor;
     use library\requests\AbstractRequest;
-    use library\setup\Factory;
+    use library\factories\Factory;
     use PHPUnit\Framework\TestCase;
 
     /**
      * Class RouterTest
-     * @package library\routing
-     * @covers library\routing\Router
+     * @package library\Routers
+     * @covers library\Routers\Router
      * @uses   library\setup\Factory
      */
     class RouterTest extends TestCase

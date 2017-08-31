@@ -1,6 +1,6 @@
 <?php
 
-namespace library\routing
+namespace library\responder
 {
 
     use PHPUnit\Framework\TestCase;

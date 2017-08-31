@@ -4,8 +4,8 @@ namespace library\processor
 {
 
     use library\requests\AbstractRequest;
-    use library\routing\HtmlResponse;
-    use library\routing\HtmlResponseTest;
+    use library\responder\HtmlResponse;
+    use library\responder\HtmlResponseTest;
     use PHPUnit\Framework\TestCase;
 
     /**
