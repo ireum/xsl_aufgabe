@@ -30,7 +30,7 @@ namespace library\web
     $router = $factory->createRouter();
     $processor = $router->route($request);
 
-    $processor->execute($response, $request, $session);
+    $processor->execute($response, $request);
 
     if ($response->hasRedirect()) {
         header('Location: ' . $response->getRedirect());

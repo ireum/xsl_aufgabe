@@ -30,7 +30,6 @@ namespace library\routers
                 default:
                     return $this->factory->createErrorPageProcessor();
             }
-
         }
     }
 }
