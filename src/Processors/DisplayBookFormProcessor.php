@@ -14,31 +14,33 @@ namespace library\processor
         private $xmlPath;
         /** @var string */
         private $xslPath;
+        /** @var Session */
+        private $session;
 
-        public function __construct(string $xmlPath, string $xslPath)
+        public function __construct(string $xmlPath, string $xslPath, Session $session)
         {
             $this->xmlPath = $xmlPath;
             $this->xslPath = $xslPath;
+            $this->session = $session;
         }
 
         public function execute(
             HtmlResponse $response,
-            AbstractRequest $request,
-            Session $session
+            AbstractRequest $request
         )
         {
             $xslParser = new \XSLTProcessor();
             $xslParser->importStylesheet(simplexml_load_file($this->xslPath));
 
             $dom = new \DOMDocument();
-            if ($session->hasError()) {
-              $dom = $session->getErrorXml();
+            if ($this->session->hasError()) {
+              $dom = $this->session->getErrorXml();
 
             } else {
                 $dom->load($this->xmlPath);
             }
             $response->setBody($xslParser->transformToDoc($dom)->saveXML());
-            $session->resetErrorXml();
+            $this->session->resetErrorXml();
         }
 
     }

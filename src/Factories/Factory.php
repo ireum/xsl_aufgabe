@@ -13,15 +13,20 @@ namespace library\factories
     use library\handler\LibraryFilter;
     use library\handler\BooksQuery;
     use library\routers\Router;
+    use library\session\Session;
 
     class Factory
     {
         /** @var Configuration */
         private $configuration;
 
-        public function __construct(Configuration $configuration)
+        /** @var Session */
+        private $session;
+
+        public function __construct(Configuration $configuration, Session $session)
         {
             $this->configuration = $configuration;
+            $this->session = $session;
         }
 
         public function createSearchFormProcessor(): LibraryFilter
@@ -43,12 +48,20 @@ namespace library\factories
 
         public function createAddBookProcessor(): AddBookProcessor
         {
-            return new AddBookProcessor($this->createXmlEditor(), $this->createErrorXmlGenerator());
+            return new AddBookProcessor(
+                $this->createXmlEditor(),
+                $this->createErrorXmlGenerator(),
+                $this->session
+            );
         }
 
         public function createDisplayBookProcessor(): DisplayBookFormProcessor
         {
-            return new DisplayBookFormProcessor($this->configuration->getXmlAddBookPath(), $this->configuration->getXslAddBookPath());
+            return new DisplayBookFormProcessor(
+                $this->configuration->getXmlAddBookPath(),
+                $this->configuration->getXslAddBookPath(),
+                $this->session
+            );
         }
 
         public function createLibraryProcessor(): LibraryProcessor

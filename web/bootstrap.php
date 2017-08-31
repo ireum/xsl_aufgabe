@@ -15,9 +15,8 @@ namespace library\web
 
     $configuration = new Configuration(__DIR__ . '/../conf.ini');
     $session = new Session($_SESSION);
-    $_SESSION = $session->getSessionValues();
 
-    $factory = new Factory($configuration);
+    $factory = new Factory($configuration, $session);
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $request = new PostRequest($_POST, $_SERVER);

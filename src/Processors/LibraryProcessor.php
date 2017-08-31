@@ -26,8 +26,7 @@ namespace library\processor
 
         public function execute(
             HtmlResponse $response,
-            AbstractRequest $request,
-            Session $session
+            AbstractRequest $request
         )
         {
             $sfp = $this->xmlFormProcessor;
