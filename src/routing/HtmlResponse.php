@@ -34,19 +34,15 @@ namespace library\routing
             $this->redirect = $redirect;
         }
 
-        private function hasRedirect(): bool
+        public function hasRedirect(): bool
         {
-            if (!isset($this->redirect)) {
-                return false;
-            }
-            return true;
+            return isset($this->redirect);
         }
 
-        public function getRedirect()
+        public function getRedirect(): string
         {
-            if ($this->hasRedirect()) {
-                return header('Location: ' . $this->redirect);
-            }
+            return $this->redirect;
+//                return header('Location: ' . $this->redirect);
         }
     }
 }

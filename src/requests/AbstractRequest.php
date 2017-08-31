@@ -32,11 +32,6 @@ namespace library\requests
             return $this->inputVariables[$key];
         }
 
-        public function getInputVariables()
-        {
-            return $this->inputVariables;
-        }
-
         public function getUri(): Uri
         {
             return new Uri($this->server['REQUEST_URI']);

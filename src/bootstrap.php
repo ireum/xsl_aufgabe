@@ -3,6 +3,7 @@
 namespace library
 {
     session_start();
+
     use library\requests\GetRequest;
     use library\requests\PostRequest;
     use library\routing\HtmlResponse;
@@ -26,24 +27,17 @@ namespace library
         throw new \RuntimeException('Unexpected Request Method');
     }
 
-    try {
+    $response = new HtmlResponse();
+    $router = $factory->createRouter();
+    $processor = $router->route($request);
 
-        $response = new HtmlResponse();
-        $router = $factory->createRouter();
-        $processor = $router->route($request);
+    $processor->execute($response, $request, $session);
 
-        $processor->execute($response, $request, $session);
-
-        $response->getRedirect();
-
-        $_SESSION = $session->getSessionValues();
-        echo $response->getBody();
-
-    } catch (\InvalidArgumentException $e) {
-        echo $e->getMessage();
-    } catch (\Exception $e) {
-        echo $e->getMessage();
+    if ($response->hasRedirect()) {
+        header('Location: ' . $response->getRedirect());
     }
 
+    $_SESSION = $session->getSessionValues();
+    echo $response->getBody();
 }
 

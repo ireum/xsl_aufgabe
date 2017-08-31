@@ -14,7 +14,7 @@ namespace library\xmlhandler
      */
     class XmlFormProcessorTest extends TestCase
     {
-        /** @var XmlFormProcessor */
+        /** @var XmlLibraryFilter */
         private $xmlFormProcessor;
 
         /** @var \PHPUnit_Framework_MockObject_MockObject|XmlQuery */
@@ -33,7 +33,7 @@ namespace library\xmlhandler
                 ->disableOriginalConstructor()
                 ->getMock();
 
-            $this->xmlFormProcessor = new XmlFormProcessor(__DIR__ . '/data/test.xml', $this->xmlProcessor);
+            $this->xmlFormProcessor = new XmlLibraryFilter(__DIR__ . '/data/test.xml', $this->xmlProcessor);
         }
 
         public function testProcessFormSetsDefaultValuesIfSubmitNotSet()

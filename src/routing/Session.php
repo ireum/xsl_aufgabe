@@ -34,14 +34,9 @@ namespace library\routing
             return $this->inputVariables[$key];
         }
 
-        public function hasError()
+        public function hasError(): bool
         {
-            if (isset($this->inputVariables['errorXml'])) {
-                return true;
-            } else {
-
-                return false;
-            }
+            return isset($this->inputVariables['errorXml']);
         }
 
         public function setErrorXml(\DOMDocument $document)

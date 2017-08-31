@@ -3,7 +3,7 @@
 namespace library\setup
 {
 
-    use library\xmlhandler\XmlFormProcessor;
+    use library\xmlhandler\XmlLibraryFilter;
     use library\xmlhandler\XmlQuery;
     use PHPUnit\Framework\TestCase;
 

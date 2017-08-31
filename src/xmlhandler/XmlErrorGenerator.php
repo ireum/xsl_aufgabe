@@ -4,6 +4,8 @@
 namespace library\xmlhandler;
 
 
+use library\requests\AbstractRequest;
+
 class XmlErrorGenerator
 {
 
@@ -15,7 +17,7 @@ class XmlErrorGenerator
         $this->path = $path;
     }
 
-    public function generateXml(array $errorFields, array $inputVariables)
+    public function generateXml(array $errorFields, AbstractRequest $request): \DOMDocument
     {
         $dom = new \DOMDocument();
         $dom->load($this->path);
@@ -28,11 +30,10 @@ class XmlErrorGenerator
                 $field->setAttribute('invalidField', 'true');
                 $field->nodeValue = $errorFields[$field->nodeName];
             } else {
-                $field->nodeValue = $inputVariables[$field->nodeName];
+//                $field->nodeValue = $inputVariables[$field->nodeName];
+                $field->nodeValue = $request->get($field->nodeName);
             }
         }
-
         return $dom;
-
     }
 }

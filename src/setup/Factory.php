@@ -12,7 +12,7 @@ namespace library\setup
     use library\xmlhandler\XmlEditor;
     use library\xmlhandler\XmlErrorGenerator;
     use library\xmlhandler\XmlExceptionProcessor;
-    use library\xmlhandler\XmlFormProcessor;
+    use library\xmlhandler\XmlLibraryFilter;
     use library\xmlhandler\XmlQuery;
 
     class Factory
@@ -25,9 +25,9 @@ namespace library\setup
             $this->configuration = $configuration;
         }
 
-        public function createSearchFormProcessor(): XmlFormProcessor
+        public function createSearchFormProcessor(): XmlLibraryFilter
         {
-            return new XmlFormProcessor($this->configuration->getXmlPath(), $this->createXmlProcessor());
+            return new XmlLibraryFilter($this->configuration->getXmlPath(), $this->createXmlProcessor());
         }
 
         public function createXmlEditor(): XmlEditor

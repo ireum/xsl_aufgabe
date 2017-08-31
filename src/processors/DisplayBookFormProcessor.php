@@ -33,15 +33,12 @@ namespace library\processor
             $dom = new \DOMDocument();
             if ($session->hasError()) {
               $dom = $session->getErrorXml();
-                $session->resetErrorXml();
 
             } else {
                 $dom->load($this->xmlPath);
             }
             $response->setBody($xslParser->transformToDoc($dom)->saveXML());
             $session->resetErrorXml();
-
-
         }
 
     }

@@ -30,7 +30,8 @@
             <body>
                 <header>
                     <a href="/library">
-                        <h1>Library</h1>
+                        <img class="library_logo" src="/css/library_logo.png" alt="Library Logo"/>
+                        <h1 class="library_title">Library</h1>
                     </a>
                     <a class="add_book" href="/add">Add Book</a>
                 </header>

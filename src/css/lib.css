@@ -3,24 +3,48 @@ html {
     background-color: #2c3e50;
 }
 
+h1 {
+    float: left;
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+
 header {
     margin-top: 20px;
     padding: 0;
-    height: 70px;
+    height: 100px;
+    margin-bottom: 25px;
 }
+
+.library_logo {
+    border: none;
+    height: 80px;
+    width: 80px;
+    float: left;
+    margin: 10px 0;
+}
+
+.library_title {
+    height: 46px;
+    margin: 26px;
+    margin-left: 10px;
+}
+
 .add_book {
-    margin-top: 10px;
     text-decoration: none;
     color: #13572a;
     background-color: #2ecc71;
     float: right;
     border: none;
-    padding: 7px;
+    padding: 10px;
     border-radius: 3px;
     font-weight: bold;
     font-size: 14px;
     display: inline-block;
     vertical-align: middle;
+    height: 20px;
+    margin: 30px 0;
 }
 
 body {
@@ -28,14 +52,10 @@ body {
     width: 1400px;
 }
 
-h1 {
-    height: 70px;
-    float: left;
-    color: white;
-    margin: 0;
-    padding: 0;
-    width: 200px;
-}
+/*footer {*/
+    /*margin-top: 50px;*/
+    /*height: 150px;*/
+/*}*/
 
 h2 {
     color: #ffffff;
@@ -49,40 +69,40 @@ table {
 }
 
 /*tbody {*/
-    /*overflow-y: auto;*/
-    /*display: block;*/
-    /*height: 500px;*/
+/*overflow-y: auto;*/
+/*display: block;*/
+/*height: 500px;*/
 /*}*/
 
 /*thead {*/
-    /*display: table;*/
-    /*table-layout: fixed;*/
+/*display: table;*/
+/*table-layout: fixed;*/
 /*}*/
 
 /*tbody tr {*/
-    /*table-layout: fixed;*/
+/*table-layout: fixed;*/
 /*}*/
 
 /*th, td {*/
-    /*!*width: auto;   *!*/
+/*!*width: auto;   *!*/
 /*}*/
 
-td{
-padding: 3px 10px;
+td {
+    padding: 3px 10px;
 }
 
 tr:nth-child(even) {
-background-color: #ecf0f1;
+    background-color: #ecf0f1;
 }
 
 tr:nth-child(odd) {
-background-color: #bdc3c7;
+    background-color: #bdc3c7;
 }
 
-th{
-padding: 10px;
-text-align: left;
-background-color: #3498db;
+th {
+    padding: 10px;
+    text-align: left;
+    background-color: #3498db;
 }
 
 table {

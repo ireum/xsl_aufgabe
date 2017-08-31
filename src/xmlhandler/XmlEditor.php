@@ -38,7 +38,7 @@ namespace library\xmlhandler
         public function addBook(Book $book)
         {
             $node = $this->getRootNode()->addChild('book');
-            $node->addAttribute('id', $this->xmlProcessor->getNextId());
+            $node->addAttribute('id', $this->getNextId());
             $node->addChild('author', $book->getAuthor());
             $node->addChild('title', $book->getTitle());
             $node->addChild('genre', $book->getGenre());
@@ -46,6 +46,13 @@ namespace library\xmlhandler
             $node->addChild('publish_date', $book->getReleaseDate()->format('Y-m-d'));
             $node->addChild('description', $book->getDescription());
             $this->saveBook();
+        }
+
+        private function getNextId(): string
+        {
+            $lastId = $this->sxmlElement->xpath('//catalog/book[last()]/@id')[0][0];
+            $nextId = substr($lastId, 2);
+            return 'bk' . ++$nextId;
         }
 
         private function saveBook()

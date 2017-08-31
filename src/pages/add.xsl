@@ -9,12 +9,14 @@
             <body>
                 <header>
                     <a href="/library">
-                        <h1>Library</h1>
+                        <img class="library_logo" src="/css/library_logo.png" alt="Library Logo"/>
+                        <h1 class="library_title">Library</h1>
                     </a>
                 </header>
                 <div class="add_book_form_container">
                     <h2>Add Book</h2>
                     <form class="add_book_form" action="/validate" method="post">
+                        <!-- TODO: Aufräumen -->
                         <xsl:for-each select="//formData/fields/*">
                             <xsl:choose>
                                 <xsl:when test="@invalidField = 'true'">

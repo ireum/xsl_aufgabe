@@ -32,10 +32,9 @@ namespace library\processor
             try {
                 $book = new Book($request);
                 $this->xmlEditor->addBook($book);
-                $session->resetErrorXml();
                 $response->setRedirect('/library');
             } catch (InvalidBookException $e) {
-                $dom = $this->xmlErrorGenerator->generateXml($e->getErrorFields(), $request->getInputVariables());
+                $dom = $this->xmlErrorGenerator->generateXml($e->getErrorFields(), $request);
                 $session->setErrorXml($dom);
                 $response->setRedirect('/add');
             }

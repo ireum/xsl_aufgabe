@@ -147,4 +147,4 @@
         <publish_date>2017-08-01</publish_date>
         <description>Basics of Fl Studio</description>
     </book>
-<book id="bk115"><author>author</author><title>title</title><genre>genre</genre><price>1</price><publish_date>1990-01-01</publish_date><description>description</description></book></catalog>
+<book id="bk"><author>Aauthor</author><title>title</title><genre>genre</genre><price>1</price><publish_date>1990-01-01</publish_date><description>description</description></book></catalog>

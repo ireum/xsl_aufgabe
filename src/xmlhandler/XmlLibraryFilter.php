@@ -6,7 +6,7 @@ namespace library\xmlhandler
 
     use library\requests\AbstractRequest;
 
-    class XmlFormProcessor
+    class XmlLibraryFilter
     {
         /** @var  \DOMDocument */
         private $dom;
@@ -14,7 +14,7 @@ namespace library\xmlhandler
         /** @var XmlQuery */
         private $xmlProcessor;
 
-        public function __construct(string $path, XmlQuery $xmlProcessor)
+        public function __construct(string $path, XmlQuery $xmlProcessor) //Irritierendes Naming $xmlProcessor
         {
             $this->setDom($path);
             $this->xmlProcessor = $xmlProcessor;

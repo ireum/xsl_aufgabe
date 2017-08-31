@@ -7,17 +7,17 @@ namespace library\processor
     use library\requests\AbstractRequest;
     use library\routing\HtmlResponse;
     use library\routing\Session;
-    use library\xmlhandler\XmlFormProcessor;
+    use library\xmlhandler\XmlLibraryFilter;
 
     class LibraryProcessor implements Processor
     {
 
-        /** @var XmlFormProcessor */
+        /** @var XmlLibraryFilter */
         private $xmlFormProcessor;
         /** @var string */
         private $xslPath;
 
-        public function __construct(XmlFormProcessor $searchFormProcessor, string $xslPath)
+        public function __construct(XmlLibraryFilter $searchFormProcessor, string $xslPath)
         {
             $this->xmlFormProcessor = $searchFormProcessor;
             $this->xslPath = $xslPath;
