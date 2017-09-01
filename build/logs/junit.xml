@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="tests/unit/Routers/" tests="5" assertions="15" errors="0" failures="0" skipped="0" time="0.044936">
-    <testsuite name="library\routers\RouterTest" file="/data/www/xls_aufgabe/tests/unit/Routers/RouterTest.php" tests="5" assertions="15" errors="0" failures="0" skipped="0" time="0.044936">
-      <testcase name="testRouteReturnsLibraryProcessorIfCalledWithLibraryPath" class="library\routers\RouterTest" classname="library.routers.RouterTest" file="/data/www/xls_aufgabe/tests/unit/Routers/RouterTest.php" line="54" assertions="3" time="0.015759"/>
-      <testcase name="testRouteReturnsDisplayBookProcessorIfCalledWithAddPath" class="library\routers\RouterTest" classname="library.routers.RouterTest" file="/data/www/xls_aufgabe/tests/unit/Routers/RouterTest.php" line="68" assertions="3" time="0.007319"/>
-      <testcase name="testRouteReturnsAddBookProcessorIfCalledWithValidatePath" class="library\routers\RouterTest" classname="library.routers.RouterTest" file="/data/www/xls_aufgabe/tests/unit/Routers/RouterTest.php" line="82" assertions="3" time="0.007509"/>
-      <testcase name="testRouteReturnsErrorPageProcessorIfCalledWithAnyInvalidPath" class="library\routers\RouterTest" classname="library.routers.RouterTest" file="/data/www/xls_aufgabe/tests/unit/Routers/RouterTest.php" line="96" assertions="3" time="0.008210"/>
-      <testcase name="testRouteReturnsErrorPageProcessorIfCalledWitEmptyPath" class="library\routers\RouterTest" classname="library.routers.RouterTest" file="/data/www/xls_aufgabe/tests/unit/Routers/RouterTest.php" line="112" assertions="3" time="0.006139"/>
+  <testsuite name="tests/unit/Responder/" tests="6" assertions="7" errors="0" failures="0" skipped="0" time="0.008965">
+    <testsuite name="library\responder\HtmlResponseTest" file="/data/www/xls_aufgabe/tests/unit/Responder/HtmlResponseTest.php" tests="5" assertions="6" errors="0" failures="0" skipped="0" time="0.007375">
+      <testcase name="testSetBodySetsStringInsertedBySetBody" class="library\responder\HtmlResponseTest" classname="library.responder.HtmlResponseTest" file="/data/www/xls_aufgabe/tests/unit/Responder/HtmlResponseTest.php" line="23" assertions="1" time="0.001658"/>
+      <testcase name="testGetBodyThrowsExceptionWhenBodyIsNull" class="library\responder\HtmlResponseTest" classname="library.responder.HtmlResponseTest" file="/data/www/xls_aufgabe/tests/unit/Responder/HtmlResponseTest.php" line="30" assertions="2" time="0.001615"/>
+      <testcase name="testHasRedirectReturnsTrueIfRedirectIsSet" class="library\responder\HtmlResponseTest" classname="library.responder.HtmlResponseTest" file="/data/www/xls_aufgabe/tests/unit/Responder/HtmlResponseTest.php" line="37" assertions="1" time="0.001383"/>
+      <testcase name="testHasRedirectReturnsFalseIfRedirectIsNotSet" class="library\responder\HtmlResponseTest" classname="library.responder.HtmlResponseTest" file="/data/www/xls_aufgabe/tests/unit/Responder/HtmlResponseTest.php" line="43" assertions="1" time="0.001445"/>
+      <testcase name="testGetRedirectReturnsStringInsertedBySetRedirect" class="library\responder\HtmlResponseTest" classname="library.responder.HtmlResponseTest" file="/data/www/xls_aufgabe/tests/unit/Responder/HtmlResponseTest.php" line="48" assertions="1" time="0.001274"/>
+    </testsuite>
+    <testsuite name="library\responder\UriTest" file="/data/www/xls_aufgabe/tests/unit/Responder/UriTest.php" tests="1" assertions="1" errors="0" failures="0" skipped="0" time="0.001590">
+      <testcase name="testGetPathReturnsPathInsertedByConstructor" class="library\responder\UriTest" classname="library.responder.UriTest" file="/data/www/xls_aufgabe/tests/unit/Responder/UriTest.php" line="24" assertions="1" time="0.001590"/>
     </testsuite>
   </testsuite>
 </testsuites>
