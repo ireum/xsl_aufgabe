@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="tests/unit/Request/" tests="5" assertions="5" errors="0" failures="0" skipped="0" time="0.007195">
-    <testsuite name="library\requests\AbstractRequestTest" file="/data/www/xls_aufgabe/tests/unit/Request/AbstractRequestTest.php" tests="5" assertions="5" errors="0" failures="0" skipped="0" time="0.007195">
-      <testcase name="testHasReturnsFalseIfKeyIsNotSet" class="library\requests\AbstractRequestTest" classname="library.requests.AbstractRequestTest" file="/data/www/xls_aufgabe/tests/unit/Request/AbstractRequestTest.php" line="28" assertions="1" time="0.001902"/>
-      <testcase name="testHasReturnstrueIfKeyIsSet" class="library\requests\AbstractRequestTest" classname="library.requests.AbstractRequestTest" file="/data/www/xls_aufgabe/tests/unit/Request/AbstractRequestTest.php" line="33" assertions="1" time="0.001311"/>
-      <testcase name="testGetReturnsValueOfKeyIfKeyIsSet" class="library\requests\AbstractRequestTest" classname="library.requests.AbstractRequestTest" file="/data/www/xls_aufgabe/tests/unit/Request/AbstractRequestTest.php" line="38" assertions="1" time="0.001363"/>
-      <testcase name="testGetReturnsEmptyStringIfKeyIsNotSet" class="library\requests\AbstractRequestTest" classname="library.requests.AbstractRequestTest" file="/data/www/xls_aufgabe/tests/unit/Request/AbstractRequestTest.php" line="43" assertions="1" time="0.001273"/>
-      <testcase name="testGetUriReturnsUriObject" class="library\requests\AbstractRequestTest" classname="library.requests.AbstractRequestTest" file="/data/www/xls_aufgabe/tests/unit/Request/AbstractRequestTest.php" line="49" assertions="1" time="0.001346"/>
-    </testsuite>
+  <testsuite name="library\processor\ErrorPageProcessorTest" file="/data/www/xls_aufgabe/tests/unit/Processors/ErrorPageProcessorTest.php" tests="1" assertions="1" errors="0" failures="0" skipped="0" time="0.008910">
+    <testcase name="testExecuteSetsBodyToErrorPage" class="library\processor\ErrorPageProcessorTest" classname="library.processor.ErrorPageProcessorTest" file="/data/www/xls_aufgabe/tests/unit/Processors/ErrorPageProcessorTest.php" line="43" assertions="1" time="0.008910"/>
   </testsuite>
 </testsuites>

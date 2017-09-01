@@ -7,18 +7,18 @@ spl_autoload_register(
         static $classes = null;
         if ($classes === null) {
             $classes = array(
-                'library\\book\\booktest' => '/ValueObjects/BookTest.php',
-                'library\\exceptions\\invalidbookexceptiontest' => '/Exceptions/InvalidBookExceptionTest.php',
-                'library\\factories\\configurationtest' => '/setup/ConfigurationTest.php',
-                'library\\factories\\factorytest' => '/setup/FactoryTest.php',
-                'library\\handler\\xmlformprocessortest' => '/xmlhandler/XmlFormProcessorTest.php',
-                'library\\handler\\xmlquerytest' => '/xmlhandler/XmlQueryTest.php',
-                'library\\processor\\addbookprocessortest' => '/processors/AddBookProcessorTest.php',
-                'library\\processor\\errorpageprocessortest' => '/processors/ErrorPageProcessorTest.php',
-                'library\\requests\\postrequesttest' => '/request/AbstractRequestTest.php',
-                'library\\responder\\htmlresponsetest' => '/routing/HtmlResponseTest.php',
-                'library\\responder\\OLDRouterTest' => '/routing/OLDRouterTestest.php',
-                'library\\responder\\uritest' => '/routing/UriTest.php'
+                'library\\book\\booktest' => '/unit/ValueObjects/BookTest.php',
+                'library\\configurationtest' => '/unit/ConfigurationTest.php',
+                'library\\exceptions\\invalidbookexceptiontest' => '/unit/Exceptions/InvalidBookExceptionTest.php',
+                'library\\handler\\xmlformprocessortest' => '/unit/xmlhandler/XmlFormProcessorTest.php',
+                'library\\handler\\xmlquerytest' => '/unit/xmlhandler/XmlQueryTest.php',
+                'library\\processor\\addbookprocessortest' => '/unit/Processors/AddBookProcessorTest.php',
+                'library\\processor\\errorpageprocessortest' => '/unit/processors/ErrorPageProcessorTest.php',
+                'library\\requests\\abstractrequesttest' => '/unit/Request/AbstractRequestTest.php',
+                'library\\responder\\htmlresponsetest' => '/unit/Responder/HtmlResponseTest.php',
+                'library\\responder\\uritest' => '/unit/Responder/UriTest.php',
+                'library\\routers\\routertest' => '/unit/Routers/RouterTest.php',
+                'library\\session\\sessiontest' => '/unit/Session/SessionTest.php'
             );
         }
         $cn = strtolower($class);
