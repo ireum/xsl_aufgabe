@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="tests/unit/Responder/" tests="6" assertions="7" errors="0" failures="0" skipped="0" time="0.008965">
-    <testsuite name="library\responder\HtmlResponseTest" file="/data/www/xls_aufgabe/tests/unit/Responder/HtmlResponseTest.php" tests="5" assertions="6" errors="0" failures="0" skipped="0" time="0.007375">
-      <testcase name="testSetBodySetsStringInsertedBySetBody" class="library\responder\HtmlResponseTest" classname="library.responder.HtmlResponseTest" file="/data/www/xls_aufgabe/tests/unit/Responder/HtmlResponseTest.php" line="23" assertions="1" time="0.001658"/>
-      <testcase name="testGetBodyThrowsExceptionWhenBodyIsNull" class="library\responder\HtmlResponseTest" classname="library.responder.HtmlResponseTest" file="/data/www/xls_aufgabe/tests/unit/Responder/HtmlResponseTest.php" line="30" assertions="2" time="0.001615"/>
-      <testcase name="testHasRedirectReturnsTrueIfRedirectIsSet" class="library\responder\HtmlResponseTest" classname="library.responder.HtmlResponseTest" file="/data/www/xls_aufgabe/tests/unit/Responder/HtmlResponseTest.php" line="37" assertions="1" time="0.001383"/>
-      <testcase name="testHasRedirectReturnsFalseIfRedirectIsNotSet" class="library\responder\HtmlResponseTest" classname="library.responder.HtmlResponseTest" file="/data/www/xls_aufgabe/tests/unit/Responder/HtmlResponseTest.php" line="43" assertions="1" time="0.001445"/>
-      <testcase name="testGetRedirectReturnsStringInsertedBySetRedirect" class="library\responder\HtmlResponseTest" classname="library.responder.HtmlResponseTest" file="/data/www/xls_aufgabe/tests/unit/Responder/HtmlResponseTest.php" line="48" assertions="1" time="0.001274"/>
-    </testsuite>
-    <testsuite name="library\responder\UriTest" file="/data/www/xls_aufgabe/tests/unit/Responder/UriTest.php" tests="1" assertions="1" errors="0" failures="0" skipped="0" time="0.001590">
-      <testcase name="testGetPathReturnsPathInsertedByConstructor" class="library\responder\UriTest" classname="library.responder.UriTest" file="/data/www/xls_aufgabe/tests/unit/Responder/UriTest.php" line="24" assertions="1" time="0.001590"/>
+  <testsuite name="tests/unit/Request/" tests="5" assertions="5" errors="0" failures="0" skipped="0" time="0.007195">
+    <testsuite name="library\requests\AbstractRequestTest" file="/data/www/xls_aufgabe/tests/unit/Request/AbstractRequestTest.php" tests="5" assertions="5" errors="0" failures="0" skipped="0" time="0.007195">
+      <testcase name="testHasReturnsFalseIfKeyIsNotSet" class="library\requests\AbstractRequestTest" classname="library.requests.AbstractRequestTest" file="/data/www/xls_aufgabe/tests/unit/Request/AbstractRequestTest.php" line="28" assertions="1" time="0.001902"/>
+      <testcase name="testHasReturnstrueIfKeyIsSet" class="library\requests\AbstractRequestTest" classname="library.requests.AbstractRequestTest" file="/data/www/xls_aufgabe/tests/unit/Request/AbstractRequestTest.php" line="33" assertions="1" time="0.001311"/>
+      <testcase name="testGetReturnsValueOfKeyIfKeyIsSet" class="library\requests\AbstractRequestTest" classname="library.requests.AbstractRequestTest" file="/data/www/xls_aufgabe/tests/unit/Request/AbstractRequestTest.php" line="38" assertions="1" time="0.001363"/>
+      <testcase name="testGetReturnsEmptyStringIfKeyIsNotSet" class="library\requests\AbstractRequestTest" classname="library.requests.AbstractRequestTest" file="/data/www/xls_aufgabe/tests/unit/Request/AbstractRequestTest.php" line="43" assertions="1" time="0.001273"/>
+      <testcase name="testGetUriReturnsUriObject" class="library\requests\AbstractRequestTest" classname="library.requests.AbstractRequestTest" file="/data/www/xls_aufgabe/tests/unit/Request/AbstractRequestTest.php" line="49" assertions="1" time="0.001346"/>
     </testsuite>
   </testsuite>
 </testsuites>
