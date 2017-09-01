@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuites>
-  <testsuite name="library\processor\ErrorPageProcessorTest" file="/data/www/xls_aufgabe/tests/unit/Processors/ErrorPageProcessorTest.php" tests="1" assertions="1" errors="0" failures="0" skipped="0" time="0.008910">
-    <testcase name="testExecuteSetsBodyToErrorPage" class="library\processor\ErrorPageProcessorTest" classname="library.processor.ErrorPageProcessorTest" file="/data/www/xls_aufgabe/tests/unit/Processors/ErrorPageProcessorTest.php" line="43" assertions="1" time="0.008910"/>
-  </testsuite>
-</testsuites>
