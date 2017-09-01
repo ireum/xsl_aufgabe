@@ -17,7 +17,7 @@ spl_autoload_register(
                 'library\\processor\\errorpageprocessortest' => '/processors/ErrorPageProcessorTest.php',
                 'library\\requests\\postrequesttest' => '/request/AbstractRequestTest.php',
                 'library\\responder\\htmlresponsetest' => '/routing/HtmlResponseTest.php',
-                'library\\responder\\routertest' => '/routing/RouterTest.php',
+                'library\\responder\\OLDRouterTest' => '/routing/OLDRouterTestest.php',
                 'library\\responder\\uritest' => '/routing/UriTest.php'
             );
         }

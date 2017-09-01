@@ -13,12 +13,12 @@ namespace library\responder
     use PHPUnit\Framework\TestCase;
 
     /**
-     * Class RouterTest
+     * Class OLDRouterTest
      * @package library\Routers
      * @covers library\Routers\Router
      * @uses   library\setup\Factory
      */
-    class RouterTest extends TestCase
+    class OLDRouterTest extends TestCase
     {
         /** @var Router */
         private $router;
@@ -79,11 +79,11 @@ namespace library\responder
 //            $this->assertInstanceOf(AddBookProcessor::class, $actual);
 //        }
 
-        public function testRouteReturnsErrorPageProcessorIfCalledWithInvalidUri()
-        {
-            $actual = $this->router->route($this->request);
-            $this->assertInstanceOf(ErrorPageProcessor::class, $actual);
-        }
+//        public function testRouteReturnsErrorPageProcessorIfCalledWithInvalidUri()
+//        {
+//            $actual = $this->router->route($this->request);
+//            $this->assertInstanceOf(ErrorPageProcessor::class, $actual);
+//        }
 
 
     }
