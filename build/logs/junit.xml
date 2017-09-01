@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="tests/unit/Session/" tests="5" assertions="6" errors="0" failures="0" skipped="0" time="0.008037">
-    <testsuite name="library\session\SessionTest" file="/data/www/xls_aufgabe/tests/unit/Session/SessionTest.php" tests="5" assertions="6" errors="0" failures="0" skipped="0" time="0.008037">
-      <testcase name="testSetSetsValueInInputvariables" class="library\session\SessionTest" classname="library.session.SessionTest" file="/data/www/xls_aufgabe/tests/unit/Session/SessionTest.php" line="24" assertions="1" time="0.001897"/>
-      <testcase name="testGetReturnsStringInsertedByConstructor" class="library\session\SessionTest" classname="library.session.SessionTest" file="/data/www/xls_aufgabe/tests/unit/Session/SessionTest.php" line="31" assertions="1" time="0.001676"/>
-      <testcase name="testGetThrowsInvalidArgumentExceptionIfKeyIsNotSet" class="library\session\SessionTest" classname="library.session.SessionTest" file="/data/www/xls_aufgabe/tests/unit/Session/SessionTest.php" line="37" assertions="2" time="0.001708"/>
-      <testcase name="testHasErrorReturnsTrueIfSet" class="library\session\SessionTest" classname="library.session.SessionTest" file="/data/www/xls_aufgabe/tests/unit/Session/SessionTest.php" line="44" assertions="1" time="0.001336"/>
-      <testcase name="testGetErrorXmlReturnsXmlInsertedByConstructor" class="library\session\SessionTest" classname="library.session.SessionTest" file="/data/www/xls_aufgabe/tests/unit/Session/SessionTest.php" line="49" assertions="1" time="0.001420"/>
+  <testsuite name="tests/unit/Session/" tests="8" assertions="11" errors="0" failures="0" skipped="0" time="0.012191">
+    <testsuite name="library\session\SessionTest" file="/data/www/xls_aufgabe/tests/unit/Session/SessionTest.php" tests="8" assertions="11" errors="0" failures="0" skipped="0" time="0.012191">
+      <testcase name="testSetSetsValueInInputvariables" class="library\session\SessionTest" classname="library.session.SessionTest" file="/data/www/xls_aufgabe/tests/unit/Session/SessionTest.php" line="24" assertions="1" time="0.001785"/>
+      <testcase name="testGetReturnsStringInsertedByConstructor" class="library\session\SessionTest" classname="library.session.SessionTest" file="/data/www/xls_aufgabe/tests/unit/Session/SessionTest.php" line="31" assertions="1" time="0.001407"/>
+      <testcase name="testGetThrowsInvalidArgumentExceptionIfKeyIsNotSet" class="library\session\SessionTest" classname="library.session.SessionTest" file="/data/www/xls_aufgabe/tests/unit/Session/SessionTest.php" line="37" assertions="2" time="0.001692"/>
+      <testcase name="testHasErrorReturnsTrueIfSet" class="library\session\SessionTest" classname="library.session.SessionTest" file="/data/www/xls_aufgabe/tests/unit/Session/SessionTest.php" line="44" assertions="1" time="0.001262"/>
+      <testcase name="testGetErrorXmlReturnsXmlInsertedByConstructor" class="library\session\SessionTest" classname="library.session.SessionTest" file="/data/www/xls_aufgabe/tests/unit/Session/SessionTest.php" line="49" assertions="1" time="0.001504"/>
+      <testcase name="testSetErrorXmlSetsErrorXml" class="library\session\SessionTest" classname="library.session.SessionTest" file="/data/www/xls_aufgabe/tests/unit/Session/SessionTest.php" line="56" assertions="1" time="0.001536"/>
+      <testcase name="testResetErrorXmlSetErrorXmlValueToNull" class="library\session\SessionTest" classname="library.session.SessionTest" file="/data/www/xls_aufgabe/tests/unit/Session/SessionTest.php" line="68" assertions="2" time="0.001500"/>
+      <testcase name="testGetSessionValuesReturnsArrayInsertedByConstructor" class="library\session\SessionTest" classname="library.session.SessionTest" file="/data/www/xls_aufgabe/tests/unit/Session/SessionTest.php" line="75" assertions="2" time="0.001504"/>
     </testsuite>
   </testsuite>
 </testsuites>

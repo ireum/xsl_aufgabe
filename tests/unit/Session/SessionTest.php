@@ -53,13 +53,32 @@ class SessionTest extends TestCase
         $this->assertInstanceOf(\DOMDocument::class, $actual);
     }
 
-    
+    public function testSetErrorXmlSetsErrorXml()
+    {
+        $dom = new \DOMDocument();
+        $dom->loadXML(
+            '<?xml version="1.0"?>
+                    <?xml-stylesheet type="text/xsl" href="xslt.xsl"?><test></test>'
+        );
 
-//    public function testSetErrorXmlSetXmlIntoInputVariables()
-//    {
-//
-//        $this->session->setErrorXml();
-//    }
+        $this->session->setErrorXml($dom);
+        $this->assertInstanceOf(\DOMDocument::class, $this->session->getErrorXml());
+    }
 
+    public function testResetErrorXmlSetErrorXmlValueToNull()
+    {
+        $this->assertTrue($this->session->hasError());
+        $this->session->resetErrorXml();
+        $this->assertFalse($this->session->hasError());
+    }
+
+    public function testGetSessionValuesReturnsArrayInsertedByConstructor()
+    {
+        $actual = $this->session->getSessionValues();
+        $this->assertEquals('bar', $actual['foo']);
+        $expectedxml = '<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="xslt.xsl"?><test></test>';
+        $this->assertEquals($expectedxml, $actual['errorXml']);
+    }
 
 }
