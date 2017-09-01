@@ -38,7 +38,6 @@ namespace library\handler
         {
             $lastId = $this->sXmlElement->xpath('//catalog/book[last()]/@id')[0][0];
             $nextId = substr($lastId, 2);
-            echo $nextId . PHP_EOL;
             return 'bk' . ++$nextId;
         }
     }

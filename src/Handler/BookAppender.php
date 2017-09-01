@@ -49,13 +49,6 @@ namespace library\handler
             $this->saveBook();
         }
 
-        private function getNextId(): string
-        {
-            $lastId = $this->sxmlElement->xpath('//catalog/ValueObjects[last()]/@id')[0][0];
-            $nextId = substr($lastId, 2);
-            return 'bk' . ++$nextId;
-        }
-
         private function saveBook()
         {
             $this->sxmlElement->saveXML($this->xmlPath);

@@ -13,13 +13,13 @@ namespace library\processor
     {
 
         /** @var LibraryFilter */
-        private $xmlFormProcessor;
+        private $libraryFilter;
         /** @var string */
         private $xslPath;
 
-        public function __construct(LibraryFilter $searchFormProcessor, string $xslPath)
+        public function __construct(LibraryFilter $libraryFilter, string $xslPath)
         {
-            $this->xmlFormProcessor = $searchFormProcessor;
+            $this->libraryFilter = $libraryFilter;
             $this->xslPath = $xslPath;
 
         }
@@ -29,7 +29,7 @@ namespace library\processor
             AbstractRequest $request
         )
         {
-            $sfp = $this->xmlFormProcessor;
+            $sfp = $this->libraryFilter;
 
             $xslParser = new \XSLTProcessor();
             $xslParser->importStylesheet(simplexml_load_file($this->xslPath));

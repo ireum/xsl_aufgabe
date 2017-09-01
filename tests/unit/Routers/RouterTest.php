@@ -18,7 +18,6 @@ use PHPUnit\Framework\TestCase;
  * @uses library\factories\Factory
  * @uses library\responder\Uri
  * @uses library\requests\AbstractRequest
- * @uses library\processor\Processors
  */
 class RouterTest extends TestCase
 {

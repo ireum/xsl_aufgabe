@@ -7,15 +7,15 @@ namespace library\handler
     use PHPUnit\Framework\TestCase;
 
     /**
-     * Class XmlFormProcessorTest
+     * Class LibraryFilterTest
      * @package library\Handler
-     * @covers library\Handler\XmlFormProcessor
-     * @uses   library\requests\AbstractRequest
+     * @covers \library\handler\LibraryFilter
+     * @uses   \library\requests\AbstractRequest
      */
-    class XmlFormProcessorTest extends TestCase
+    class LibraryFilterTest extends TestCase
     {
         /** @var LibraryFilter */
-        private $xmlFormProcessor;
+        private $libraryFilter;
 
         /** @var \PHPUnit_Framework_MockObject_MockObject|BooksQuery */
         private $xmlProcessor;
@@ -33,22 +33,22 @@ namespace library\handler
                 ->disableOriginalConstructor()
                 ->getMock();
 
-            $this->xmlFormProcessor = new LibraryFilter(__DIR__ . '/data/test.xml', $this->xmlProcessor);
+            $this->libraryFilter = new LibraryFilter(__DIR__ . '/../../data/testBooks.xml', $this->xmlProcessor);
         }
 
         public function testProcessFormSetsDefaultValuesIfSubmitNotSet()
         {
-            $dom = $this->xmlFormProcessor->processForm($this->request);
+            $dom = $this->libraryFilter->processForm($this->request);
             $this->assertInstanceOf(\DOMDocument::class, $dom);
         }
 
-        public function testProccesFormSetSearchedValues()
+        public function testProcessFormSetSearchedValues()
         {
             $this->request->expects($this->once())
                 ->method('has')
                 ->willReturn(true);
 
-            $dom = $this->xmlFormProcessor->processForm($this->request);
+            $dom = $this->libraryFilter->processForm($this->request);
             $this->assertInstanceOf(\DOMDocument::class, $dom);
         }
 
@@ -58,15 +58,11 @@ namespace library\handler
                 ->method('has')
                 ->willReturn(true);
 //
-//            $this->request->expects($this->atLeast(1))
-//                ->method('get')
-//                ->with('author');
-
             $this->request->expects($this->atLeast(2))
                 ->method('get')
                 ->willReturn('price');
 
-            $dom = $this->xmlFormProcessor->processForm($this->request);
+            $dom = $this->libraryFilter->processForm($this->request);
             $this->assertInstanceOf(\DOMDocument::class, $dom);
         }
     }

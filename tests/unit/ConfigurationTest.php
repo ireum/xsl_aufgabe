@@ -2,12 +2,13 @@
 
 namespace library;
 
+use PHPUnit\Framework\Error\Error;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Class ConfigurationTest
  * @package library
- * @covers library\Configuration
+ * @covers \library\Configuration
  */
 class ConfigurationTest extends TestCase
 {
@@ -20,11 +21,12 @@ class ConfigurationTest extends TestCase
         $this->configuration = new Configuration($path);
     }
 
-    // TODO: How to test 'parse_ini_file()'
+//    // TODO: How to test 'parse_ini_file()'
 //    public function testIsValidIniFileThrowsExceptionIfIniIsInvalid()
 //    {
+//        $this->expectException();
 //        $this->expectException(\InvalidArgumentException::class);
-//        $path = __DIR__ . '/../data/invalidTestConf.ini';
+//        $path = __DIR__ . '/../data/iinvalidTestConf.ini';
 //        $this->configuration = new Configuration($path);
 //    }
 
