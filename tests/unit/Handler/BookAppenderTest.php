@@ -28,7 +28,6 @@ class BookAppenderTest extends TestCase
         $path = __DIR__ . '/../../data/testBooks.xml';
         $this->bookAppender = new BookAppender($path, $this->booksQuery);
     }
-//    // TODO: how test this?
     public function testSetSxmlElementThrowsExceptionIfPathIsInvalid()
     {
         $this->expectException(ErrorException::class);

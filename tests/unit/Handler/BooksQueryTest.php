@@ -25,10 +25,7 @@ namespace library\handler
 
         public function testSetSxmlElementThrowsExceptionIfPathIsInvalid()
         {
-            // TODO: Exception is not thrown?
-//            $this->expectException(\InvalidArgumentException::class);
             $this->expectException(ErrorException::class);
-//            $this->expectException(Error::class);
             $this->booksQuery = new BooksQuery(__DIR__ . '/data/invalid.xml');
         }
 

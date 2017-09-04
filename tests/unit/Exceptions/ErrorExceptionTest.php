@@ -5,8 +5,7 @@ namespace library\exceptions;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class ErrorExceptionTest
- * @package library\exceptions
+ * @covers \library\exceptions\ErrorException
  */
 class ErrorExceptionTest extends TestCase
 {
@@ -36,7 +35,7 @@ class ErrorExceptionTest extends TestCase
         $this->assertSame('path', $actual);
     }
 
-    public function testLineisLineInsertedByConstructor()
+    public function testLineIsLineInsertedByConstructor()
     {
         $actual = $this->errorException->getLine();
         $this->assertSame('line 1', $actual);
