@@ -5,6 +5,7 @@ namespace library\handler
 {
 
 
+    use library\backends\FileBackend;
     use library\valueobject\Book;
 
     class BookAppender
@@ -15,9 +16,12 @@ namespace library\handler
         private $xmlQuery;
         /** @var string */
         private $xmlPath;
+        /** @var FileBackend */
+        private $fileBackend;
 
-        public function __construct(string $xmlPath, BooksQuery $xmlQuery)
+        public function __construct(string $xmlPath, BooksQuery $xmlQuery, FileBackend $fileBackend)
         {
+            $this->fileBackend = $fileBackend;
             $this->setSxmlElement($xmlPath);
             $this->xmlQuery = $xmlQuery;
             $this->xmlPath = $xmlPath;
@@ -26,7 +30,8 @@ namespace library\handler
         private function setSxmlElement(string $xmlPath)
         {
             $this->isValidIniFile($xmlPath);
-            $this->sxmlElement = simplexml_load_file($xmlPath);
+            $this->sxmlElement = simplexml_load_string($this->fileBackend->load($xmlPath));
+
         }
 
         private function isValidIniFile(string $xmlPath)
@@ -61,7 +66,7 @@ namespace library\handler
 
         private function saveBook()
         {
-            $this->sxmlElement->saveXML($this->xmlPath);
+            $this->fileBackend->save($this->xmlPath, $this->sxmlElement->asXML());
         }
     }
 }

@@ -26,7 +26,6 @@ namespace library\book
 
         public function setUp()
         {
-
             $arr = [
                 'submit' => 'Submit',
                 'author' => 'Test Author',
@@ -41,102 +40,74 @@ namespace library\book
             $this->book = new Book($this->request);
         }
 
-        public function testGetAuthorReturnsAuthorInsertedByConstructor()
+        //TODO: X Getter Tests via Dataprovider
+        public function fieldProvider()
         {
-            $this->assertEquals('Test Author', $this->book->getAuthor());
+            return array(
+                array('Test Author', 'getAuthor'),
+                array('Test Title', 'getTitle'),
+                array('Test Genre', 'getGenre'),
+                array(1.35, 'getPrice'),
+                array(\DateTime::createFromFormat('Y-m-d', '1970-01-01'), 'getReleaseDate'),
+                array('Test Description', 'getDescription'),
+            );
         }
 
-        public function testGetTitleReturnsTitleInsertedByConstructor()
+        /**
+         * @dataProvider fieldProvider
+         */
+        public function testBookFieldsInsertedByConstructor($expected, $methodToCall)
         {
-            $this->assertEquals('Test Title', $this->book->getTitle());
+            $this->assertEquals($expected, $this->book->{$methodToCall}());
         }
 
-        public function testGetGenreReturnsGenreInsertedByConstructor()
+        public function errorProvider()
         {
-            $this->assertEquals('Test Genre', $this->book->getGenre());
+            return array(
+                array(
+                    array(
+                    'submit' => 'Submit',
+                    'author' => 'Test Author',
+                    'title' => 'Test Title',
+                    'genre' => 'Test Genre',
+                    'price' => -1.35,
+                    'releaseDate' => '1970-01-01',
+                    'description' => 'Test Description')),
+                array(
+                    array(
+                    'submit' => 'Submit',
+                    'author' => 'Test Author',
+                    'title' => 'Test Title',
+                    'genre' => '',
+                    'price' => 1.35,
+                    'releaseDate' => '1970-01-01',
+                    'description' => 'Test Description')),
+                array(
+                    array(
+                    'submit' => 'Submit',
+                    'author' => 'Test Author',
+                    'title' => 'Test Title',
+                    'genre' => 'Test Genre',
+                    'price' => 1.35,
+                    'releaseDate' => '197a0-01-01',
+                    'description' => 'Test Description')),
+                array(
+                    array(
+                    'submit' => 'Submit',
+                    'title' => 'Test Title',
+                    'genre' => 'Test Genre',
+                    'price' => 1.35,
+                    'releaseDate' => '197a0-01-01',
+                    'description' => 'Test Description'))
+            );
         }
 
-        public function testGetPriceReturnsPriceInsertedByConstructor()
-        {
-            $this->assertEquals(1.35, $this->book->getPrice());
-        }
-
-        public function testGetDateReturnsDateInsertedByConstructor()
-        {
-            $dt = \DateTime::createFromFormat('Y-m-d', '1970-01-01');
-            $this->assertEquals($dt, $this->book->getReleaseDate());
-        }
-
-        public function testGetDescriptionReturnsDescriptionInsertedByConstructor()
-        {
-            $this->assertEquals('Test Description', $this->book->getDescription());
-        }
-
-        public function testConstructorThrowsExceptionIfPriceIsAnErrorFieldsAreSet()
+        /**
+         * @dataProvider errorProvider
+         */
+        public function testInputErrors($arr)
         {
             $this->expectException(InvalidBookException::class);
-            $arr = [
-                'submit' => 'Submit',
-                'author' => 'Test Author',
-                'title' => 'Test Title',
-                'genre' => 'Test Genre',
-                'price' => -1.35,
-                'releaseDate' => '1970-01-01',
-                'description' => 'Test Description'
-            ];
-
-            $this->request = new PostRequest($arr, $_SERVER);
-            $this->book = new Book($this->request);
-        }
-
-        public function testConstructorThrowsExceptionIfStringFieldIsAnErrorFieldsAreSet()
-        {
-            $this->expectException(InvalidBookException::class);
-            $arr = [
-                'submit' => 'Submit',
-                'author' => 'Test Author',
-                'title' => 'Test Title',
-                'genre' => '',
-                'price' => 1.35,
-                'releaseDate' => '1970-01-01',
-                'description' => 'Test Description'
-            ];
-
-            $this->request = new PostRequest($arr, $_SERVER);
-            $this->book = new Book($this->request);
-        }
-
-
-        public function testConstructorThrowsExceptionIfDateIsAnErrorFieldsAreSet()
-        {
-            $this->expectException(InvalidBookException::class);
-            $arr = [
-                'submit' => 'Submit',
-                'author' => 'Test Author',
-                'title' => 'Test Title',
-                'genre' => 'Test Genre',
-                'price' => 1.35,
-                'releaseDate' => '197a0-01-01',
-                'description' => 'Test Description'
-            ];
-
-            $this->request = new PostRequest($arr, $_SERVER);
-            $this->book = new Book($this->request);
-        }
-
-
-        public function testConstructorThrowsExceptionIfStringFieldIsNotSet()
-        {
-            $this->expectException(InvalidBookException::class);
-            $arr = [
-                'submit' => 'Submit',
-                'title' => 'Test Title',
-                'genre' => 'Test Genre',
-                'price' => 1.35,
-                'releaseDate' => '197a0-01-01',
-                'description' => 'Test Description'
-            ];
-
             $this->request = new PostRequest($arr, $_SERVER);
             $this->book = new Book($this->request);
         }

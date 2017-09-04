@@ -3,6 +3,7 @@
 namespace library\processor
 {
 
+    use library\backends\FileBackend;
     use library\requests\AbstractRequest;
     use library\responder\HtmlResponse;
     use library\session\Session;
@@ -16,12 +17,15 @@ namespace library\processor
         private $xslPath;
         /** @var Session */
         private $session;
+        /** @var FileBackend */
+        private $fileBackend;
 
-        public function __construct(string $xmlPath, string $xslPath, Session $session)
+        public function __construct(string $xmlPath, string $xslPath, Session $session, FileBackend $fileBackend)
         {
             $this->xmlPath = $xmlPath;
             $this->xslPath = $xslPath;
             $this->session = $session;
+            $this->fileBackend = $fileBackend;
         }
 
         public function execute(
@@ -37,7 +41,7 @@ namespace library\processor
               $dom = $this->session->getErrorXml();
 
             } else {
-                $dom->load($this->xmlPath);
+                $dom->loadXML($this->fileBackend->load($this->xmlPath)); //TODO: X Via FileBAckend
             }
             $response->setBody($xslParser->transformToDoc($dom)->saveXML());
             $this->session->resetErrorXml();

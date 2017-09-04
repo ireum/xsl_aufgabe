@@ -58,9 +58,9 @@ class AddBookProcessorTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-//        $this->request = $this->getMockBuilder(AbstractRequest::class)
-//            ->disableOriginalConstructor()
-//            ->getMock();
+        $this->request = $this->getMockBuilder(AbstractRequest::class)
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $this->session = $this->getMockBuilder(Session::class)
             ->disableOriginalConstructor()
@@ -76,7 +76,7 @@ class AddBookProcessorTest extends TestCase
             'description' => 'desc'
         ];
 
-        $this->request = new PostRequest($inputVariables, $_SERVER);
+//        $this->request = new PostRequest($inputVariables, $_SERVER); //TODO: Boooooh! Warum kein Mock?
 
 
         $this->addBookProcessor = new AddBookProcessor(
@@ -91,6 +91,9 @@ class AddBookProcessorTest extends TestCase
         $this->htmlResponse->expects($this->once())
             ->method('setRedirect')
             ->with('/library');
+
+//        $this->request->expects($this->once())
+//            ->method()
 
         $this->addBookProcessor->execute($this->htmlResponse, $this->request);
     }
@@ -107,7 +110,10 @@ class AddBookProcessorTest extends TestCase
             'description' => 'desc'
         ];
 
-        $this->request = new PostRequest($inputVariables, $_SERVER);
+//        $this->request->expects($this->once())
+//            ->method('get')
+
+//        $this->request = new PostRequest($inputVariables, $_SERVER); //TODO: boooooh!
         $this->htmlResponse->expects($this->once())
             ->method('setRedirect')
             ->with('/add');

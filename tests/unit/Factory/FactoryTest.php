@@ -2,8 +2,10 @@
 
 namespace library\factories;
 
+use library\backends\FileBackend;
 use library\Configuration;
 use library\handler\BookAppender;
+use library\handler\BooksQuery;
 use library\handler\ErrorXmlGenerator;
 use library\handler\LibraryFilter;
 use library\processor\AddBookProcessor;
@@ -15,8 +17,6 @@ use library\session\Session;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class FactoryTest
- * @package library\factories
  * @covers  \library\factories\Factory
  * @uses    \library\Configuration
  * @uses    \library\session\Session
@@ -29,6 +29,7 @@ use PHPUnit\Framework\TestCase;
  * @uses    \library\processor\LibraryProcessor
  * @uses    \library\handler\LibraryFilter
  * @uses    \library\handler\ErrorXmlGenerator
+ * @uses    \library\backends\FileBackend
  */
 class FactoryTest extends TestCase
 {
@@ -51,62 +52,30 @@ class FactoryTest extends TestCase
         $this->factory = new Factory($this->configuration, $this->session);
     }
 
-    public function testLibraryFilterCanBeCreated()
+    //TODO: X Via DataProvider löschen
+
+    public function provider()
+    {
+        return array(
+            array('createLibraryFilter', LibraryFilter::class),
+            array('createBookAppender', BookAppender::class),
+            array('createFileBackend', FileBackend::class),
+            array('createAddBookProcessor', AddBookProcessor::class),
+            array('createDisplayBookProcessor', DisplayBookFormProcessor::class),
+            array('createLibraryProcessor', LibraryProcessor::class),
+            array('createErrorPageProcessor', ErrorPageProcessor::class),
+            array('createRouter', Router::class),
+            array('createErrorXmlGenerator', ErrorXmlGenerator::class)
+        );
+    }
+
+    /**
+     * @dataProvider provider
+     */
+    public function testFactory($methodToCall, $expected)
     {
         $this->configuration->expects($this->any())->method('getXmlPath')->willReturn(__DIR__ . '/../../data/testBooks.xml');
 
-        $actual = $this->factory->createLibraryFilter();
-        $this->assertInstanceOf(LibraryFilter::class, $actual);
-    }
-
-    public function testBookAppenderCanBeCreated()
-    {
-        $this->configuration->expects($this->any())->method('getXmlPath')->willReturn(__DIR__ . '/../../data/testBooks.xml');
-
-        $actual = $this->factory->createBookAppender();
-        $this->assertInstanceOf(BookAppender::class, $actual);
-    }
-
-    public function testAddBookProcessorCanBeCreated()
-    {
-        $this->configuration->expects($this->any())->method('getXmlPath')->willReturn(__DIR__ . '/../../data/testBooks.xml');
-
-        $actual = $this->factory->createAddBookProcessor();
-        $this->assertInstanceOf(AddBookProcessor::class, $actual);
-    }
-
-    public function testDisplayBookFormProcessorCanBeCreated()
-    {
-        $this->configuration->expects($this->any())->method('getXmlPath')->willReturn(__DIR__ . '/../../data/testBooks.xml');
-
-        $actual = $this->factory->createDisplayBookProcessor();
-        $this->assertInstanceOf(DisplayBookFormProcessor::class, $actual);
-    }
-
-
-    public function testLibraryProcessorCanBeCreated()
-    {
-        $this->configuration->expects($this->any())->method('getXmlPath')->willReturn(__DIR__ . '/../../data/testBooks.xml');
-
-        $actual = $this->factory->createLibraryProcessor();
-        $this->assertInstanceOf(LibraryProcessor::class, $actual);
-    }
-
-    public function testErrorPageProcessorCanBeCreated()
-    {
-        $actual = $this->factory->createErrorPageProcessor();
-        $this->assertInstanceOf(ErrorPageProcessor::class, $actual);
-    }
-
-    public function testRouterCanBeCreated()
-    {
-        $actual = $this->factory->createRouter();
-        $this->assertInstanceOf(Router::class, $actual);
-    }
-
-    public function testErrorXmlGeneratorCanBeCreated()
-    {
-        $actual = $this->factory->createErrorXmlGenerator();
-        $this->assertInstanceOf(ErrorXmlGenerator::class, $actual);
+        $this->assertInstanceOf($expected, $this->factory->{$methodToCall}());
     }
 }

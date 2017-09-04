@@ -60,17 +60,16 @@ namespace library\valueobject
             $this->validateStringFields('description', $request);
         }
 
+        //TODO: Validierung anpassen
         private function validateStringFields(string $key, AbstractRequest $request)
         {
             if (!$request->has($key) || $request->get($key) === '') {
-                $this->isValid = false;
-
                 if (!$request->has($key)) {
-                    $this->errorFields[$key] = " ";
+                    $this->errorFields[$key] = "";
                 } else {
                     $this->errorFields[$key] = $request->get($key);
                 }
-            }
+            } 
         }
 
         private function validatePrice(AbstractRequest $request)

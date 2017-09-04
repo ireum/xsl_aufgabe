@@ -14,7 +14,7 @@ class ErrorExceptionTest extends TestCase
 
     public function setUp()
     {
-        $this->errorException = new ErrorException('ErrorException', 5, 'path', 'line 1');
+        $this->errorException = new ErrorException('ErrorException', 5);
     }
 
     public function testMessageIsMessageInsertedByConstructor()
@@ -27,17 +27,5 @@ class ErrorExceptionTest extends TestCase
     {
         $actual = $this->errorException->getSeverity();
         $this->assertSame(5, $actual);
-    }
-
-    public function testFileIsFileInsertedByConstructor()
-    {
-        $actual = $this->errorException->getFile();
-        $this->assertSame('path', $actual);
-    }
-
-    public function testLineIsLineInsertedByConstructor()
-    {
-        $actual = $this->errorException->getLine();
-        $this->assertSame('line 1', $actual);
     }
 }

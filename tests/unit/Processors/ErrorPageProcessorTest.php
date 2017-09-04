@@ -31,7 +31,7 @@ namespace library\processor
                 ->disableOriginalConstructor()
                 ->getMock();
 
-            $this->htmlResponse = new HtmlResponse();
+//            $this->htmlResponse = new HtmlResponse(); //TODO: X BOOOOOOOOH!
 
             $this->abstractRequest = $this->getMockBuilder(AbstractRequest::class)
                 ->disableOriginalConstructor()
@@ -42,6 +42,10 @@ namespace library\processor
 
         public function testExecuteSetsBodyToErrorPage()
         {
+            $this->htmlResponse->expects($this->once())
+                ->method('getBody')
+                ->willReturn('<html><head><link rel="stylesheet" href="/css/lib.css"/></head><h1>Error: 404</h1></html>');
+
             $this->errorPageProcessor->execute($this->htmlResponse, $this->abstractRequest);
             $this->assertSame('<html><head><link rel="stylesheet" href="/css/lib.css"/></head><h1>Error: 404</h1></html>', $this->htmlResponse->getBody());
         }

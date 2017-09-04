@@ -37,22 +37,23 @@ namespace library
 
         public function getXmlPath(): string
         {
-            return __DIR__ . '/../data/' . $this->configuration['xmlPath'];
+            //TODO: X data/xsl gehört noch in die Config
+            return __DIR__ . '/../' . $this->configuration['xmlPath'];
         }
 
         public function getXslPath(): string
         {
-            return __DIR__ . '/../xsl/' . $this->configuration['xslPath'];
+            return __DIR__ . '/../' . $this->configuration['xslPath'];
         }
 
         public function getXmlAddBookPath(): string
         {
-            return __DIR__ . '/../data/' . $this->configuration['xmlAddBookPath'];
+            return __DIR__ . '/../' . $this->configuration['xmlAddBookPath'];
         }
 
         public function getXslAddBookPath(): string
         {
-            return __DIR__ . '/../xsl/add.xsl';
+            return __DIR__ . '/../' . $this->configuration['xslAddBookPath'] ;
         }
 
     }

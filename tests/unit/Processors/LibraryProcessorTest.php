@@ -2,6 +2,7 @@
 
 namespace library\processor;
 
+use library\backends\FileBackend;
 use library\handler\LibraryFilter;
 use library\requests\AbstractRequest;
 use library\responder\HtmlResponse;
@@ -13,6 +14,7 @@ use PHPUnit\Framework\TestCase;
  * @covers \library\processor\LibraryProcessor
  * @uses \library\handler\LibraryFilter
  * @uses \library\responder\HtmlResponse
+ * @uses \library\backends\FileBackend
  */
 class LibraryProcessorTest extends TestCase
 {
@@ -28,6 +30,10 @@ class LibraryProcessorTest extends TestCase
     /** @var \PHPUnit_Framework_MockObject_MockObject|AbstractRequest */
     private $request;
 
+    /** @var \PHPUnit_Framework_MockObject_MockObject|FileBackend */
+    private $fileBackend;
+
+
     public function setUp()
     {
         $this->libraryFilter = $this->getMockBuilder(LibraryFilter::class)
@@ -42,9 +48,13 @@ class LibraryProcessorTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->fileBackend = $this->getMockBuilder(FileBackend::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $xslPath = __DIR__ . '/../../data/testXsl.xsl';
 
-        $this->libraryProcessor = new LibraryProcessor($this->libraryFilter, $xslPath);
+        $this->libraryProcessor = new LibraryProcessor($this->libraryFilter, $xslPath, $this->fileBackend);
     }
 
     public function testExecute()
@@ -62,6 +72,12 @@ class LibraryProcessorTest extends TestCase
         $this->libraryFilter->expects($this->once())
             ->method('processForm')
             ->willReturn($libDom);
+
+        //TODO: Zusicherung auf setBody mit ->with()
+//        $this->response->expects($this->once())
+//            ->method('setBody')
+//            ->with($this->libraryFilter->processForm($libDom));
+
 
         $this->libraryProcessor->execute($this->response, $this->request);
     }

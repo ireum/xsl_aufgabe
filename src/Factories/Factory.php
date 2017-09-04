@@ -3,6 +3,7 @@
 namespace library\factories
 {
 
+    use library\backends\FileBackend;
     use library\Configuration;
     use library\processor\AddBookProcessor;
     use library\processor\DisplayBookFormProcessor;
@@ -31,12 +32,21 @@ namespace library\factories
 
         public function createLibraryFilter(): LibraryFilter
         {
-            return new LibraryFilter($this->configuration->getXmlPath(), $this->createXmlProcessor());
+            return new LibraryFilter($this->configuration->getXmlPath(), $this->createBooksQuery());
         }
 
         public function createBookAppender(): BookAppender
         {
-            return new BookAppender($this->configuration->getXmlPath(), $this->createXmlProcessor());
+            return new BookAppender(
+                $this->configuration->getXmlPath(),
+                $this->createBooksQuery(),
+                $this->createFileBackend()
+            );
+        }
+
+        public function createFileBackend(): FileBackend
+        {
+            return new FileBackend();
         }
 
         public function createAddBookProcessor(): AddBookProcessor
@@ -53,13 +63,18 @@ namespace library\factories
             return new DisplayBookFormProcessor(
                 $this->configuration->getXmlAddBookPath(),
                 $this->configuration->getXslAddBookPath(),
-                $this->session
+                $this->session,
+                $this->createFileBackend()
             );
         }
 
         public function createLibraryProcessor(): LibraryProcessor
         {
-            return new LibraryProcessor($this->createLibraryFilter(), $this->configuration->getXslPath());
+            return new LibraryProcessor(
+                $this->createLibraryFilter(),
+                $this->configuration->getXslPath(),
+                $this->createFileBackend()
+            );
         }
 
         public function createErrorPageProcessor(): ErrorPageProcessor
@@ -67,9 +82,9 @@ namespace library\factories
             return new ErrorPageProcessor();
         }
 
-        private function createXmlProcessor(): BooksQuery
+        private function createBooksQuery(): BooksQuery
         {
-            return new BooksQuery($this->configuration->getXmlPath());
+            return new BooksQuery($this->configuration->getXmlPath(), $this->createFileBackend());
         }
 
         public function createRouter(): Router
@@ -79,7 +94,7 @@ namespace library\factories
 
         public function createErrorXmlGenerator(): ErrorXmlGenerator
         {
-            return new ErrorXmlGenerator($this->configuration->getXmlAddBookPath());
+            return new ErrorXmlGenerator($this->configuration->getXmlAddBookPath(), $this->createFileBackend());
         }
 
     }

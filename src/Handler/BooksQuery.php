@@ -2,20 +2,28 @@
 
 namespace library\handler
 {
+
+    use library\backends\FileBackend;
+
     class BooksQuery
     {
         /** @var \SimpleXMLElement */
         private $sXmlElement;
+        /** @var FileBackend */
+        private $fileBackend;
 
-        public function __construct(string $path)
+        public function __construct(string $path, FileBackend $fileBackend)
         {
+            $this->fileBackend = $fileBackend;
             $this->setSxmlElement($path);
         }
 
-        private function setSxmlElement(string $path)
+        private function setSxmlElement(string $xmlPath)
         {
-            $this->isValidIniFile($path);
-            $this->sXmlElement = simplexml_load_file($path);
+            $this->isValidIniFile($xmlPath);
+
+            //TODO: X Via FileBackend laden
+            $this->sXmlElement = simplexml_load_string($this->fileBackend->load($xmlPath));
         }
         private function isValidIniFile(string $xmlPath)
         {

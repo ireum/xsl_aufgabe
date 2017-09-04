@@ -14,18 +14,17 @@ namespace library\exceptions
     {
         /** @var InvalidBookException */
         private $invalidBookException;
+        private $errorFields = ['field1' => 'value1', 'field2' => 'value2'];
 
         public function setUp()
         {
-            $errorFields = ['field1' => 'value1', 'field2' => 'value2'];
-            $this->invalidBookException = new InvalidBookException('Invalid Book', $errorFields);
+            $this->invalidBookException = new InvalidBookException('Invalid Book', $this->errorFields);
         }
 
         public function testGetErrorFieldsReturnsErrorFieldsArrayInsertedByConstructor()
         {
-            $expected = ['field1' => 'value1', 'field2' => 'value2'];
             $actual = $this->invalidBookException->getErrorFields();
-            $this->assertEquals($expected, $actual);
+            $this->assertEquals($this->errorFields, $actual);
         }
     }
 }

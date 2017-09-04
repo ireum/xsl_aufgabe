@@ -9,6 +9,7 @@ spl_autoload_register(
             $classes = array(
                 'library\\book\\booktest' => '/unit/ValueObjects/BookTest.php',
                 'library\\configurationtest' => '/unit/ConfigurationTest.php',
+                'library\\exceptions\\errorexceptiontest' => '/unit/Exceptions/ErrorExceptionTest.php',
                 'library\\exceptions\\invalidbookexceptiontest' => '/unit/Exceptions/InvalidBookExceptionTest.php',
                 'library\\factories\\factorytest' => '/unit/Factory/FactoryTest.php',
                 'library\\handler\\bookappendertest' => '/unit/Handler/BookAppenderTest.php',

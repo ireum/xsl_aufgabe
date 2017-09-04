@@ -15,12 +15,12 @@ class ErrorException extends \Exception
     /** @var string */
     protected $file;
 
-    public function __construct(string $message, int $severity, string $file, string $line)
+    public function __construct(string $message, int $severity)
     {
-        $this->message = $message;
+        parent::__construct($message);
+        //TODO: X Parent aufrufen, Reihenfolge der Argumente beibehalten, neue Argumente am schluss
+//        $this->message = $message;
         $this->severity = $severity;
-        $this->file = $file;
-        $this->line = $line;
     }
 
     public function getSeverity()

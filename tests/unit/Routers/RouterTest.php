@@ -50,21 +50,23 @@ class RouterTest extends TestCase
         $this->router = new Router($this->factory);
     }
 
-    public function testRouteReturnsLibraryProcessorIfCalledWithLibraryPath()
+    //TODO: X Via Dataprovider
+
+    public function provider()
     {
-        $this->request->expects($this->once())
-            ->method('getUri')
-            ->willReturn($this->uri);
-
-        $this->uri->expects($this->once())
-            ->method('getPath')
-            ->willReturn('/library');
-
-        $actual = $this->router->route($this->request);
-        $this->assertInstanceOf(LibraryProcessor::class, $actual);
+        return array(
+            array('/library', LibraryProcessor::class),
+            array('/add', DisplayBookFormProcessor::class),
+            array('/validate', AddBookProcessor::class),
+            array('/invalidPath', ErrorPageProcessor::class),
+            array('', ErrorPageProcessor::class),
+        );
     }
 
-    public function testRouteReturnsDisplayBookProcessorIfCalledWithAddPath()
+    /**
+     * @dataProvider provider
+     */
+    public function testReturnedObjectsWithPath($path, $Class)
     {
         $this->request->expects($this->once())
             ->method('getUri')
@@ -72,53 +74,9 @@ class RouterTest extends TestCase
 
         $this->uri->expects($this->once())
             ->method('getPath')
-            ->willReturn('/add');
+            ->willReturn($path);
 
         $actual = $this->router->route($this->request);
-        $this->assertInstanceOf(DisplayBookFormProcessor::class, $actual);
-    }
-
-    public function testRouteReturnsAddBookProcessorIfCalledWithValidatePath()
-    {
-        $this->request->expects($this->once())
-            ->method('getUri')
-            ->willReturn($this->uri);
-
-        $this->uri->expects($this->once())
-            ->method('getPath')
-            ->willReturn('/validate');
-
-        $actual = $this->router->route($this->request);
-        $this->assertInstanceOf(AddBookProcessor::class, $actual);
-    }
-
-    public function testRouteReturnsErrorPageProcessorIfCalledWithAnyInvalidPath()
-    {
-        $this->request->expects($this->once())
-            ->method('getUri')
-            ->willReturn($this->uri);
-
-        $this->uri->expects($this->once())
-            ->method('getPath')
-            ->willReturn('/invalidpath');
-
-        $actual = $this->router->route($this->request);
-        $this->assertInstanceOf(ErrorPageProcessor::class, $actual);
-    }
-
-
-
-    public function testRouteReturnsErrorPageProcessorIfCalledWitEmptyPath()
-    {
-        $this->request->expects($this->once())
-            ->method('getUri')
-            ->willReturn($this->uri);
-
-        $this->uri->expects($this->once())
-            ->method('getPath')
-            ->willReturn('');
-
-        $actual = $this->router->route($this->request);
-        $this->assertInstanceOf(ErrorPageProcessor::class, $actual);
+        $this->assertInstanceOf($Class, $actual);
     }
 }

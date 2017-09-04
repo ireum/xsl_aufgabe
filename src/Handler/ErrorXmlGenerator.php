@@ -4,6 +4,7 @@
 namespace library\handler;
 
 
+use library\backends\FileBackend;
 use library\requests\AbstractRequest;
 
 class ErrorXmlGenerator
@@ -11,16 +12,19 @@ class ErrorXmlGenerator
 
     /** @var string */
     private $path;
+    /** @var FileBackend */
+    private $fileBackend;
 
-    public function __construct(string $path)
+    public function __construct(string $path, FileBackend $fileBackend)
     {
         $this->path = $path;
+        $this->fileBackend = $fileBackend;
     }
 
     public function generateXml(array $errorFields, AbstractRequest $request): \DOMDocument
     {
         $dom = new \DOMDocument();
-        $dom->load($this->path);
+        $dom->loadXML($this->fileBackend->load($this->path)); //TODO: X Via FileBAckend
 
         $xpath = new \DOMXPath($dom);
         $fields = $xpath->query('/formData/fields/*');

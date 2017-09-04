@@ -28,5 +28,16 @@ class UriTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
+    //TODO: X Negativtest, wenn kein Pfad da ist
+    public function testGetPathThrowsExceptionIfPathIsNotSet()
+    {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('Path is not set');
+
+        $uri = 'https://library.test.ch';
+        $this->uri = new Uri($uri);
+
+        $this->uri->getPath();
+    }
 
 }
