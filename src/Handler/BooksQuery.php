@@ -9,15 +9,24 @@ namespace library\handler
 
         public function __construct(string $path)
         {
-            $this->sXmlElement = $this->setSxmlElement($path);
+            $this->setSxmlElement($path);
         }
 
         private function setSxmlElement(string $path)
         {
-            if (!simplexml_load_file($path)) {
-                throw new \InvalidArgumentException('Invalid path');
-            }
-            return simplexml_load_file($path);
+            $this->isValidIniFile($path);
+            $this->sXmlElement = simplexml_load_file($path);
+        }
+        private function isValidIniFile(string $xmlPath)
+        {
+            set_error_handler(
+                create_function(
+                    '$severity, $message, $file, $line',
+                    'throw new library\exceptions\ErrorException($message, $severity, $severity, $file, $line);'
+                )
+            );
+            parse_ini_file($xmlPath, true, INI_SCANNER_TYPED);
+            restore_error_handler();
         }
 
         public function getMinPrice(): float

@@ -32,6 +32,7 @@ namespace library\web
 
     $processor->execute($response, $request);
 
+
     if ($response->hasRedirect()) {
         header('Location: ' . $response->getRedirect());
     }

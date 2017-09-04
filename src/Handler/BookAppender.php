@@ -18,17 +18,27 @@ namespace library\handler
 
         public function __construct(string $xmlPath, BooksQuery $xmlQuery)
         {
-            $this->sxmlElement = $this->setSxmlElement($xmlPath);
+            $this->setSxmlElement($xmlPath);
             $this->xmlQuery = $xmlQuery;
             $this->xmlPath = $xmlPath;
         }
 
-        private function setSxmlElement(string $xmlPath): \SimpleXMLElement
+        private function setSxmlElement(string $xmlPath)
         {
-            if (!simplexml_load_file($xmlPath)) {
-                throw new \InvalidArgumentException('Invalid path');
-            }
-            return simplexml_load_file($xmlPath);
+            $this->isValidIniFile($xmlPath);
+            $this->sxmlElement = simplexml_load_file($xmlPath);
+        }
+
+        private function isValidIniFile(string $xmlPath)
+        {
+            set_error_handler(
+                create_function(
+                    '$severity, $message, $file, $line',
+                    'throw new library\exceptions\ErrorException($message, $severity, $severity, $file, $line);'
+                )
+            );
+            parse_ini_file($xmlPath, true, INI_SCANNER_TYPED);
+            restore_error_handler();
         }
 
         private function getRootNode(): \SimpleXMLElement

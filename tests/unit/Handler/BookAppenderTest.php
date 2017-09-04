@@ -2,6 +2,7 @@
 
 namespace library\handler;
 
+use library\exceptions\ErrorException;
 use library\valueobject\Book;
 use PHPUnit\Framework\TestCase;
 
@@ -11,6 +12,7 @@ use PHPUnit\Framework\TestCase;
  * @covers \library\handler\BookAppender
  * @uses   \library\handler\BooksQuery
  * @uses   \library\valueobject\Book
+ * @uses \library\exceptions\ErrorException
  */
 class BookAppenderTest extends TestCase
 {
@@ -26,11 +28,13 @@ class BookAppenderTest extends TestCase
         $path = __DIR__ . '/../../data/testBooks.xml';
         $this->bookAppender = new BookAppender($path, $this->booksQuery);
     }
-    // TODO: how test this?
-//    public function setSxmlElementThrowsExceptionIfPathisInvalid()
-//    {
-//
-//    }
+//    // TODO: how test this?
+    public function testSetSxmlElementThrowsExceptionIfPathIsInvalid()
+    {
+        $this->expectException(ErrorException::class);
+        $path = __DIR__ . '/../../data/testError.xml';
+        $this->bookAppender = new BookAppender($path, $this->booksQuery);
+    }
 
     public function testAddBookAddsBook()
     {

@@ -4,6 +4,8 @@
 namespace library
 {
 
+    use library\exceptions\ErrorException;
+
     class Configuration
     {
         /** @var array */
@@ -16,17 +18,21 @@ namespace library
 
         private function setConfiguration(string $path)
         {
-            if ($this->isValidIniFile($path)) {
+            $this->isValidIniFile($path);
                 $this->configuration = parse_ini_file($path, true);
-            }
         }
 
-        private function isValidIniFile(string $path): bool
+
+        private function isValidIniFile(string $path)
         {
-            if (parse_ini_file($path, true, INI_SCANNER_TYPED) == false) {
-                throw new \InvalidArgumentException('invalid ini file: ' . $path);
-            }
-            return true;
+            set_error_handler(
+                create_function(
+                    '$severity, $message, $file, $line',
+                    'throw new library\exceptions\ErrorException($message, $severity, $severity, $file, $line);'
+                )
+            );
+            parse_ini_file($path, true, INI_SCANNER_TYPED);
+            restore_error_handler();
         }
 
         public function getXmlPath(): string

@@ -3,6 +3,7 @@
 namespace library\processor
 {
 
+    use library\exceptions\InvalidBookException;
     use library\requests\AbstractRequest;
     use library\responder\HtmlResponse;
     use library\session\Session;
@@ -36,7 +37,7 @@ namespace library\processor
                 $book = new Book($request);
                 $this->xmlEditor->addBook($book);
                 $response->setRedirect('/library');
-            } catch (\library\exceptions\InvalidBookException $e) {
+            } catch (InvalidBookException $e) {
                 $dom = $this->xmlErrorGenerator->generateXml($e->getErrorFields(), $request);
                 $this->session->setErrorXml($dom);
                 $response->setRedirect('/add');

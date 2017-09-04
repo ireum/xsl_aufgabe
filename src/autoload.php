@@ -8,6 +8,7 @@ spl_autoload_register(
         if ($classes === null) {
             $classes = array(
                 'library\\configuration' => '/Configuration.php',
+                'library\\exceptions\\errorexception' => '/Exceptions/ErrorException.php',
                 'library\\exceptions\\invalidbookexception' => '/Exceptions/InvalidBookException.php',
                 'library\\factories\\factory' => '/Factories/Factory.php',
                 'library\\handler\\bookappender' => '/Handler/BookAppender.php',

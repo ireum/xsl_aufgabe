@@ -3,6 +3,7 @@
 namespace library\handler
 {
 
+    use library\exceptions\ErrorException;
     use PHPUnit\Framework\Error\Error;
     use PHPUnit\Framework\TestCase;
 
@@ -10,6 +11,7 @@ namespace library\handler
      * Class BooksQueryTest
      * @package library\handler
      * @covers \library\handler\BooksQuery
+     * @uses \library\exceptions\ErrorException
      */
     class BooksQueryTest extends TestCase
     {
@@ -25,7 +27,8 @@ namespace library\handler
         {
             // TODO: Exception is not thrown?
 //            $this->expectException(\InvalidArgumentException::class);
-            $this->expectException(Error::class);
+            $this->expectException(ErrorException::class);
+//            $this->expectException(Error::class);
             $this->booksQuery = new BooksQuery(__DIR__ . '/data/invalid.xml');
         }
 
