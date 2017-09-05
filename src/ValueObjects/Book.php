@@ -60,17 +60,26 @@ namespace library\valueobject
             $this->validateStringFields('description', $request);
         }
 
-        //TODO: Validierung anpassen
+        //TODO: X Validierung anpassen
         private function validateStringFields(string $key, AbstractRequest $request)
         {
-            if (!$request->has($key) || $request->get($key) === '') {
-                if (!$request->has($key)) {
-                    $this->errorFields[$key] = "";
-                } else {
-                    $this->errorFields[$key] = $request->get($key);
-                }
-            } 
+            if (!$request->has($key)) {
+                $this->errorFields[$key] = null;
+            } else if ($request->get($key) === '') {
+                $this->errorFields[$key] = $request->get($key);
+            }
         }
+
+//        private function validateStringFields(string $key, AbstractRequest $request)
+//        {
+//            if (!$request->has($key) || $request->get($key) === '') {
+//                if (!$request->has($key)) {
+//                    $this->errorFields[$key] = "";
+//                } else {
+//                    $this->errorFields[$key] = $request->get($key);
+//                }
+//            }
+//        }
 
         private function validatePrice(AbstractRequest $request)
         {
