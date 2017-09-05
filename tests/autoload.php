@@ -7,6 +7,7 @@ spl_autoload_register(
         static $classes = null;
         if ($classes === null) {
             $classes = array(
+                'library\\backends\\filebackendtest' => '/unit/Backends/FileBackendTest.php',
                 'library\\book\\booktest' => '/unit/ValueObjects/BookTest.php',
                 'library\\configurationtest' => '/unit/ConfigurationTest.php',
                 'library\\exceptions\\errorexceptiontest' => '/unit/Exceptions/ErrorExceptionTest.php',

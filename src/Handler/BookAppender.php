@@ -30,6 +30,7 @@ namespace library\handler
         private function setSxmlElement(string $xmlPath)
         {
             $this->isValidIniFile($xmlPath);
+//            var_dump($this->fileBackend->load($xmlPath));exit('hitme');
             $this->sxmlElement = simplexml_load_string($this->fileBackend->load($xmlPath));
 
         }

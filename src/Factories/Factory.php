@@ -13,8 +13,10 @@ namespace library\factories
     use library\handler\ErrorXmlGenerator;
     use library\handler\LibraryFilter;
     use library\handler\BooksQuery;
+    use library\requests\AbstractRequest;
     use library\routers\Router;
     use library\session\Session;
+    use library\valueobject\Book;
 
     class Factory
     {
@@ -54,7 +56,8 @@ namespace library\factories
             return new AddBookProcessor(
                 $this->createBookAppender(),
                 $this->createErrorXmlGenerator(),
-                $this->session
+                $this->session,
+                $this
             );
         }
 
@@ -95,6 +98,11 @@ namespace library\factories
         public function createErrorXmlGenerator(): ErrorXmlGenerator
         {
             return new ErrorXmlGenerator($this->configuration->getXmlAddBookPath(), $this->createFileBackend());
+        }
+
+        public function createBook(AbstractRequest $request): Book
+        {
+            return new Book($request);
         }
 
     }

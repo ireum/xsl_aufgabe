@@ -4,6 +4,7 @@ namespace library\processor
 {
 
     use library\exceptions\InvalidBookException;
+    use library\factories\Factory;
     use library\requests\AbstractRequest;
     use library\responder\HtmlResponse;
     use library\session\Session;
@@ -19,22 +20,27 @@ namespace library\processor
         private $xmlErrorGenerator;
         /** @var Session */
         private $session;
+        /** @var Factory */
+        private $factory;
 
         public function __construct(
             BookAppender $xmlEditor,
             ErrorXmlGenerator $xmlErrorGenerator,
-            Session $session
+            Session $session,
+            Factory $factory
         )
         {
             $this->xmlEditor = $xmlEditor;
             $this->xmlErrorGenerator = $xmlErrorGenerator;
             $this->session = $session;
+            $this->factory = $factory;
         }
 
         public function execute(HtmlResponse $response, AbstractRequest $request)
         {
             try {
-                $book = new Book($request);
+//                $book = new Book($request);
+                $book = $this->factory->createBook($request);
                 $this->xmlEditor->addBook($book);
                 $response->setRedirect('/library');
             } catch (InvalidBookException $e) {

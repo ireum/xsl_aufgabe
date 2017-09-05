@@ -61,7 +61,6 @@ namespace library\handler
             $root->setAttribute('maxprice', $this->booksQuery->getMaxPrice());
         }
 
-
         private function setSearchedValues(AbstractRequest $request)
         {
             $root = $this->getRootNode();

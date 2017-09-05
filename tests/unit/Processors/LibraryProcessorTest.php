@@ -33,6 +33,8 @@ class LibraryProcessorTest extends TestCase
     /** @var \PHPUnit_Framework_MockObject_MockObject|FileBackend */
     private $fileBackend;
 
+    /** @var string */
+    private $xslPath;
 
     public function setUp()
     {
@@ -48,17 +50,23 @@ class LibraryProcessorTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
+
         $this->fileBackend = $this->getMockBuilder(FileBackend::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $xslPath = __DIR__ . '/../../data/testXsl.xsl';
+        $this->xslPath = __DIR__ . '/../../data/testXsl.xsl';
+        $this->fileBackend->expects($this->once())
+            ->method('load')
+            ->with($this->xslPath)
+            ->willReturn(file_get_contents($this->xslPath));
 
-        $this->libraryProcessor = new LibraryProcessor($this->libraryFilter, $xslPath, $this->fileBackend);
+        $this->libraryProcessor = new LibraryProcessor($this->libraryFilter, $this->xslPath, $this->fileBackend);
     }
 
-    public function testExecute()
+    public function testExecuteE()
     {
+        //TODO: X Zusicherung auf setBody mit ->with()
         $libDom = new \DOMDocument();
         $libDom->load(__DIR__ . '/../../data/testBooks.xml');
         $root = $libDom->getElementsByTagName('catalog')->item(0);
@@ -69,14 +77,19 @@ class LibraryProcessorTest extends TestCase
         $root->setAttribute('minprice', 0);
         $root->setAttribute('maxprice', 100);
 
-        $this->libraryFilter->expects($this->once())
+        $this->libraryFilter->expects($this->exactly(2))
             ->method('processForm')
             ->willReturn($libDom);
 
-        //TODO: Zusicherung auf setBody mit ->with()
-//        $this->response->expects($this->once())
-//            ->method('setBody')
-//            ->with($this->libraryFilter->processForm($libDom));
+        $this->libraryProcessor = new LibraryProcessor($this->libraryFilter, $this->xslPath, $this->fileBackend);
+
+
+        $xslParser = new \XSLTProcessor();
+        $xslParser->importStylesheet(simplexml_load_file($this->xslPath));
+
+        $this->response->expects($this->once())
+            ->method('setBody')
+            ->with($xslParser->transformToDoc($this->libraryFilter->processForm($this->request))->saveXML());
 
 
         $this->libraryProcessor->execute($this->response, $this->request);

@@ -3,6 +3,7 @@
 namespace library\processor;
 
 use library\exceptions\InvalidBookException;
+use library\factories\Factory;
 use library\handler\BookAppender;
 use library\handler\ErrorXmlGenerator;
 use library\requests\AbstractRequest;
@@ -44,6 +45,10 @@ class AddBookProcessorTest extends TestCase
     /** @var \PHPUnit_Framework_MockObject_MockObject|Session */
     private $session;
 
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Factory */
+    private $factory;
+
+    //TODO: Boooooh! Warum kein Mock?
     public function setUp()
     {
         $this->bookAppender = $this->getMockBuilder(BookAppender::class)
@@ -58,11 +63,11 @@ class AddBookProcessorTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->request = $this->getMockBuilder(AbstractRequest::class)
+        $this->session = $this->getMockBuilder(Session::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->session = $this->getMockBuilder(Session::class)
+        $this->factory = $this->getMockBuilder(Factory::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -76,44 +81,38 @@ class AddBookProcessorTest extends TestCase
             'description' => 'desc'
         ];
 
-//        $this->request = new PostRequest($inputVariables, $_SERVER); //TODO: Boooooh! Warum kein Mock?
-
+        $this->request = $this->getMockBuilder(AbstractRequest::class)
+            ->disableOriginalConstructor()
+            ->setConstructorArgs([$inputVariables])
+            ->getMock();
 
         $this->addBookProcessor = new AddBookProcessor(
             $this->bookAppender,
             $this->errorXmlGenerator,
-            $this->session
+            $this->session,
+            $this->factory
         );
     }
 
     public function testExecuteWithValidBook()
     {
+
         $this->htmlResponse->expects($this->once())
             ->method('setRedirect')
             ->with('/library');
-
-//        $this->request->expects($this->once())
-//            ->method()
-
         $this->addBookProcessor->execute($this->htmlResponse, $this->request);
     }
 
     public function testExecuteWithInvalidBook()
     {
-        $inputVariables = [
-            'submit' => 'Submit',
-            'author' => 'Author',
-            'title' => 'Title',
-            'genre' => 'Genre',
-            'price' => -1,
-            'releaseDate' => '1990-01-01',
-            'description' => 'desc'
-        ];
+        $book = $this->getMockBuilder(Book::class)
+            ->disableOriginalConstructor()
+            ->getMock();
 
-//        $this->request->expects($this->once())
-//            ->method('get')
+        $this->factory->expects($this->once())
+            ->method('createBook')
+            ->willReturn($book->expects($this->once())->method('hasErrorFields')->willReturn(true));
 
-//        $this->request = new PostRequest($inputVariables, $_SERVER); //TODO: boooooh!
         $this->htmlResponse->expects($this->once())
             ->method('setRedirect')
             ->with('/add');

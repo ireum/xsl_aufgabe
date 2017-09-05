@@ -27,20 +27,36 @@ class BookAppenderTest extends TestCase
     /** @var \PHPUnit_Framework_MockObject_MockObject|FileBackend */
     private $fileBackend;
 
+    /** @var \PHPUnit_Framework_MockObject_MockObject|Book */
+    private $book;
+
+    /** @var string */
+    private $path;
+
     public function setUp()
     {
-        //TODO: Test anpassen mit FileBackend
+        //TODO: X Test anpassen mit FileBackend
         $this->booksQuery = $this->getMockBuilder(BooksQuery::class)
             ->disableOriginalConstructor()
             ->getMock();
 
         $this->fileBackend = $this->getMockBuilder(FileBackend::class)
+            ->getMock();
+
+        $this->book = $this->getMockBuilder(Book::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $path = __DIR__ . '/../../data/testBooks.xml';
-        $this->bookAppender = new BookAppender($path, $this->booksQuery, $this->fileBackend);
+        $this->path = __DIR__ . '/../../data/testBooks.xml';
+        $this->fileBackend->expects($this->once())
+            ->method('load')
+            ->with($this->path)
+            ->willReturn(file_get_contents($this->path));
+
+        $this->bookAppender = new BookAppender($this->path, $this->booksQuery, $this->fileBackend);
+
     }
+
     public function testSetSxmlElementThrowsExceptionIfPathIsInvalid()
     {
         $this->expectException(ErrorException::class);
@@ -48,28 +64,35 @@ class BookAppenderTest extends TestCase
         $this->bookAppender = new BookAppender($path, $this->booksQuery, $this->fileBackend);
     }
 
-    public function testAddBookAddsBook()
+
+    public function bookMethodProvider()
     {
-        /** @var \PHPUnit_Framework_MockObject_MockObject|Book $book */
-        $book = $this->getMockBuilder(Book::class)->disableOriginalConstructor()->getMock();
+        return array(
+            array('getAuthor'),
+            array('getTitle'),
+            array('getGenre'),
+            array('getPrice'),
+            array('getReleaseDate'),
+            array('getDescription'),
+        );
+    }
 
-        $this->booksQuery->expects($this->once())->method('getNextId')->willReturn('bk104');
+    /**
+     * @dataProvider bookMethodProvider
+     */
+    public function testAddBookAddsBook($methodToCall)
+    {
+        $this->booksQuery->expects($this->once())
+            ->method('getNextId')
+            ->willReturn('bk104');
 
-        //TODO: Sämtliche Expectations auf $book fehlen
-        //TODO: FileBackEnd returns FALSE?
-//        var_dump($this->bookAppender->addBook($book));exit('hitme');
+        $this->book->expects($this->once())
+            ->method($methodToCall);
 
-        $this->bookAppender->addBook($book);
-//        $testXml = __DIR__ . '/../../data/testBooks.xml';
-//        $dom = new \DOMDocument();
-//        $dom->load($testXml);
-//        $xpath = new \DOMXPath($dom);
+        $this->fileBackend->expects($this->once())
+            ->method('save')
+            ->with($this->path);
 
-//        /** @var \DOMElement $testNode */
-//        $testNode = $xpath->query('//catalog/book[last()]')[0];
-//        $actual = $testNode->getAttribute('id');
-//        $this->assertSame('bk104', $actual);
-//        $testNode->parentNode->removeChild($testNode);
-//        $dom->save($testXml);
+        $this->bookAppender->addBook($this->book);
     }
 }
