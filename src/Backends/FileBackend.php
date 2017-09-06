@@ -6,6 +6,7 @@ namespace library\backends
     {
         public function load(string $path): string
         {
+
             set_error_handler(
                 create_function(
                     '$severity, $message, $file, $line',

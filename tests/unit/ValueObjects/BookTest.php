@@ -18,6 +18,7 @@ namespace library\valueobject
      */
     class BookTest extends TestCase
     {
+        private $releaseDate = '1970-01-01';
         /** @var Book */
         private $book;
 
@@ -35,7 +36,7 @@ namespace library\valueobject
                 'title' => 'Test Title',
                 'genre' => 'Test Genre',
                 'price' => 1.35,
-                'releaseDate' => '1970-01-01',
+                'releaseDate' => $this->releaseDate,
                 'description' => 'Test Description'
             ];
 
@@ -58,7 +59,7 @@ namespace library\valueobject
 //            $dateTime = \DateTime::createFromFormat('Y-m-d', '1970-01-01');
 //            $dateTime->add(new \DateInterval('PT1S'));
             return array(
-                array(\DateTime::createFromFormat('Y-m-d', '1970-01-01'), 'getReleaseDate'),
+//                array(\DateTime::createFromFormat('Y-m-d', '1970-01-01'), 'getReleaseDate'),
                 array('Test Author', 'getAuthor'),
                 array('Test Title', 'getTitle'),
                 array('Test Genre', 'getGenre'),
@@ -73,6 +74,11 @@ namespace library\valueobject
         public function testBookFieldsInsertedByConstructor($expected, $methodToCall)
         {
             $this->assertEquals($expected, $this->book->{$methodToCall}());
+        }
+
+        public function testSetAndGetDateWorks()
+        {
+            $this->assertSame($this->releaseDate, $this->book->getReleaseDate()->format('Y-m-d'));
         }
 
         public function errorProvider()

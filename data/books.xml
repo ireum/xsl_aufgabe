@@ -154,44 +154,4 @@
         <publish_date>1990-01-01</publish_date>
         <description>13123</description>
     </book>
-    <book id="bk116">
-        <author>flo</author>
-        <title>der sinn des lebens</title>
-        <genre>poesie</genre>
-        <price>17.05</price>
-        <publish_date>1986-11-29</publish_date>
-        <description>spannendes buch</description>
-    </book>
-    <book id="bk117">
-        <author>Agus Sudarta</author>
-        <title>Title</title>
-        <genre>genre</genre>
-        <price>123</price>
-        <publish_date>1990-01-01</publish_date>
-        <description>description</description>
-    </book>
-    <book id="bk118">
-        <author>author</author>
-        <title>title</title>
-        <genre>genre</genre>
-        <price>1</price>
-        <publish_date>1970-01-01</publish_date>
-        <description>description</description>
-    </book>
-    <book id="bk119">
-        <author>Agus Sudarta</author>
-        <title>title</title>
-        <genre>genre</genre>
-        <price>12</price>
-        <publish_date>2015-03-01</publish_date>
-        <description>description</description>
-    </book>
-    <book id="bk120">
-        <author>Agus Sudarta</author>
-        <title>title</title>
-        <genre>genre</genre>
-        <price>1</price>
-        <publish_date>1990-01-01</publish_date>
-        <description>description</description>
-    </book>
-<book id="bk121"><author>Agus Sudarta</author><title>title</title><genre>genre</genre><price>1</price><publish_date>1970-01-01</publish_date><description>description</description></book><book id="bk122"><author>Agus Sudarta</author><title>title</title><genre>genre</genre><price>88</price><publish_date>1990-01-01</publish_date><description>description</description></book></catalog>
+<book id="bk116"><author>Agus Sudarta</author><title>title</title><genre>genre</genre><price>1</price><publish_date>1990-01-01</publish_date><description>description</description></book></catalog>

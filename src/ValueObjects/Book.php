@@ -81,10 +81,18 @@ namespace library\valueobject
 
         private function validateDate(string $date)
         {
+
+
+
+//            $vDate = \DateTime::createFromFormat('Y-m-d H:i:s', $date .= '00:00:00');
+//            if (!($vDate && $vDate->format('Y-m-d') === $date)) {
+//                $this->errorFields['releaseDate'] = $date;
+//            }
+
+
+
             $vDate = \DateTime::createFromFormat('Y-m-d', $date);
             if (!($vDate && $vDate->format('Y-m-d') === $date)) {
-                $this->isValid = false;
-
                 $this->errorFields['releaseDate'] = $date;
             }
         }
