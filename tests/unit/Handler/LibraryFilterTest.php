@@ -13,7 +13,6 @@ namespace library\handler
      * @covers \library\handler\LibraryFilter
      * @uses   \library\requests\AbstractRequest
      */
-    //TODO: Can't mock request!
     class LibraryFilterTest extends TestCase
     {
         /** @var LibraryFilter */
@@ -25,44 +24,27 @@ namespace library\handler
         /** @var \PHPUnit_Framework_MockObject_MockObject|AbstractRequest */
         private $request;
 
+        /** @var string */
+        private $path;
+
         public function setUp()
         {
-            $this->booksQuery = $this->getMockBuilder(BooksQuery::class)->disableOriginalConstructor()->getMock();
-
-            $inputVariables = [
-                'submit' => 'Submit',
-                'sort' => 'price',
-                'sortdatatype' => 'number',
-                'author' => 'Agus',
-                'title' => 'UE4',
-                'minPrice' => '1',
-                'maxPrice' => '50',
-            ];
-
-            $this->request = $this->getMockBuilder(AbstractRequest::class)
-//                ->setConstructorArgs(array($inputVariables, $_SERVER))
-                    ->disableOriginalConstructor()
+            $this->booksQuery = $this->getMockBuilder(BooksQuery::class)
+                ->disableOriginalConstructor()
                 ->getMock();
 
-            $this->libraryFilter = new LibraryFilter(__DIR__ . '/../../data/testBooks.xml', $this->booksQuery);
+            $this->request = $this->getMockBuilder(AbstractRequest::class)
+                ->disableOriginalConstructor()
+                ->getMock();
+
+            $this->path = __DIR__ . '/../../data/testBooks.xml';
+
+            $this->libraryFilter = new LibraryFilter(
+                $this->path,
+                $this->booksQuery
+            );
         }
 
-
-//        /**
-//         * @dataProvider inputVarProvider
-//         */
-//        public function testTest($reqArr)
-//        {
-//
-//            $this->request = $this->getMockBuilder(AbstractRequest::class)
-//                ->setConstructorArgs(array($reqArr, $_SERVER))
-//                ->getMock();
-//
-//            $this->libraryFilter = new LibraryFilter(__DIR__ . '/../../data/testBooks.xml', $this->booksQuery);
-//
-//            $dom = $this->libraryFilter->processForm($this->request);
-//            $this->assertInstanceOf(\DOMDocument::class, $dom);
-//        }
 
         public function defaultValueProvider()
         {
@@ -75,36 +57,16 @@ namespace library\handler
                 array('maxprice', 44.95));
         }
 
-        public function inputVarProvider()
-        {
-            return array(
-//                    array('submit', 'Submit'),
-                    array('sort', 'author'),
-                    array('sortdatatype', 'text'),
-                    array('author', 'Agus'),
-                    array('title', 'UE4'),
-                    array('minPrice', '1'),
-                    array('maxPrice', '50'));
-        }
-
-        public function inputVarPriceProvider()
-        {
-                array(
-                    array('submit' => 'Submit'),
-                    array('sort' => 'price'),
-                    array('sortdatatype' => 'number'),
-                    array('author' => 'Agus'),
-                    array('title' => 'UE4'),
-                    array('minPrice' => '1'),
-                    array('maxPrice' => '50'));
-        }
-
         /**
          * @dataProvider defaultValueProvider
          */
-        public function testProcessFormSetsDefaultValuesIfSubmitNotSet($name, $value)
+        public function testProcessFormWithoutFilters($name, $value)
         {
-            //TODO: X Zusicherung auf Attribute von private function setDefaultValues()
+            $this->request->expects($this->once())
+                ->method('has')
+                ->with('submit')
+                ->willReturn(false);
+
             $this->booksQuery->expects($this->once())
                 ->method('getMinPrice')
                 ->willReturn(5.95);
@@ -113,52 +75,103 @@ namespace library\handler
                 ->method('getMaxPrice')
                 ->willReturn(44.95);
 
-            $dom = $this->libraryFilter->processForm($this->request);
+            $actual = $this->libraryFilter->processForm($this->request);
+            $this->assertInstanceOf(\DOMDocument::class, $actual);
             /** @var \DOMElement $root */
-            $root = $dom->getElementsByTagName('catalog')[0];
+            $root = $actual->getElementsByTagName('catalog')[0];
             $this->assertTrue($root->hasAttribute($name));
             $this->assertEquals($value, $root->getAttribute($name));
-            $this->assertInstanceOf(\DOMDocument::class, $dom);
+        }
+
+        public function searchValueProviderPrice()
+        {
+            return array(
+                array('sortby', 'price'),
+                array('sortdatatype', 'number'),
+                array('author', 'Agus'),
+                array('title', 'UE4'),
+                array('minprice', 5.3),
+                array('maxprice', 35.35)
+            );
         }
 
         /**
-         * @dataProvider inputVarProvider
+         * @dataProvider searchValueProviderPrice
          */
-        public function testProcessFormSetSearchedValueWithPriceAsFilter($name, $value)
+        public function testProcessFormWithPriceFilter($name, $value)
         {
-            $inputVariables = [
-            'submit' => 'Submit',
-            'sort' => 'price',
-            'sortdatatype' => 'number',
-            'author' => 'Agus',
-            'title' => 'UE4',
-            'minPrice' => '1',
-            'maxPrice' => '50',
-        ];
-
-            $this->request = $this->getMockBuilder(AbstractRequest::class)
-                ->setConstructorArgs(array($inputVariables, $_SERVER))
-                ->getMock();
-
-            $this->request->expects($this->any())
-                ->method('get')
-                ->with($name)
-                ->willReturn($inputVariables[$name]);
-
-            $this->libraryFilter = new LibraryFilter(__DIR__ . '/../../data/testBooks.xml', $this->booksQuery);
-            //TODO: Zusichung auf Attribute
-
             $this->request->expects($this->once())
                 ->method('has')
                 ->with('submit')
                 ->willReturn(true);
 
-            $dom = $this->libraryFilter->processForm($this->request);
+            //TODO: X YEEEEEEEEEEEEEEEES!
+            $this->request->expects($this->any())
+                ->method('get')
+                ->will(
+                    $this->returnValueMap(
+                        array(
+                            array('sort', 'price'),
+                            array('author', 'Agus'),
+                            array('title', 'UE4'),
+                            array('minPrice', 5.3),
+                            array('maxPrice', 35.35)
+                        )
+                    )
+                );
+
+            $actual = $this->libraryFilter->processForm($this->request);
+            $this->assertInstanceOf(\DOMDocument::class, $actual);
             /** @var \DOMElement $root */
-            $root = $dom->getElementsByTagName('catalog')[0];
+            $root = $actual->getElementsByTagName('catalog')[0];
             $this->assertTrue($root->hasAttribute($name));
             $this->assertEquals($value, $root->getAttribute($name));
-            $this->assertInstanceOf(\DOMDocument::class, $dom);
+            $this->assertInstanceOf(\DOMDocument::class, $actual);
+        }
+
+        public function searchValueProviderText()
+        {
+            return array(
+                array('sortby', 'title'),
+                array('sortdatatype', 'text'),
+                array('author', 'Agus'),
+                array('title', 'UE4'),
+                array('minprice', 5.3),
+                array('maxprice', 35.35)
+            );
+        }
+
+        /**
+         * @dataProvider searchValueProviderText
+         */
+        public function testProcessFormWithTextFilter($name, $value)
+        {
+            $this->request->expects($this->once())
+                ->method('has')
+                ->with('submit')
+                ->willReturn(true);
+
+            $this->request->expects($this->any())
+                ->method('get')
+                ->will(
+                    $this->returnValueMap(
+                        array(
+                            array('sort', 'title'),
+                            array('author', 'Agus'),
+                            array('title', 'UE4'),
+                            array('minPrice', 5.3),
+                            array('maxPrice', 35.35)
+                        )
+                    )
+                );
+
+            $actual = $this->libraryFilter->processForm($this->request);
+            $this->assertInstanceOf(\DOMDocument::class, $actual);
+            /** @var \DOMElement $root */
+            $root = $actual->getElementsByTagName('catalog')[0];
+            $this->assertTrue($root->hasAttribute($name));
+            $this->assertEquals($value, $root->getAttribute($name));
+            $this->assertInstanceOf(\DOMDocument::class, $actual);
         }
     }
 }

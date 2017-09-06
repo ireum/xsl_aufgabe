@@ -54,10 +54,11 @@ namespace library\valueobject
         //TODO: X Getter Tests via Dataprovider
         public function fieldProvider()
         {
-            $dateTime = \DateTime::createFromFormat('Y-m-d', '1970-01-01');
-            $dateTime->add(new \DateInterval('PT1S'));
+            //TODO: Test Date
+//            $dateTime = \DateTime::createFromFormat('Y-m-d', '1970-01-01');
+//            $dateTime->add(new \DateInterval('PT1S'));
             return array(
-                array($dateTime, 'getReleaseDate'),
+                array(\DateTime::createFromFormat('Y-m-d', '1970-01-01'), 'getReleaseDate'),
                 array('Test Author', 'getAuthor'),
                 array('Test Title', 'getTitle'),
                 array('Test Genre', 'getGenre'),

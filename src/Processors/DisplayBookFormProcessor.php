@@ -41,7 +41,7 @@ namespace library\processor
               $dom = $this->session->getErrorXml();
 
             } else {
-                $dom->loadXML($this->fileBackend->load($this->xmlPath)); //TODO: X Via FileBAckend
+                $dom->loadXML($this->fileBackend->load($this->xmlPath)); //TODO: X Via FileBackend
             }
             $response->setBody($xslParser->transformToDoc($dom)->saveXML());
             $this->session->resetErrorXml();

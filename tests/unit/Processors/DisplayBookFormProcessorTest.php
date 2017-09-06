@@ -2,6 +2,7 @@
 
 namespace library\processor;
 
+use library\backends\FileBackend;
 use library\requests\AbstractRequest;
 use library\responder\HtmlResponse;
 use library\session\Session;
@@ -14,6 +15,7 @@ use PHPUnit\Framework\TestCase;
  * @uses \library\session\Session
  * @uses \library\responder\HtmlResponse
  * @uses \library\requests\AbstractRequest
+ * @uses \library\backends\FileBackend
  */
 class DisplayBookFormProcessorTest extends TestCase
 {
@@ -29,6 +31,14 @@ class DisplayBookFormProcessorTest extends TestCase
     /** @var \PHPUnit_Framework_MockObject_MockObject|AbstractRequest */
     private $request;
 
+    /** @var \PHPUnit_Framework_MockObject_MockObject|FileBackend */
+    private $fileBackend;
+
+    /** @var string */
+    private $xmlPath;
+    /** @var string */
+    private $xslPath;
+
     public function setUp()
     {
         $this->session = $this->getMockBuilder(Session::class)
@@ -43,10 +53,15 @@ class DisplayBookFormProcessorTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $xmlPath = __DIR__ . '/../../data/testNoError.xml';
-        $xslPath = __DIR__ . '/../../data/testDisplay.xsl';
+        $this->fileBackend = $this->getMockBuilder(FileBackend::class)
+            ->disableOriginalConstructor()
+            ->getMock();
 
-        $this->displayBookFormProcessor = new DisplayBookFormProcessor($xmlPath, $xslPath, $this->session);
+        $this->xmlPath = __DIR__ . '/../../data/testNoError.xml';
+        $this->xslPath = __DIR__ . '/../../data/testDisplay.xsl';
+
+
+        $this->displayBookFormProcessor = new DisplayBookFormProcessor($this->xmlPath, $this->xslPath, $this->session, $this->fileBackend);
     }
 
     public function testExecuteOnXmlWithoutError()
@@ -59,6 +74,11 @@ class DisplayBookFormProcessorTest extends TestCase
 
         $this->session->expects($this->once())
             ->method('hasError');
+
+        $this->fileBackend->expects($this->once())
+            ->method('load')
+            ->with($this->xmlPath)
+            ->willReturn(file_get_contents($this->xmlPath));
 
 
         $this->displayBookFormProcessor->execute($this->response, $this->request);

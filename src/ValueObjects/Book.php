@@ -70,17 +70,6 @@ namespace library\valueobject
             }
         }
 
-//        private function validateStringFields(string $key, AbstractRequest $request)
-//        {
-//            if (!$request->has($key) || $request->get($key) === '') {
-//                if (!$request->has($key)) {
-//                    $this->errorFields[$key] = "";
-//                } else {
-//                    $this->errorFields[$key] = $request->get($key);
-//                }
-//            }
-//        }
-
         private function validatePrice(AbstractRequest $request)
         {
             if (!is_numeric($request->get('price')) || $request->get('price') <= 0) {
