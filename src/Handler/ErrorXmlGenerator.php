@@ -24,7 +24,7 @@ class ErrorXmlGenerator
     public function generateXml(array $errorFields, AbstractRequest $request): \DOMDocument
     {
         $dom = new \DOMDocument();
-        $dom->loadXML($this->fileBackend->load($this->path)); //TODO: X Via FileBAckend
+        $dom->loadXML($this->fileBackend->load($this->path));
 
         $xpath = new \DOMXPath($dom);
         $fields = $xpath->query('/formData/fields/*');
@@ -34,7 +34,6 @@ class ErrorXmlGenerator
                 $field->setAttribute('invalidField', 'true');
                 $field->nodeValue = $errorFields[$field->nodeName];
             } else {
-//                $field->nodeValue = $inputVariables[$field->nodeName];
                 $field->nodeValue = $request->get($field->nodeName);
             }
         }

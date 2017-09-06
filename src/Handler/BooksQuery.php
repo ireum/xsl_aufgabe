@@ -21,8 +21,6 @@ namespace library\handler
         private function setSxmlElement(string $xmlPath)
         {
             $this->isValidIniFile($xmlPath);
-
-            //TODO: X Via FileBackend laden
             $this->sXmlElement = simplexml_load_string($this->fileBackend->load($xmlPath));
         }
         private function isValidIniFile(string $xmlPath)

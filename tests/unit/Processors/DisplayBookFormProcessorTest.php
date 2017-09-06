@@ -75,11 +75,16 @@ class DisplayBookFormProcessorTest extends TestCase
         $this->session->expects($this->once())
             ->method('hasError');
 
-        $this->fileBackend->expects($this->once())
+        $this->fileBackend->expects($this->any())
             ->method('load')
-            ->with($this->xmlPath)
-            ->willReturn(file_get_contents($this->xmlPath));
-
+            ->will(
+                $this->returnValueMap(
+                    array(
+                        array($this->xslPath, file_get_contents($this->xslPath)),
+                        array($this->xmlPath, file_get_contents($this->xmlPath))
+                    )
+                )
+            );
 
         $this->displayBookFormProcessor->execute($this->response, $this->request);
     }
@@ -95,6 +100,11 @@ class DisplayBookFormProcessorTest extends TestCase
         $this->session->expects($this->once())
             ->method('hasError')
             ->willReturn(true);
+
+        $this->fileBackend->expects($this->once())
+            ->method('load')
+            ->with($this->xslPath)
+            ->willReturn(file_get_contents($this->xslPath));
 
         $errorDom = new \DOMDocument();
         $errorDom->load(__DIR__ . '/../../data/testError.xml');

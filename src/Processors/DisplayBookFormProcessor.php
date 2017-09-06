@@ -34,7 +34,8 @@ namespace library\processor
         )
         {
             $xslParser = new \XSLTProcessor();
-            $xslParser->importStylesheet(simplexml_load_file($this->xslPath));
+//            $xslParser->importStylesheet(simplexml_load_file($this->xslPath));
+            $xslParser->importStylesheet(simplexml_load_string($this->fileBackend->load($this->xslPath)));
 
             $dom = new \DOMDocument();
             if ($this->session->hasError()) {
