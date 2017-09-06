@@ -6,6 +6,9 @@ namespace library\backends
     {
         public function load(string $path): string
         {
+            //TODO: throws error breaks running program and never gets to throw the exception
+            // Workaround?
+
             $data = file_get_contents($path);
 
             if ($data === false) {

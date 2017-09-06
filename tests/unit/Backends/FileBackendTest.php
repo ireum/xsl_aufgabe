@@ -3,12 +3,14 @@
 namespace library\backends;
 
 use PHPUnit\Framework\TestCase;
+use SebastianBergmann\GlobalState\RuntimeException;
 
 /**
  * Class FileBackendTest
  * @package library\backends
  * @covers \library\backends\FileBackend
  */
+// TODO: Test Exceptions
 class FileBackendTest extends TestCase
 {
     /** @var FileBackend */
@@ -27,9 +29,12 @@ class FileBackendTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    //TODO: Test Save
     public function testSave()
     {
-        
+        $path = __DIR__ . '/../../data/fileBackendFile.txt';
+        $data = 'TEST';
+        $this->fileBackend->save($path, $data);
+        $this->assertSame('TEST', file_get_contents($path));
+        file_put_contents($path, '');
     }
 }

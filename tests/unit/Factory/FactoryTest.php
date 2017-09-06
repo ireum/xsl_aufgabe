@@ -14,6 +14,7 @@ use library\processor\ErrorPageProcessor;
 use library\processor\LibraryProcessor;
 use library\routers\Router;
 use library\session\Session;
+use library\valueobject\Book;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -65,7 +66,7 @@ class FactoryTest extends TestCase
             array('createLibraryProcessor', LibraryProcessor::class),
             array('createErrorPageProcessor', ErrorPageProcessor::class),
             array('createRouter', Router::class),
-            array('createErrorXmlGenerator', ErrorXmlGenerator::class)
+            array('createErrorXmlGenerator', ErrorXmlGenerator::class),
         );
     }
 

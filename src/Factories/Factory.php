@@ -99,11 +99,5 @@ namespace library\factories
         {
             return new ErrorXmlGenerator($this->configuration->getXmlAddBookPath(), $this->createFileBackend());
         }
-
-        public function createBook(AbstractRequest $request): Book
-        {
-            return new Book($request);
-        }
-
     }
 }
