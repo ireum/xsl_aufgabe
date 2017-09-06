@@ -28,7 +28,6 @@ class UriTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    //TODO: X Negativtest, wenn kein Pfad da ist
     public function testGetPathThrowsExceptionIfPathIsNotSet()
     {
         $this->expectException(\RuntimeException::class);

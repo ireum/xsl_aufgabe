@@ -4,8 +4,6 @@
 namespace library
 {
 
-    use library\exceptions\ErrorException;
-
     class Configuration
     {
         /** @var array */
@@ -37,7 +35,6 @@ namespace library
 
         public function getXmlPath(): string
         {
-            //TODO: X data/xsl gehört noch in die Config
             return __DIR__ . '/../' . $this->configuration['xmlPath'];
         }
 

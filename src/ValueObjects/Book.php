@@ -60,7 +60,6 @@ namespace library\valueobject
             $this->validateStringFields('description', $request);
         }
 
-        //TODO: X Validierung anpassen
         private function validateStringFields(string $key, AbstractRequest $request)
         {
             if (!$request->has($key)) {
@@ -74,23 +73,12 @@ namespace library\valueobject
         {
             if (!is_numeric($request->get('price')) || $request->get('price') <= 0) {
                 $this->isValid = false;
-
                 $this->errorFields['price'] = $request->get('price');
             }
         }
 
         private function validateDate(string $date)
         {
-
-
-
-//            $vDate = \DateTime::createFromFormat('Y-m-d H:i:s', $date .= '00:00:00');
-//            if (!($vDate && $vDate->format('Y-m-d') === $date)) {
-//                $this->errorFields['releaseDate'] = $date;
-//            }
-
-
-
             $vDate = \DateTime::createFromFormat('Y-m-d', $date);
             if (!($vDate && $vDate->format('Y-m-d') === $date)) {
                 $this->errorFields['releaseDate'] = $date;

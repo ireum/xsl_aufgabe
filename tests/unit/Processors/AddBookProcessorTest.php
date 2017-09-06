@@ -48,7 +48,6 @@ class AddBookProcessorTest extends TestCase
     /** @var \PHPUnit_Framework_MockObject_MockObject|AbstractRequest */
     private $request;
 
-    //TODO: X Boooooh! Warum kein Mock?
     public function setUp()
     {
         $this->bookAppender = $this->getMockBuilder(BookAppender::class)
@@ -86,27 +85,6 @@ class AddBookProcessorTest extends TestCase
 
     public function testExecuteWithValidBook()
     {
-
-//        $this->request->expects($this->exactly(13))
-//            ->method('get')
-//            ->will(
-//                $this->returnValueMap(
-//                    array(
-//                        array('author', 'Agus'),
-//                        array('title', 'UE4'),
-//                        array('genre', 'Computer'),
-//                        array('price', 5.5),
-//                        array('releaseDate', '1990-01-01'),
-//                        array('description', 'UE4 Basics')
-//                    )
-//                )
-//            );
-//
-//        $this->request
-//            ->expects($this->any())
-//            ->method('has')
-//            ->willReturn(true);
-
         $request = new PostRequest(
             [
                 'author' => 'Agus',

@@ -105,7 +105,6 @@ namespace library\handler
                 ->with('submit')
                 ->willReturn(true);
 
-            //TODO: X YEEEEEEEEEEEEEEEES!
             $this->request->expects($this->any())
                 ->method('get')
                 ->will(

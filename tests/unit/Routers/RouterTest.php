@@ -50,8 +50,6 @@ class RouterTest extends TestCase
         $this->router = new Router($this->factory);
     }
 
-    //TODO: X Via Dataprovider
-
     public function provider()
     {
         return array(

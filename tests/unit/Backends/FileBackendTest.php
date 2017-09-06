@@ -12,7 +12,6 @@ use SebastianBergmann\GlobalState\RuntimeException;
  * @covers \library\backends\FileBackend
  * @uses \library\exceptions\ErrorException
  */
-// TODO: X Test Exceptions
 class FileBackendTest extends TestCase
 {
     /** @var FileBackend */

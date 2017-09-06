@@ -34,20 +34,17 @@ namespace library\processor
         )
         {
             $xslParser = new \XSLTProcessor();
-//            $xslParser->importStylesheet(simplexml_load_file($this->xslPath));
             $xslParser->importStylesheet(simplexml_load_string($this->fileBackend->load($this->xslPath)));
 
             $dom = new \DOMDocument();
             if ($this->session->hasError()) {
               $dom = $this->session->getErrorXml();
-
             } else {
-                $dom->loadXML($this->fileBackend->load($this->xmlPath)); //TODO: X Via FileBackend
+                $dom->loadXML($this->fileBackend->load($this->xmlPath));
             }
             $response->setBody($xslParser->transformToDoc($dom)->saveXML());
             $this->session->resetErrorXml();
         }
-
     }
 }
 

@@ -53,7 +53,6 @@ class FactoryTest extends TestCase
         $this->factory = new Factory($this->configuration, $this->session);
     }
 
-    //TODO: X Via DataProvider löschen
 
     public function provider()
     {

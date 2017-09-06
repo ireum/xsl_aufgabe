@@ -5,8 +5,6 @@ namespace library\responder
 {
 
 
-    use library\exceptions\InvalidBookException;
-
     class Uri
     {
         private $parts;

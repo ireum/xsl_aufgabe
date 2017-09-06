@@ -66,7 +66,6 @@ class LibraryProcessorTest extends TestCase
 
     public function testExecuteE()
     {
-        //TODO: X Zusicherung auf setBody mit ->with()
         $libDom = new \DOMDocument();
         $libDom->load(__DIR__ . '/../../data/testBooks.xml');
         $root = $libDom->getElementsByTagName('catalog')->item(0);
@@ -90,7 +89,6 @@ class LibraryProcessorTest extends TestCase
         $this->response->expects($this->once())
             ->method('setBody')
             ->with($xslParser->transformToDoc($this->libraryFilter->processForm($this->request))->saveXML());
-
 
         $this->libraryProcessor->execute($this->response, $this->request);
     }

@@ -24,7 +24,6 @@ namespace library\processor
         {
             $this->libraryFilter = $libraryFilter;
             $this->xslPath = $xslPath;
-
             $this->fileBackend = $fileBackend;
         }
 
@@ -34,10 +33,8 @@ namespace library\processor
         )
         {
             $sfp = $this->libraryFilter;
-
             $xslParser = new \XSLTProcessor();
-            $xslParser->importStylesheet(simplexml_load_string($this->fileBackend->load($this->xslPath))); //TODO: X Via FileBackend
-
+            $xslParser->importStylesheet(simplexml_load_string($this->fileBackend->load($this->xslPath)));
             $response->setBody($xslParser->transformToDoc($sfp->processForm($request))->saveXML());
         }
     }

@@ -31,8 +31,6 @@ namespace library\processor
                 ->disableOriginalConstructor()
                 ->getMock();
 
-//            $this->htmlResponse = new HtmlResponse(); //TODO: X BOOOOOOOOH!
-
             $this->abstractRequest = $this->getMockBuilder(AbstractRequest::class)
                 ->disableOriginalConstructor()
                 ->getMock();

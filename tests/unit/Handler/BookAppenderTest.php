@@ -35,7 +35,6 @@ class BookAppenderTest extends TestCase
 
     public function setUp()
     {
-        //TODO: X Test anpassen mit FileBackend
         $this->booksQuery = $this->getMockBuilder(BooksQuery::class)
             ->disableOriginalConstructor()
             ->getMock();

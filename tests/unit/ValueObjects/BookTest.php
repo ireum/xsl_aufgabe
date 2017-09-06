@@ -44,22 +44,13 @@ namespace library\valueobject
                 ->disableOriginalConstructor()
                 ->getMock();
 
-//            $this->dateTime->expects($this->once())
-//                ->method('createFromFormat')
-//                ->with(array('Y-m-d', '1970-01-01'));
-
             $this->request = new PostRequest($arr, $_SERVER);
             $this->book = new Book($this->request);
         }
 
-        //TODO: X Getter Tests via Dataprovider
         public function fieldProvider()
         {
-            //TODO: Test Date
-//            $dateTime = \DateTime::createFromFormat('Y-m-d', '1970-01-01');
-//            $dateTime->add(new \DateInterval('PT1S'));
             return array(
-//                array(\DateTime::createFromFormat('Y-m-d', '1970-01-01'), 'getReleaseDate'),
                 array('Test Author', 'getAuthor'),
                 array('Test Title', 'getTitle'),
                 array('Test Genre', 'getGenre'),
