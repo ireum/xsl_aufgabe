@@ -8,7 +8,6 @@ spl_autoload_register(
         if ($classes === null) {
             $classes = array(
                 'library\\backends\\filebackendtest' => '/unit/Backends/FileBackendTest.php',
-                'library\\book\\booktest' => '/unit/ValueObjects/BookTest.php',
                 'library\\configurationtest' => '/unit/ConfigurationTest.php',
                 'library\\exceptions\\errorexceptiontest' => '/unit/Exceptions/ErrorExceptionTest.php',
                 'library\\exceptions\\invalidbookexceptiontest' => '/unit/Exceptions/InvalidBookExceptionTest.php',
@@ -25,7 +24,8 @@ spl_autoload_register(
                 'library\\responder\\htmlresponsetest' => '/unit/Responder/HtmlResponseTest.php',
                 'library\\responder\\uritest' => '/unit/Responder/UriTest.php',
                 'library\\routers\\routertest' => '/unit/Routers/RouterTest.php',
-                'library\\session\\sessiontest' => '/unit/Session/SessionTest.php'
+                'library\\session\\sessiontest' => '/unit/Session/SessionTest.php',
+                'library\\valueobject\\booktest' => '/unit/ValueObjects/BookTest.php'
             );
         }
         $cn = strtolower($class);

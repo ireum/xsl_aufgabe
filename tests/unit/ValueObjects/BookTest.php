@@ -1,6 +1,6 @@
 <?php
 
-namespace library\book
+namespace library\valueobject
 {
 
     use library\exceptions\InvalidBookException;
@@ -24,6 +24,9 @@ namespace library\book
         /** @var AbstractRequest */
         private $request;
 
+        /** @var \PHPUnit_Framework_MockObject_MockObject|\DateTime */
+        private $dateTime;
+
         public function setUp()
         {
             $arr = [
@@ -36,6 +39,14 @@ namespace library\book
                 'description' => 'Test Description'
             ];
 
+            $this->dateTime = $this->getMockBuilder(\DateTime::class)
+                ->disableOriginalConstructor()
+                ->getMock();
+
+//            $this->dateTime->expects($this->once())
+//                ->method('createFromFormat')
+//                ->with(array('Y-m-d', '1970-01-01'));
+
             $this->request = new PostRequest($arr, $_SERVER);
             $this->book = new Book($this->request);
         }
@@ -43,12 +54,14 @@ namespace library\book
         //TODO: X Getter Tests via Dataprovider
         public function fieldProvider()
         {
+            $dateTime = \DateTime::createFromFormat('Y-m-d', '1970-01-01');
+            $dateTime->add(new \DateInterval('PT1S'));
             return array(
+                array($dateTime, 'getReleaseDate'),
                 array('Test Author', 'getAuthor'),
                 array('Test Title', 'getTitle'),
                 array('Test Genre', 'getGenre'),
                 array(1.35, 'getPrice'),
-                array(\DateTime::createFromFormat('Y-m-d', '1970-01-01'), 'getReleaseDate'),
                 array('Test Description', 'getDescription'),
             );
         }
@@ -63,7 +76,7 @@ namespace library\book
 
         public function errorProvider()
         {
-            return array(
+                return array(
                 array(
                     array(
                     'submit' => 'Submit',

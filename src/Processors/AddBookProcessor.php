@@ -39,8 +39,7 @@ namespace library\processor
         public function execute(HtmlResponse $response, AbstractRequest $request)
         {
             try {
-//                $book = new Book($request);
-                $book = $this->factory->createBook($request);
+                $book = new Book($request);
                 $this->xmlEditor->addBook($book);
                 $response->setRedirect('/library');
             } catch (InvalidBookException $e) {

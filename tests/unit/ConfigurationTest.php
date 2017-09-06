@@ -53,7 +53,7 @@ class ConfigurationTest extends TestCase
 
     public function testGetAddBookXslPathReturnsCorrectFileFromIni()
     {
-        $expected = '/data/www/xls_aufgabe/src/../xsl/add.xsl';
+        $expected = '/data/www/xls_aufgabe/src/../xsl/xslPath2.xsl';
         $actual = $this->configuration->getXslAddBookPath();
         $this->assertEquals($expected, $actual);
     }
