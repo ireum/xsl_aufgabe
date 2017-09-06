@@ -15,23 +15,23 @@ namespace library\processor
     class AddBookProcessor implements Processor
     {
         /** @var BookAppender */
-        private $xmlEditor;
+        private $bookAppender;
         /** @var ErrorXmlGenerator */
-        private $xmlErrorGenerator;
+        private $errorXmlGenerator;
         /** @var Session */
         private $session;
         /** @var Factory */
         private $factory;
 
         public function __construct(
-            BookAppender $xmlEditor,
-            ErrorXmlGenerator $xmlErrorGenerator,
+            BookAppender $bookAppender,
+            ErrorXmlGenerator $errorXmlGenerator,
             Session $session,
             Factory $factory
         )
         {
-            $this->xmlEditor = $xmlEditor;
-            $this->xmlErrorGenerator = $xmlErrorGenerator;
+            $this->bookAppender = $bookAppender;
+            $this->errorXmlGenerator = $errorXmlGenerator;
             $this->session = $session;
             $this->factory = $factory;
         }
@@ -40,10 +40,10 @@ namespace library\processor
         {
             try {
                 $book = new Book($request);
-                $this->xmlEditor->addBook($book);
+                $this->bookAppender->addBook($book);
                 $response->setRedirect('/library');
             } catch (InvalidBookException $e) {
-                $dom = $this->xmlErrorGenerator->generateXml($e->getErrorFields(), $request);
+                $dom = $this->errorXmlGenerator->generateXml($e->getErrorFields(), $request);
                 $this->session->setErrorXml($dom);
                 $response->setRedirect('/add');
             }

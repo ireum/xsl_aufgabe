@@ -194,4 +194,4 @@
         <publish_date>1990-01-01</publish_date>
         <description>description</description>
     </book>
-<book id="bk121"><author>Agus Sudarta</author><title>title</title><genre>genre</genre><price>1</price><publish_date>1970-01-01</publish_date><description>description</description></book></catalog>
+<book id="bk121"><author>Agus Sudarta</author><title>title</title><genre>genre</genre><price>1</price><publish_date>1970-01-01</publish_date><description>description</description></book><book id="bk122"><author>Agus Sudarta</author><title>title</title><genre>genre</genre><price>88</price><publish_date>1990-01-01</publish_date><description>description</description></book></catalog>

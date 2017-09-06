@@ -36,19 +36,19 @@ class AddBookProcessorTest extends TestCase
     /** @var \PHPUnit_Framework_MockObject_MockObject|ErrorXmlGenerator */
     private $errorXmlGenerator;
 
-    /** @var \PHPUnit_Framework_MockObject_MockObject|HtmlResponse */
-    private $htmlResponse;
-
-    /** @var \PHPUnit_Framework_MockObject_MockObject|AbstractRequest */
-    private $request;
-
     /** @var \PHPUnit_Framework_MockObject_MockObject|Session */
     private $session;
 
     /** @var \PHPUnit_Framework_MockObject_MockObject|Factory */
     private $factory;
 
-    //TODO: Boooooh! Warum kein Mock?
+    /** @var \PHPUnit_Framework_MockObject_MockObject|HtmlResponse */
+    private $response;
+
+    /** @var \PHPUnit_Framework_MockObject_MockObject|AbstractRequest */
+    private $request;
+
+    //TODO: X Boooooh! Warum kein Mock?
     public function setUp()
     {
         $this->bookAppender = $this->getMockBuilder(BookAppender::class)
@@ -56,10 +56,6 @@ class AddBookProcessorTest extends TestCase
             ->getMock();
 
         $this->errorXmlGenerator = $this->getMockBuilder(ErrorXmlGenerator::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->htmlResponse = $this->getMockBuilder(HtmlResponse::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -71,19 +67,13 @@ class AddBookProcessorTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $inputVariables = [
-            'submit' => 'Submit',
-            'author' => 'Author',
-            'title' => 'Title',
-            'genre' => 'Genre',
-            'price' => 1,
-            'releaseDate' => '1990-01-01',
-            'description' => 'desc'
-        ];
+
+        $this->response = $this->getMockBuilder(HtmlResponse::class)
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $this->request = $this->getMockBuilder(AbstractRequest::class)
             ->disableOriginalConstructor()
-            ->setConstructorArgs([$inputVariables])
             ->getMock();
 
         $this->addBookProcessor = new AddBookProcessor(
@@ -97,27 +87,65 @@ class AddBookProcessorTest extends TestCase
     public function testExecuteWithValidBook()
     {
 
-        $this->htmlResponse->expects($this->once())
+//        $this->request->expects($this->exactly(13))
+//            ->method('get')
+//            ->will(
+//                $this->returnValueMap(
+//                    array(
+//                        array('author', 'Agus'),
+//                        array('title', 'UE4'),
+//                        array('genre', 'Computer'),
+//                        array('price', 5.5),
+//                        array('releaseDate', '1990-01-01'),
+//                        array('description', 'UE4 Basics')
+//                    )
+//                )
+//            );
+//
+//        $this->request
+//            ->expects($this->any())
+//            ->method('has')
+//            ->willReturn(true);
+
+        $request = new PostRequest(
+            [
+                'author' => 'Agus',
+                'title' => 'UE4',
+                'genre' => 'Computer',
+                'price' => 5.5,
+                'releaseDate' => '1990-01-01',
+                'description' => 'UE4 Basics'
+            ],
+            []
+        );
+
+        $this->bookAppender->expects($this->once())
+            ->method('addBook');
+
+        $this->response->expects($this->once())
             ->method('setRedirect')
             ->with('/library');
-        $this->addBookProcessor->execute($this->htmlResponse, $this->request);
+
+        $this->addBookProcessor->execute($this->response, $request);
     }
 
     public function testExecuteWithInvalidBook()
     {
-        $book = $this->getMockBuilder(Book::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $request = new PostRequest(
+            [
+                'author' => 'Agus',
+                'title' => 'UE4',
+                'genre' => 'Computer',
+                'price' => -5.5,
+                'releaseDate' => '1990-01-01',
+                'description' => 'UE4 Basics'
+            ],
+            []
+        );
 
-        $this->factory->expects($this->once())
-            ->method('createBook')
-            ->willReturn($book->expects($this->once())->method('hasErrorFields')->willReturn(true));
-
-        $this->htmlResponse->expects($this->once())
+        $this->response->expects($this->once())
             ->method('setRedirect')
             ->with('/add');
-
-        $this->addBookProcessor->execute($this->htmlResponse, $this->request);
+        $this->addBookProcessor->execute($this->response, $request);
     }
-
 }
