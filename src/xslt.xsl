@@ -1,55 +1,93 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+    <xsl:key name="Book-by-Author" match="book" use="author"/>
+    <xsl:param name="sortColumnField" select="//catalog/@sortby"/>
+    <xsl:param name="sortColumnDataType" select="//catalog/@sortdatatype"/>
+    <xsl:template match="/">
 
-    <xsl:param name="sortColumnField" select="'title'"/>
-    <xsl:param name="sortColumnOrder" select="'descending'"/>
-    <xsl:param name="sortColumnDataType" select="'text'"/>
+        <xsl:variable name="max">
+            <xsl:for-each select="//catalog/book/price">
+                <xsl:sort select="." data-type="number" order="descending"/>
+                <xsl:if test="position() = 1">
+                    <xsl:value-of select="."/>
+                </xsl:if>
+            </xsl:for-each>
+        </xsl:variable>
+        <xsl:variable name="min">
+            <xsl:for-each select="//catalog/book/price">
+                <xsl:sort select="." data-type="number" order="descending"/>
+                <xsl:if test="position() =last()">
+                    <xsl:value-of select="."/>
+                </xsl:if>
+            </xsl:for-each>
+        </xsl:variable>
 
-
-    <xsl:template match="/*">
         <html>
+            <head>
+                <title>Library</title>
+                <link rel="stylesheet" href="lib.css"/>
+            </head>
             <body>
-                <h2>Library</h2>
-                <form >
+                <header>
+                    <a href="/library">
+                        <h1>Library</h1>
+                    </a>
+                    <a class="add_book" href="/add">Add Book</a>
+                </header>
+                <form name="searchForm" action="/library" method="get">
                     <select name="author">
-                        <xsl:for-each select="*">
+                        <option value="">All</option>
+                        <xsl:for-each select="//catalog/book[not(author=preceding-sibling::book/author)]">
                             <option value="{author}">
-                                <xsl:value-of select="author"/>
-
+                                <xsl:if test="author = //catalog/@author">
+                                    <xsl:attribute name="selected">selected</xsl:attribute>
+                                </xsl:if>
+                                <xsl:copy-of select="author"/>
                             </option>
                         </xsl:for-each>
                     </select>
-                    <input type="text" placeholder="Title"/>
-                    <input type="number" placeholder="min. Price" min="" max=""/>
-                    <input type="number" placeholder="max. Price" min="" max=""/>
-
+                    <input name="title" type="text" placeholder="Title" value="{//catalog/@title}"/>
+                    <input name="minPrice"
+                           type="number"
+                           step="0.05"
+                           value="{//catalog/@minprice}"
+                           min="{$min}"
+                           max="{$max}"/>
+                    <input name='maxPrice'
+                           type="number"
+                           step="0.05"
+                           value="{//catalog/@maxprice}"
+                           min="{$min}"
+                           max="{$max}"/>
                     <select name="sort">
-                        <xsl:for-each select="*">
-                            <option value="test">
-                                <xsl:value-of select="*"/>
-
+                        <xsl:for-each select="//catalog/book[1]/*">
+                            <option value="{name()}">
+                                <xsl:if test="name() = //catalog/@sortby">
+                                    <xsl:attribute name="selected">selected</xsl:attribute>
+                                </xsl:if>
+                                <xsl:value-of select="name()"/>
                             </option>
                         </xsl:for-each>
                     </select>
-
-                    <input type="submit" value="Search"/>
+                    <input class="submit_button" name="submit" type="submit" value="Search"/>
                 </form>
-                <table border="1">
+                <table>
                     <tr>
-                        <th><a href="">ID</a></th>
-                        <th><a href="">Author</a></th>
-                        <th><a href="">Title</a></th>
-                        <th><a href="">Genre</a></th>
-                        <th><a href="">Price</a></th>
-                        <th><a href="">Release Date</a></th>
-                        <th><a href="">Description</a></th>
+                        <th>ID</th>
+                        <th>Author</th>
+                        <th>Title</th>
+                        <th>Genre</th>
+                        <th>Price</th>
+                        <th>Release Date</th>
+                        <th>Description</th>
                     </tr>
-                    <xsl:for-each select="*">
-                        <xsl:sort select="*[name()=$sortColumnField]" data-type="{$sortColumnDataType}" order="{$sortColumnOrder}"/>
+                    <xsl:for-each select="catalog/book">
+                        <xsl:sort select="*[name()=$sortColumnField]" data-type="{$sortColumnDataType}"
+                                  order="ascending"/>
                         <xsl:if test="(
-                        contains(title, '') and
-                        contains(author, '') and
-                        price > 0 and price &lt; 100
+                        contains(title, //catalog/@title) and
+                        contains(author, //catalog/@author) and
+                        price >= //catalog/@minprice and price &lt;= //catalog/@maxprice
                         )">
                             <tr>
                                 <td>
