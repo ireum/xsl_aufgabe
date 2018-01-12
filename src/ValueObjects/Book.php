@@ -62,14 +62,10 @@ namespace library\valueobject
 
         private function validateStringFields(string $key, AbstractRequest $request)
         {
-            if (!$request->has($key) || $request->get($key) === '') {
-                $this->isValid = false;
-
-                if (!$request->has($key)) {
-                    $this->errorFields[$key] = " ";
-                } else {
-                    $this->errorFields[$key] = $request->get($key);
-                }
+            if (!$request->has($key)) {
+                $this->errorFields[$key] = null;
+            } else if ($request->get($key) === '') {
+                $this->errorFields[$key] = $request->get($key);
             }
         }
 
@@ -77,7 +73,6 @@ namespace library\valueobject
         {
             if (!is_numeric($request->get('price')) || $request->get('price') <= 0) {
                 $this->isValid = false;
-
                 $this->errorFields['price'] = $request->get('price');
             }
         }
@@ -86,8 +81,6 @@ namespace library\valueobject
         {
             $vDate = \DateTime::createFromFormat('Y-m-d', $date);
             if (!($vDate && $vDate->format('Y-m-d') === $date)) {
-                $this->isValid = false;
-
                 $this->errorFields['releaseDate'] = $date;
             }
         }

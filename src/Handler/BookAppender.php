@@ -5,6 +5,7 @@ namespace library\handler
 {
 
 
+    use library\backends\FileBackend;
     use library\valueobject\Book;
 
     class BookAppender
@@ -15,20 +16,33 @@ namespace library\handler
         private $xmlQuery;
         /** @var string */
         private $xmlPath;
+        /** @var FileBackend */
+        private $fileBackend;
 
-        public function __construct(string $xmlPath, BooksQuery $xmlQuery)
+        public function __construct(string $xmlPath, BooksQuery $xmlQuery, FileBackend $fileBackend)
         {
-            $this->sxmlElement = $this->setSxmlElement($xmlPath);
+            $this->fileBackend = $fileBackend;
+            $this->setSxmlElement($xmlPath);
             $this->xmlQuery = $xmlQuery;
             $this->xmlPath = $xmlPath;
         }
 
-        private function setSxmlElement(string $xmlPath): \SimpleXMLElement
+        private function setSxmlElement(string $xmlPath)
         {
-            if (!simplexml_load_file($xmlPath)) {
-                throw new \InvalidArgumentException('Invalid path');
-            }
-            return simplexml_load_file($xmlPath);
+            $this->isValidIniFile($xmlPath);
+            $this->sxmlElement = simplexml_load_string($this->fileBackend->load($xmlPath));
+        }
+
+        private function isValidIniFile(string $xmlPath)
+        {
+            set_error_handler(
+                create_function(
+                    '$severity, $message, $file, $line',
+                    'throw new library\exceptions\ErrorException($message, $severity, $severity, $file, $line);'
+                )
+            );
+            parse_ini_file($xmlPath, true, INI_SCANNER_TYPED);
+            restore_error_handler();
         }
 
         private function getRootNode(): \SimpleXMLElement
@@ -49,16 +63,9 @@ namespace library\handler
             $this->saveBook();
         }
 
-        private function getNextId(): string
-        {
-            $lastId = $this->sxmlElement->xpath('//catalog/ValueObjects[last()]/@id')[0][0];
-            $nextId = substr($lastId, 2);
-            return 'bk' . ++$nextId;
-        }
-
         private function saveBook()
         {
-            $this->sxmlElement->saveXML($this->xmlPath);
+            $this->fileBackend->save($this->xmlPath, $this->sxmlElement->asXML());
         }
     }
 }

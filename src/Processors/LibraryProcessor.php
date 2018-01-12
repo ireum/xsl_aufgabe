@@ -4,6 +4,7 @@
 namespace library\processor
 {
 
+    use library\backends\FileBackend;
     use library\requests\AbstractRequest;
     use library\responder\HtmlResponse;
     use library\handler\LibraryFilter;
@@ -13,15 +14,17 @@ namespace library\processor
     {
 
         /** @var LibraryFilter */
-        private $xmlFormProcessor;
+        private $libraryFilter;
         /** @var string */
         private $xslPath;
+        /** @var FileBackend */
+        private $fileBackend;
 
-        public function __construct(LibraryFilter $searchFormProcessor, string $xslPath)
+        public function __construct(LibraryFilter $libraryFilter, string $xslPath,FileBackend $fileBackend)
         {
-            $this->xmlFormProcessor = $searchFormProcessor;
+            $this->libraryFilter = $libraryFilter;
             $this->xslPath = $xslPath;
-
+            $this->fileBackend = $fileBackend;
         }
 
         public function execute(
@@ -29,11 +32,9 @@ namespace library\processor
             AbstractRequest $request
         )
         {
-            $sfp = $this->xmlFormProcessor;
-
+            $sfp = $this->libraryFilter;
             $xslParser = new \XSLTProcessor();
-            $xslParser->importStylesheet(simplexml_load_file($this->xslPath));
-
+            $xslParser->importStylesheet(simplexml_load_string($this->fileBackend->load($this->xslPath)));
             $response->setBody($xslParser->transformToDoc($sfp->processForm($request))->saveXML());
         }
     }

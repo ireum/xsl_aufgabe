@@ -27,7 +27,7 @@ namespace library\requests
         public function get(string $key): string
         {
             if (!$this->has($key)) {
-                return "";
+                throw new \RuntimeException(sprintf('Key "%s" not found', $key));
             }
             return $this->inputVariables[$key];
         }

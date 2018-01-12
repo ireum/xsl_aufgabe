@@ -2,12 +2,15 @@
 
 namespace library;
 
+use library\exceptions\ErrorException;
+use PHPUnit\Framework\Error\Error;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Class ConfigurationTest
  * @package library
- * @covers library\Configuration
+ * @covers \library\Configuration
+ * @uses \library\exceptions\ErrorException
  */
 class ConfigurationTest extends TestCase
 {
@@ -20,13 +23,12 @@ class ConfigurationTest extends TestCase
         $this->configuration = new Configuration($path);
     }
 
-    // TODO: How to test 'parse_ini_file()'
-//    public function testIsValidIniFileThrowsExceptionIfIniIsInvalid()
-//    {
-//        $this->expectException(\InvalidArgumentException::class);
-//        $path = __DIR__ . '/../data/invalidTestConf.ini';
-//        $this->configuration = new Configuration($path);
-//    }
+    public function testIsValidIniFileThrowsExceptionIfIniIsInvalid()
+    {
+        $this->expectException(ErrorException::class);
+        $path = __DIR__ . '/../data/invalidTestConf.ini';
+        $this->configuration = new Configuration($path);
+    }
 
     public function testGetXmlPathReturnsCorrectFileFromIni()
     {
@@ -51,7 +53,7 @@ class ConfigurationTest extends TestCase
 
     public function testGetAddBookXslPathReturnsCorrectFileFromIni()
     {
-        $expected = '/data/www/xls_aufgabe/src/../xsl/add.xsl';
+        $expected = '/data/www/xls_aufgabe/src/../xsl/xslPath2.xsl';
         $actual = $this->configuration->getXslAddBookPath();
         $this->assertEquals($expected, $actual);
     }

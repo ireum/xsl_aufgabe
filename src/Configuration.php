@@ -16,37 +16,41 @@ namespace library
 
         private function setConfiguration(string $path)
         {
-            if ($this->isValidIniFile($path)) {
+            $this->isValidIniFile($path);
                 $this->configuration = parse_ini_file($path, true);
-            }
         }
 
-        private function isValidIniFile(string $path): bool
+
+        private function isValidIniFile(string $path)
         {
-            if (parse_ini_file($path, true, INI_SCANNER_TYPED) == false) {
-                throw new \InvalidArgumentException('invalid ini file: ' . $path);
-            }
-            return true;
+            set_error_handler(
+                create_function(
+                    '$severity, $message, $file, $line',
+                    'throw new library\exceptions\ErrorException($message, $severity, $severity, $file, $line);'
+                )
+            );
+            parse_ini_file($path, true, INI_SCANNER_TYPED);
+            restore_error_handler();
         }
 
         public function getXmlPath(): string
         {
-            return __DIR__ . '/../data/' . $this->configuration['xmlPath'];
+            return __DIR__ . '/../' . $this->configuration['xmlPath'];
         }
 
         public function getXslPath(): string
         {
-            return __DIR__ . '/../xsl/' . $this->configuration['xslPath'];
+            return __DIR__ . '/../' . $this->configuration['xslPath'];
         }
 
         public function getXmlAddBookPath(): string
         {
-            return __DIR__ . '/../data/' . $this->configuration['xmlAddBookPath'];
+            return __DIR__ . '/../' . $this->configuration['xmlAddBookPath'];
         }
 
         public function getXslAddBookPath(): string
         {
-            return __DIR__ . '/../xsl/add.xsl';
+            return __DIR__ . '/../' . $this->configuration['xslAddBookPath'] ;
         }
 
     }

@@ -2,22 +2,37 @@
 
 namespace library\handler
 {
+
+    use library\backends\FileBackend;
+
     class BooksQuery
     {
         /** @var \SimpleXMLElement */
         private $sXmlElement;
+        /** @var FileBackend */
+        private $fileBackend;
 
-        public function __construct(string $path)
+        public function __construct(string $path, FileBackend $fileBackend)
         {
-            $this->sXmlElement = $this->setSxmlElement($path);
+            $this->fileBackend = $fileBackend;
+            $this->setSxmlElement($path);
         }
 
-        private function setSxmlElement(string $path)
+        private function setSxmlElement(string $xmlPath)
         {
-            if (!simplexml_load_file($path)) {
-                throw new \InvalidArgumentException('Invalid path');
-            }
-            return simplexml_load_file($path);
+            $this->isValidIniFile($xmlPath);
+            $this->sXmlElement = simplexml_load_string($this->fileBackend->load($xmlPath));
+        }
+        private function isValidIniFile(string $xmlPath)
+        {
+            set_error_handler(
+                create_function(
+                    '$severity, $message, $file, $line',
+                    'throw new library\exceptions\ErrorException($message, $severity, $severity, $file, $line);'
+                )
+            );
+            parse_ini_file($xmlPath, true, INI_SCANNER_TYPED);
+            restore_error_handler();
         }
 
         public function getMinPrice(): float
@@ -38,7 +53,6 @@ namespace library\handler
         {
             $lastId = $this->sXmlElement->xpath('//catalog/book[last()]/@id')[0][0];
             $nextId = substr($lastId, 2);
-            echo $nextId . PHP_EOL;
             return 'bk' . ++$nextId;
         }
     }

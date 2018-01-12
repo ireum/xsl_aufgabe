@@ -4,6 +4,7 @@ namespace library\requests;
 
 use library\responder\Uri;
 use PHPUnit\Framework\TestCase;
+use SebastianBergmann\GlobalState\RuntimeException;
 
 /**
  * Class AbstractRequestTest
@@ -42,13 +43,14 @@ class AbstractRequestTest extends TestCase
 
     public function testGetReturnsEmptyStringIfKeyIsNotSet()
     {
-        $actual = $this->abstractRequest->get('test');
-        $this->assertEquals('', $actual);
+        $this->expectException(\RuntimeException::class);
+        $this->abstractRequest->get('test');
     }
 
     public function testGetUriReturnsUriObject()
     {
         $actual = $this->abstractRequest->getUri();
+        $this->assertSame('/path', $actual->getPath());
         $this->assertInstanceOf(Uri::class, $actual);
     }
 

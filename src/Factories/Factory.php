@@ -3,6 +3,7 @@
 namespace library\factories
 {
 
+    use library\backends\FileBackend;
     use library\Configuration;
     use library\processor\AddBookProcessor;
     use library\processor\DisplayBookFormProcessor;
@@ -12,8 +13,10 @@ namespace library\factories
     use library\handler\ErrorXmlGenerator;
     use library\handler\LibraryFilter;
     use library\handler\BooksQuery;
+    use library\requests\AbstractRequest;
     use library\routers\Router;
     use library\session\Session;
+    use library\valueobject\Book;
 
     class Factory
     {
@@ -29,29 +32,32 @@ namespace library\factories
             $this->session = $session;
         }
 
-        public function createSearchFormProcessor(): LibraryFilter
+        public function createLibraryFilter(): LibraryFilter
         {
-            return new LibraryFilter($this->configuration->getXmlPath(), $this->createXmlProcessor());
+            return new LibraryFilter($this->configuration->getXmlPath(), $this->createBooksQuery());
         }
 
-        public function createXmlEditor(): BookAppender
+        public function createBookAppender(): BookAppender
         {
-            return new BookAppender($this->configuration->getXmlPath(), $this->createXmlProcessor());
+            return new BookAppender(
+                $this->configuration->getXmlPath(),
+                $this->createBooksQuery(),
+                $this->createFileBackend()
+            );
         }
 
-        public function createAddBookDomDoc(): \DOMDocument
+        public function createFileBackend(): FileBackend
         {
-            $dom = new \DOMDocument();
-            return $dom->load($this->configuration->getXmlAddBookPath());
-
+            return new FileBackend();
         }
 
         public function createAddBookProcessor(): AddBookProcessor
         {
             return new AddBookProcessor(
-                $this->createXmlEditor(),
+                $this->createBookAppender(),
                 $this->createErrorXmlGenerator(),
-                $this->session
+                $this->session,
+                $this
             );
         }
 
@@ -60,13 +66,18 @@ namespace library\factories
             return new DisplayBookFormProcessor(
                 $this->configuration->getXmlAddBookPath(),
                 $this->configuration->getXslAddBookPath(),
-                $this->session
+                $this->session,
+                $this->createFileBackend()
             );
         }
 
         public function createLibraryProcessor(): LibraryProcessor
         {
-            return new LibraryProcessor($this->createSearchFormProcessor(), $this->configuration->getXslPath());
+            return new LibraryProcessor(
+                $this->createLibraryFilter(),
+                $this->configuration->getXslPath(),
+                $this->createFileBackend()
+            );
         }
 
         public function createErrorPageProcessor(): ErrorPageProcessor
@@ -74,9 +85,9 @@ namespace library\factories
             return new ErrorPageProcessor();
         }
 
-        private function createXmlProcessor(): BooksQuery
+        private function createBooksQuery(): BooksQuery
         {
-            return new BooksQuery($this->configuration->getXmlPath());
+            return new BooksQuery($this->configuration->getXmlPath(), $this->createFileBackend());
         }
 
         public function createRouter(): Router
@@ -86,8 +97,7 @@ namespace library\factories
 
         public function createErrorXmlGenerator(): ErrorXmlGenerator
         {
-            return new ErrorXmlGenerator($this->configuration->getXmlAddBookPath());
+            return new ErrorXmlGenerator($this->configuration->getXmlAddBookPath(), $this->createFileBackend());
         }
-
     }
 }

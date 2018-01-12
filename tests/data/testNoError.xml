@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="add.xsl"?>
+<formData>
+    <fields>
+        <author ph="Author"/>
+        <title ph="Title"/>
+        <genre ph="Genre"/>
+        <price ph="Price"/>
+        <releaseDate ph="Release Date (YYYY-MM-DD)"/>
+        <description ph="Description"/>
+    </fields>
+</formData>

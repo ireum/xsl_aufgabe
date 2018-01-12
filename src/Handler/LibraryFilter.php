@@ -11,12 +11,12 @@ namespace library\handler
         /** @var  \DOMDocument */
         private $dom;
         /** @var BooksQuery */
-        private $xmlQuery;
+        private $booksQuery;
 
         public function __construct(string $path, BooksQuery $xmlQuery)
         {
             $this->setDom($path);
-            $this->xmlQuery = $xmlQuery;
+            $this->booksQuery = $xmlQuery;
         }
 
         private function setDom(string $path)
@@ -57,10 +57,9 @@ namespace library\handler
             $root->setAttribute('sortdatatype', 'text');
             $root->setAttribute('author', '');
             $root->setAttribute('title', '');
-            $root->setAttribute('minprice', $this->xmlQuery->getMinPrice());
-            $root->setAttribute('maxprice', $this->xmlQuery->getMaxPrice());
+            $root->setAttribute('minprice', $this->booksQuery->getMinPrice());
+            $root->setAttribute('maxprice', $this->booksQuery->getMaxPrice());
         }
-
 
         private function setSearchedValues(AbstractRequest $request)
         {
@@ -72,6 +71,5 @@ namespace library\handler
             $root->setAttribute('minprice', $request->get('minPrice'));
             $root->setAttribute('maxprice', $request->get('maxPrice'));
         }
-
     }
 }
